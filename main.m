@@ -26,9 +26,9 @@ rim = [.05, .1];
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 delta = [0]/1000; % [mm]
-sigb = [0, 0];
+sigb = [-30e6, 0];
 % mats = {'salehian_Incl718.mat'};
-mats = {'Glass_Epoxy_Ha1999.mat'};
+mats = {'Ansys Aluminum Alloy.mat'};
 
 % Time/creep
 tmax = 20; %seconds?
@@ -38,7 +38,7 @@ timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 60000;
+rpm = 10000;
 % rpmMax = 97682;
 accType = 'const';
 
@@ -47,7 +47,7 @@ accType = 'const';
 % main.m and shearStress.m. Apply changes with caution.
 if strcmp(accType, 'const')
   % Constant
-  alpha = @(t,wIni) 250 * t; % gets multiplied by tStep at end of while loop
+  alpha = @(t,wIni) 0 * t; % gets multiplied by tStep at end of while loop
   % alpha = @(t,wIni) 3.6e6 * t;
 elseif strcmp(accType, 'Linear')
   % Linear Acceleration:
@@ -69,9 +69,9 @@ end
 legTxt = {'0 sec', '5 sec', '10 sec', '15 sec', '20 sec'}; % Controls legend entries for graphs
 plotWhat.custom1 = 'yes';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.radDis = 'no';          % Radial displacement v. radius
-plotWhat.radStr = 'no';         % Radial stress v. radius plot
-plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
-plotWhat.shearStr = 'no';       % Shear stress v. radius
+plotWhat.radStr = 'yes';         % Radial stress v. radius plot
+plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
+plotWhat.shearStr = 'yes';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
 plotWhat.sr = 'no';
 
