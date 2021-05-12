@@ -2,7 +2,7 @@ function [strRatio] = failureIndex(rdiv)
 
 global results rArr rim mat vari
 
-for b = 1:vari+1
+for b = 1:vari
   for k = 1:length(rim) - 1
     rStart = (k-1)*rdiv + 1;
     rEnd = k*rdiv;

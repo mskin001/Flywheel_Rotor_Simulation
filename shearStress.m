@@ -1,16 +1,11 @@
-function [C_shear] = shearStress(alpha, accType, b, w0, tStep, rdiv)
+function [C_shear] = shearStress(alpha, rdiv)
 
 global rim mat tauArr
 
 a = zeros(1:length(rim) - 1);
 C = zeros(1:length(rim) - 1);
 
-if strcmp(accType, 'const')
-  a(end) = (mat.rho{end} * alpha(tStep)/tStep) / mat.Q{end}(4,4);
-else
-  a(end) = (mat.rho{end}(rim(end)) * alpha(b*tStep,w0)/(b*tStep)) / mat.Q{end}(4,4);
-end
-
+a(end) = (mat.rho{end} * alpha) / mat.Q{end}(4,4);
 C(end) = (a(end)*(rim(end))^4)/8;
 
 % for k = 1:length(rim) - 2
@@ -20,10 +15,9 @@ C(end) = (a(end)*(rim(end))^4)/8;
 % end
 C_shear = C;
 
-for k = 1:length(rim) - 1 
+for k = 1:length(rim) - 1
     dr = linspace(rim(k),rim(k+1),rdiv);
     rStart = (k-1)*rdiv + 1;
     rEnd = k*rdiv;
     tauArr(1,rStart:rEnd) = (-mat.Q{1,k}(4,4) * ((a(k)*dr.^2)./4 - (2*C(k))./dr.^2));
 end
-
