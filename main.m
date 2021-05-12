@@ -36,7 +36,7 @@ tStep = .2; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {@IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
-
+addpath('ComplianceFunctions')
 % Speed/velocity
 rpm = 10000;
 profile = [1 2 3; 1000 2000 3000];
