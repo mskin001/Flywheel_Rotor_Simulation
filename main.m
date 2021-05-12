@@ -1,5 +1,5 @@
 clc
-clear all
+clear
 close('all','force')
 format long
 %% -----------------------------------------------------------------------------
@@ -42,7 +42,6 @@ rpm = 10000;
 profile = [1 2 3; 1000 2000 3000];
 initial_acc = 100; % rad/s^2
 % rpmMax = 97682;
-% accType = 'const';
 
 % The following if statment controls which acceleration function is used
 % based on the variable string accType. This variable is also referenced in
@@ -88,7 +87,6 @@ plotWhat.interval = 25;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
-
 %% -----------------------------------------------------------------------------
 % Start Program
 % ------------------------------------------------------------------------------
@@ -120,49 +118,11 @@ for k = 1:length(mats)
         warning('The material %s has not been verified\n', mats{k})
     end
 end
-
-% Simulation specific
-if strcmp(st,'pe')
-  simTime = 1; % steady state = not time changes
-  compFunc = cell(1,length(mats));
-  compFunc(1:end) = {'no'}; % Redefineds compFunc to reflect a constant elastic matrix
-
-  if length(rpm) > 1
-    error('Rotational velocity not specified. Please specify a single veloctiy\n')
-  end
-
-elseif strcmp(st,'ve')
-  if simTime < 2
-    error('Simulation time is less than 2 units. Please specify a simulation time larger than 2, or change to a perfectly elastic simulation type by defining st = ''pe'' \n')
-  end
-
-  if length(rpm) > 1
-    error('Rotational velocity not specified. Please specify a single veloctiy\n')
-  end
-
-  if ~contains(['s','h','d'], timeUnit)
-    warning('This unit of time is not supported, supported units are to seconds, hours, or days\n')
-    disp('Ignore the above warning if intentionally using a different unit, check compliance funtion inputs and plotting outputs\n')
-  end
-
-  if length(compFunc) ~= length(mats)
-    warning('More materials are specified than compliance functions.\n')
-    disp('Ignore the above warning if 2 or more materials are the same, or if 1 or more material elasticity is constant\n')
-  end
-
-elseif strcmp(st,'qdve')
-  error('Simulation type not supported\n')
-
-else
-  error('Simulation type not specified or not supported.\n')
-end
-
 fprintf('Check Input Variables: Complete\n')
 
 %% -----------------------------------------------------------------------------
 % Program Begin
 % ------------------------------------------------------------------------------
-% vel = zeros(1,tmax/tStep);
 b = 1;
 [~, cols] = size(profile);
 
