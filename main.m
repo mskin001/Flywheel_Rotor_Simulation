@@ -47,7 +47,7 @@ accType = 'const';
 % main.m and shearStress.m. Apply changes with caution.
 if strcmp(accType, 'const')
   % Constant
-  alpha = @(t,wIni) 250 * t; % gets multiplied by tStep at end of while loop
+  alpha = @(t,wIni) 250 * t; %(rad/s^2) * t = rad/s  gets multiplied by tStep at end of while loop
   % alpha = @(t,wIni) 3.6e6 * t;
 elseif strcmp(accType, 'Linear')
   % Linear Acceleration:
