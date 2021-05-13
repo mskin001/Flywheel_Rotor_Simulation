@@ -24,19 +24,19 @@ halfWay = round(length(sArr)/2);
 if strcmp(plotWhat.custom1, 'yes')
   rad_data = csvread('Apa2011_10xradial.csv');
   hoop_data = csvread('Apa2011_hoop.csv');
+  tau_data = csvread('aparicio2011_results.csv', 1, 0);
   hold on
-  plot(rArr*1000, (sArr{1}(3,:,1)/mat.stren{1}(3)),'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
-  plot(rArr*1000, (sArr{1}(1,:,1)/mat.stren{1}(1)), '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
-  plot(rad_data(:,1)*1000,(rad_data(:,2)/mat.stren{1}(3)), 'kv')
-  plot(hoop_data(:,1)*1000,(hoop_data(:,2)/mat.stren{1}(1)), 'k^')
+  plot(rArr*1000, sArr{1}(3,:,1)*10,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
+  plot(rad_data(:,1)*1000, rad_data(:,2), 'kv')
+  plot(rArr*1000, sArr{1}(1,:,1), '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
+  plot(hoop_data(:,1)*1000, hoop_data(:,2), 'k^')
   plot(rArr*1000, tau{1}*10^-6, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
-  stressData = csvread('aparicio2011_results.csv', 1, 0);
-  plot(stressData(:,1)*1000, stressData(:,2), 'ko')
+  plot(tau_data(:,1)*1000, tau_data(:,2), 'ko')
 
   xlabel('Radius [mm]')
   ylabel('Stress [MPa]')
-  legend('Model 10*\sigma_r', 'Model \sigma_\theta', 'SW 10*\sigma_r',...
-      'SW \sigma_\theta', 'Model \tau_r_\theta', 'SW \tau_r_\theta',...
+  legend('Model 10*\sigma_r', 'Aparicio2011, 10*\sigma_r','Model \sigma_\theta',...
+      'Aparicio2011, \sigma_\theta', 'Model \tau_r_\theta', 'Aparicio2011, \tau_r_\theta',...
       'NumColumns', 3, 'Location', 'southoutside')
   set(gca, 'FontSize', 12)
   fprintf('Custom plot 1: Complete\n')
