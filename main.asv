@@ -26,21 +26,21 @@ rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 delta = [0]/1000; % [mm]
-sigb = [0, 0];
+sigb = [-30e6, 0];
 % mats = {'salehian_Incl718.mat'};
-mats = {'GFRP_Aparicio2011.mat'};
+mats = {'IM7_8552_Tzeng2001.mat'};
 
 % Time/creep
 tmax = 20; %seconds?
 tStep = .2; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {@IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
 addpath('ComplianceFunctions')
 % Speed/velocity
-rpm = 17.452;
-profile = [1 1.005; 17.452 (1800 + 17.452)];
-initial_acc = 0; % rad/s^2
+rpm = 10000;
+profile = [1 2 3; 1000 2000 3000];
+initial_acc = 100; % rad/s^2
 % rpmMax = 97682;
 
 % The following if statment controls which acceleration function is used
