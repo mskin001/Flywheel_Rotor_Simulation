@@ -21,24 +21,24 @@ st = 'pe';
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [.1, 0.8];
-rim = [.05, .1];
-% rim = [0.08, 0.2]; % Perez-Aparicio 2011
+% rim = [.05, .1];
+rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 delta = [0]/1000; % [mm]
-sigb = [-30e6, 0];
+sigb = [0, 0];
 % mats = {'salehian_Incl718.mat'};
-mats = {'Ansys Aluminum Alloy.mat'};
+mats = {'CFRP_Aparicio2011.mat'};
 
 % Time/creep
-tmax = 20; %seconds?
-tStep = .2; %second between steps
+tmax = 0.005; %seconds?
+tStep = 0.005; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 10000;
+rpm = 17.452;
 % rpmMax = 97682;
 accType = 'const';
 
@@ -47,7 +47,11 @@ accType = 'const';
 % main.m and shearStress.m. Apply changes with caution.
 if strcmp(accType, 'const')
   % Constant
+<<<<<<< Updated upstream
   alpha = @(t,wIni) 250 * t; %(rad/s^2) * t = rad/s  gets multiplied by tStep at end of while loop
+=======
+  alpha = @(t,wIni) 3.6e5 * t; % gets multiplied by tStep at end of while loop
+>>>>>>> Stashed changes
   % alpha = @(t,wIni) 3.6e6 * t;
 elseif strcmp(accType, 'Linear')
   % Linear Acceleration:
