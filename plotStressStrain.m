@@ -2,7 +2,7 @@ function plotStressStrain(legTxt)
 %% -----------------------------------------------------------------------------
 % Define global variables, arrays, and structures
 % ------------------------------------------------------------------------------
-global rim rArr plotWhat results mat
+global rim rArr plotWhat results
 uArr = results.uArr;
 sArr = results.sArr;
 tau =  results.tauArr;
@@ -25,10 +25,10 @@ if strcmp(plotWhat.custom1, 'yes')
   rad_data = csvread('Apa2011_10xradial.csv');
   hoop_data = csvread('Apa2011_hoop.csv');
   hold on
-  plot(rArr*1000, (sArr{1}(3,:,1)/mat.stren{1}(3)),'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
-  plot(rArr*1000, (sArr{1}(1,:,1)/mat.stren{1}(1)), '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
-  plot(rad_data(:,1)*1000,(rad_data(:,4)/mat.stren{1}(3)), 'kv')
-  plot(hoop_data(:,1)*1000,(hoop_data(:,4)/mat.stren{1}(1)), 'k^')
+  plot(rArr*1000, sArr{1}(3,:,1)*10,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
+  plot(rArr*1000, sArr{1}(1,:,1), '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
+  plot(rad_data(:,1)*1000, rad_data(:,2), 'kv')
+  plot(hoop_data(:,1)*1000, hoop_data(:,2), 'k^')
   plot(rArr*1000, tau{1}*10^-6, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
   stressData = csvread('aparicio2011_results.csv', 1, 0);
   plot(stressData(:,1)*1000, stressData(:,2), 'ko')

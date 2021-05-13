@@ -28,7 +28,7 @@ rdiv = 30; % number of points per rim to analyze
 delta = [0]/1000; % [mm]
 sigb = [0, 0];
 % mats = {'salehian_Incl718.mat'};
-mats = {'CFRP_Aparicio2011.mat'};
+mats = {'GFRP_Aparicio2011.mat'};
 
 % Time/creep
 tmax = 0.005; %seconds?
@@ -47,11 +47,7 @@ accType = 'const';
 % main.m and shearStress.m. Apply changes with caution.
 if strcmp(accType, 'const')
   % Constant
-<<<<<<< Updated upstream
-  alpha = @(t,wIni) 250 * t; %(rad/s^2) * t = rad/s  gets multiplied by tStep at end of while loop
-=======
   alpha = @(t,wIni) 3.6e5 * t; % gets multiplied by tStep at end of while loop
->>>>>>> Stashed changes
   % alpha = @(t,wIni) 3.6e6 * t;
 elseif strcmp(accType, 'Linear')
   % Linear Acceleration:
