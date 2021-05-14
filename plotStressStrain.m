@@ -2,7 +2,7 @@ function plotStressStrain(legTxt)
 %% -----------------------------------------------------------------------------
 % Define global variables, arrays, and structures
 % ------------------------------------------------------------------------------
-global rim rArr plotWhat results mat
+global rim rArr plotWhat results
 uArr = results.uArr;
 sArr = results.sArr;
 tau =  results.tauArr;
