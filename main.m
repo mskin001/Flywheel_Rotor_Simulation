@@ -16,7 +16,7 @@ global mat plotWhat
   % pe = steady state perfectly elastic
   % ve = steady state viscoelastic
   % tr = transient (under construction
-st = 'pe';
+st = 've';
 
 % Rotor geometry and material
 % rim = [.05, 0.15, 0.25, 0.35, 0.45];
@@ -26,7 +26,7 @@ rim = [0.03789; 0.07901]; % single rim Ha 1999
 rdiv = 30; % number of points per rim to analyze
 delta = [0]/1000; % [mm]
 sigb = [-77.5e6, 0];
-mats = {'Glass_Epoxy_Ha1999.mat'};
+mats = {'MS_constructed_CFRP.mat'};
 % mats = {'AS_H3501_Ha1999.mat'; 'IM6_Epoxy_Ha1999.mat'};
 % mats = {'IM6_Epoxy_Ha1999.mat'};
 % load('MS_constructedCFRP_zeroVel.mat'); %(optional) used to compare to results from a specific time.
@@ -34,7 +34,7 @@ mats = {'Glass_Epoxy_Ha1999.mat'};
 % Time/creep
 % compliance function, 1 entry per material, input 'no' to turn off creep
 %   modeling for the correpsonding material
-compFunc = {@IM7_8552_Tzeng2001,}; 
+compFunc = {@MS_constructed_CFRP,}; 
 tArr = [1, 8760, 43800];
 
 % These paramterters are only used for outputting results. They are not
@@ -50,7 +50,7 @@ vdiv = 1; % number of points to analyze between each fixed velocity
 saveResult = false;
 resultsFile = 'Run4.mat';
 plotWhat.rims = rim;
-plotWhat.custom1 = 'yes';
+plotWhat.custom1 = 'no';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
