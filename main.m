@@ -17,22 +17,22 @@ global mat plotWhat results
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [.1, 0.8];
 % rim = [.05, .1];
-rim = [0.08, 0.2]; % Perez-Aparicio 2011
-% rim = [0.0762, .1524]; % Tzeng2001
+% rim = [0.08, 0.2]; % Perez-Aparicio 2011
+rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 delta = 0/1000; % [mm]
-sigb = [-30e6, 0]; % [Pa]
+sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-mats = {'MS_constructed_CFRP.mat'};
+mats = {'IM7_8552_Tzeng2001.mat'};
 
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {@MS_constructed_CFRP}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {@IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [0 3.154e7 1.577e8;...           % [ t1 t2 t3;
-           60000 60000 60000];             %   v1 v2 v3]
+profile = [1, 10^5, 10^10;...           % [ t1 t2 t3;
+           50000, 50000, 50000];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 % rpmMax = 97682;
 
