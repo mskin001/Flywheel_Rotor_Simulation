@@ -18,45 +18,22 @@ global mat plotWhat results
 % rim = [.1, 0.8];
 % rim = [.05, .1];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
-rim = [0.0762, .1524]; % Tzeng2001
+rim = [0.05969, 0.06985, 0.08255]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = 0/1000; % [mm]
+delta = [50, 50]; % [mm]
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-mats = {'IM7_8552_Tzeng2001.mat'};
+mats = {'ANSYS_stainless_steel.mat', 'IM7_8552_Tzeng2001.mat'};
 
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {@IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {'no', @IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1, 10^5, 10^10;...           % [ t1 t2 t3;
-           50000, 50000, 50000];             %   v1 v2 v3]
+profile = [1, 1.051e6, 10^10;...           % [ t1 t2 t3;
+           0000, 0000, 0000];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
-% rpmMax = 97682;
-
-% The following if statment controls which acceleration function is used
-% based on the variable string accType. This variable is also referenced in
-% main.m and shearStress.m. Apply changes with caution.
-% if strcmp(accType, 'const')
-%   % Constant
-%   alpha = @(t,wIni) 250 * t; % gets multiplied by tStep at end of while loop
-%   % alpha = @(t,wIni) 3.6e6 * t;
-% elseif strcmp(accType, 'Linear')
-%   % Linear Acceleration:
-%   alpha = @(t,wIni) wIni + 230*t; % gets multiplied by b*tStep at end of while loop
-% elseif strcmp(accType, 'Exponential')
-%   % Exponential growth: (Use this one)
-%   alpha = @(t,wIni) wIni + 1.089^(5*t);
-% else
-%   % Sin behavior:
-%   alpha = @(t,wIni) sin: wIni + 2356.2*sin((2*pi/40)*t + (3*pi/2)) + 2356.2;
-% end
-%-------------------
-% %Exponential behavior:
-% T = tmax / log(rpmMax/rpm);
-% alpha = @(t,wIni) (wIni * exp(t/T));
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
@@ -146,7 +123,6 @@ while b <= cols
     matProp = load(mat.file{k});
     mat.Q{1,k} = stiffMat(matProp.mstiff, func);
     mat.rho{k} = matProp.rho;
- %     mat.rho{k} = @(r) 7800 + 10.*r + 100.*r.^2 + 1000.*r.^3;
 
     try
       mat.stren{k} = matProp.stren;

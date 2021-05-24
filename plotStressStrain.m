@@ -22,24 +22,67 @@ or = rim;
 halfWay = round(length(sArr)/2);
 
 if strcmp(plotWhat.custom1, 'yes')
-  rad_data = csvread('Apa2011_10xradial.csv');
-  hoop_data = csvread('Apa2011_hoop.csv');
-  tau_data = csvread('aparicio2011_results.csv', 1, 0);
-  hold on
-  plot(rArr*1000, sArr{1}(3,:,1)*10,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
-  plot(rad_data(:,1)*1000, rad_data(:,2), 'kv')
-  plot(rArr*1000, sArr{1}(1,:,1), '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
-  plot(hoop_data(:,1)*1000, hoop_data(:,2), 'k^')
-  plot(rArr*1000, tau{1}*10^-6, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
-  plot(tau_data(:,1)*1000, tau_data(:,2), 'ko')
-
-  xlabel('Radius [mm]')
-  ylabel('Stress [MPa]')
-  legend('Model 10*\sigma_r', 'Aparicio2011, 10*\sigma_r','Model \sigma_\theta',...
-      'Aparicio2011, \sigma_\theta', 'Model \tau_r_\theta', 'Aparicio2011, \tau_r_\theta',...
-      'NumColumns', 3, 'Location', 'southoutside')
+  figure(), hold on
+  plot(rArr*39.3701, sArr{1}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
+  rad_data = csvread('Tzeng2001RadialStrInitial.csv');
+  plot(rad_data(:,1), rad_data(:,2), 'kd')
+  
+  plot(rArr*39.3701, sArr{2}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
+  rad_data = csvread('Tzeng2001RadialStrMid.csv');
+  plot(rad_data(:,1), rad_data(:,2), 'ks')
+  
+  plot(rArr*39.3701, sArr{3}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
+  rad_data = csvread('Tzeng2001RadialStrInf.csv');
+  plot(rad_data(:,1), rad_data(:,2), 'k^')
+  
+  grid on
+  xlabel('Radius [in]')
+  ylabel('Stress [psi]')
+  legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf')
+  set(gca, 'FontSize', 12)
+  
+  figure(), hold on
+  plot(rArr*39.3701, sArr{1}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
+  hoop_data = csvread('Tzeng2001HoopInitial.csv');
+  plot(hoop_data(:,1), hoop_data(:,2), 'kd')
+    
+  plot(rArr*39.3701, sArr{2}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
+  hoop_data = csvread('Tzeng2001HoopMid.csv');
+  plot(hoop_data(:,1), hoop_data(:,2), 'ks')
+  
+  plot(rArr*39.3701, sArr{3}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
+  hoop_data = csvread('Tzeng2001HoopInf.csv');
+  plot(hoop_data(:,1), hoop_data(:,2), 'k^')
+  
+%   plot(rArr*1000, tau{1}*10^-6, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
+%   plot(tau_data(:,1)*1000, tau_data(:,2), 'ko')
+  grid on
+  legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf')
+  xlabel('Radius [in]')
+  ylabel('Stress [psi]')
+%   legend('Model 10*\sigma_r', 'Aparicio2011, 10*\sigma_r','Model \sigma_\theta',...
+%       'Aparicio2011, \sigma_\theta', 'Model \tau_r_\theta', 'Aparicio2011, \tau_r_\theta',...
+%       'NumColumns', 3, 'Location', 'southoutside')
   set(gca, 'FontSize', 12)
   fprintf('Custom plot 1: Complete\n')
+  
+  figure(), hold on
+  plot(rArr*39.3701, uArr{1}*39.3701, 'Linewidth', 1.5)
+  disp_data = csvread('Tzeng2001RadialDispInitial.csv');
+  plot(disp_data(:,1), disp_data(:,2), 'kd')
+  
+  plot(rArr*39.3701, uArr{2}*39.3701, 'Linewidth', 1.5)
+  disp_data = csvread('Tzeng2001RadialDispMid.csv');
+  plot(disp_data(:,1), disp_data(:,2), 'ks')
+  
+  plot(rArr*39.3701, uArr{3}*39.3701, 'Linewidth', 1.5)
+  disp_data = csvread('Tzeng2001RadialDispInf.csv');
+  plot(disp_data(:,1), disp_data(:,2), 'k^')
+  grid on
+  xlabel('Radius [in]')
+  ylabel('Stress [psi]')
+  legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf')
+  set(gca, 'FontSize', 12)
 end
 
 %% -----------------------------------------------------------------------------
@@ -82,7 +125,7 @@ if strcmp(plotWhat.radStr, 'yes')
   end
 
   hold on
-  plot(rArr*1000, sArr{1}(3,:,1)*10^-6, 'LineWidth', 1.5)
+%   plot(rArr*1000, sArr{1}(3,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
     plot(rArr*1000, subSet{k}(3,:,1)*10^-6, 'LineWidth', 1.5);
   end
@@ -107,7 +150,7 @@ if strcmp(plotWhat.hoopStr, 'yes')
   end
 
   hold on
-  plot(rArr*1000, sArr{1}(1,:,1)*10^-6, 'LineWidth', 1.5)
+%   plot(rArr*1000, sArr{1}(1,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
     plot(rArr*1000, subSet{k}(1,:,1)*10^-6, 'LineWidth', 1.5);
   end
