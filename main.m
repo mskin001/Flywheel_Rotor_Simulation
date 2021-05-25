@@ -16,18 +16,18 @@ global mat plotWhat results
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [.1, 0.8];
-% rim = [.05, .1];
+rim = [.12, .24];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
-rim = [.0762, .09144, .10668]; % Tzeng2001
+% rim = [.0762, .09144, .10668]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = [9535.8, 0]; % [mm]
+delta = [0]; % [mm]
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
+mats = {'IM7_8552_Tzeng2001.mat'};
 
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {'no', @IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
 addpath('ComplianceFunctions')
 
 % Speed/velocity
