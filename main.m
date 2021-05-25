@@ -18,12 +18,12 @@ global mat plotWhat results
 % rim = [.1, 0.8];
 % rim = [.05, .1];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
-rim = [0.05969, 0.06985, 0.08255]; % Tzeng2001
+rim = [.0762, .09144, .10668]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = [50, 50]; % [mm]
+delta = [9535.8, 0]; % [mm]
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-mats = {'ANSYS_stainless_steel.mat', 'IM7_8552_Tzeng2001.mat'};
+mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
 
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
@@ -31,7 +31,7 @@ compFunc = {'no', @IM7_8552_Tzeng2001}; % compliance function, input 'no' to tur
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1, 1.051e6, 10^10;...           % [ t1 t2 t3;
+profile = [1, 10^4, 10^8;...           % [ t1 t2 t3;
            0000, 0000, 0000];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
