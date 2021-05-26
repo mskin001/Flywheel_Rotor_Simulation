@@ -22,7 +22,7 @@ st = 'pe';
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [.1, 0.8];
 rim = [.12, .1675, .24];
-h = 0.10; % [m]
+h = 0.05; % [m]
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
@@ -39,7 +39,7 @@ timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 45000;
+rpm = 30000;
 % rpmMax = 97682;
 accType = 'const';
 
@@ -228,7 +228,7 @@ while b*tStep <= tmax
   % ----------------------------------------------------------------------------
   results.uArr{b+1} = uArr;
   results.sArr{b+1} = sArr;
-%   results.tauArr{b+1} = tauArr;
+  results.tauArr{b+1} = tauArr;
   results.vel(b+1) = w * (30 / pi);
 %   fprintf('Current time: %5.2f\n', b*tStep)
 %   fprintf('Iteration %2.0f Complete\n', b)

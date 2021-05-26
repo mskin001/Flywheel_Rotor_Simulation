@@ -5,7 +5,7 @@ function plotStressStrain(legTxt)
 global rim rArr plotWhat results
 uArr = results.uArr;
 sArr = results.sArr;
-tau =  results.tauArr;
+% tau =  results.tauArr;
 
 %% -----------------------------------------------------------------------------
 % Define rim origional centers and radii
@@ -30,7 +30,7 @@ if strcmp(plotWhat.custom1, 'yes')
   plot(rad_data(:,1)*1000, rad_data(:,2), 'kv')
   plot(rArr*1000, sArr{1}(1,:,1), '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
   plot(hoop_data(:,1)*1000, hoop_data(:,2), 'k^')
-  plot(rArr*1000, tau{1}*10^-6, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
+%   plot(rArr*1000, tau{1}*10^-6, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
   plot(tau_data(:,1)*1000, tau_data(:,2), 'ko')
 
   xlabel('Radius [mm]')
