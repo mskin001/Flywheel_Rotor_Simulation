@@ -13,11 +13,6 @@ global mat plotWhat results
 %% -----------------------------------------------------------------------------
 % Define initial conditions and rotor size
 % ------------------------------------------------------------------------------
-% simulation type:
-  % pe = steady state perfectly elastic
-  % ve = steady state viscoelastic
-st = 'pe';
-
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [.1, 0.8];
@@ -36,7 +31,7 @@ tmax = 1; %seconds?
 tStep = 1; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
 rpm = 45000;
@@ -91,7 +86,6 @@ plotWhat.delay = 0;              % Time delay in seconds between frames in the g
 %% -----------------------------------------------------------------------------
 % Start Program
 % ------------------------------------------------------------------------------
-fprintf('Simulation type: %s\n',st)
 fprintf('Simulation time: %1.0f %s\n',simTime,timeUnit)
 fprintf('Number of rims: %2.0f\n',length(rim)-1)
 fprintf('Material Selections: %s\n', mats{1:end})
@@ -118,42 +112,6 @@ for k = 1:length(mats)
     catch
         warning('The material %s has not been verified\n', mats{k})
     end
-end
-
-% Simulation specific
-if strcmp(st,'pe')
-  simTime = 1; % steady state = not time changes
-  compFunc = cell(1,length(mats));
-  compFunc(1:end) = {'no'}; % Redefineds compFunc to reflect a constant elastic matrix
-
-  if length(rpm) > 1
-    error('Rotational velocity not specified. Please specify a single veloctiy\n')
-  end
-
-elseif strcmp(st,'ve')
-  if simTime < 2
-    error('Simulation time is less than 2 units. Please specify a simulation time larger than 2, or change to a perfectly elastic simulation type by defining st = ''pe'' \n')
-  end
-
-  if length(rpm) > 1
-    error('Rotational velocity not specified. Please specify a single veloctiy\n')
-  end
-
-  if ~contains(['s','h','d'], timeUnit)
-    warning('This unit of time is not supported, supported units are to seconds, hours, or days\n')
-    disp('Ignore the above warning if intentionally using a different unit, check compliance funtion inputs and plotting outputs\n')
-  end
-
-  if length(compFunc) ~= length(mats)
-    warning('More materials are specified than compliance functions.\n')
-    disp('Ignore the above warning if 2 or more materials are the same, or if 1 or more material elasticity is constant\n')
-  end
-
-elseif strcmp(st,'qdve')
-  error('Simulation type not supported\n')
-
-else
-  error('Simulation type not specified or not supported.\n')
 end
 
 fprintf('Check Input Variables: Complete\n')
