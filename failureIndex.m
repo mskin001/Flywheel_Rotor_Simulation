@@ -22,10 +22,10 @@ for b = 1:vari+1
 
     sigt = results.sArr{b}(1,rStart:rEnd); % sig1
     sigr = results.sArr{b}(3,rStart:rEnd); % sig2 = sig3
-%     tau = results.tauArr{b}(1,rStart:rEnd); % tau12
+    tau = results.tauArr{b}(1,rStart:rEnd); % tau12
 
     % F(b, rStart:rEnd) = Ftt*sigt.^2 + 2*Ftr*sigt.*sigr + Frr*sigr.^2 + Fs*tau.^2 + Ft*sigt + Fr*sigr;
-    A = Ftt*sigt.^2 + 2*Ftr*sigt.*sigr + Frr*sigr.^2; %+ Fs*tau.^2;
+    A = Ftt*sigt.^2 + 2*Ftr*sigt.*sigr + Frr*sigr.^2 + Fs*tau.^2;
     B = Ft*sigt + Fr*sigr;
     C = -1;
     R(b,rStart:rEnd) = (-B + sqrt(B.^2 - 4*A*C)) ./ (2*A);
