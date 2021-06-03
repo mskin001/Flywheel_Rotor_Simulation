@@ -35,7 +35,6 @@ compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep mod
 
 % Speed/velocity
 rpm = 12700;
-% rpmMax = 97682;
 accType = 'const';
 
 % The following if statment controls which acceleration function is used
@@ -45,25 +44,21 @@ if strcmp(accType, 'const')
   % Constant
   alpha = @(t,wIni) 966.45 * t; % gets multiplied by tStep at end of while loop
   % alpha = @(t,wIni) 3.6e6 * t;
-elseif strcmp(accType, 'Linear')
-  % Linear Acceleration:
-  alpha = @(t,wIni) wIni + 230*t; % gets multiplied by b*tStep at end of while loop
-elseif strcmp(accType, 'Exponential')
-  % Exponential growth: (Use this one)
-  alpha = @(t,wIni) wIni + 1.089^(5*t);
-else
-  % Sin behavior:
-  alpha = @(t,wIni) sin: wIni + 2356.2*sin((2*pi/40)*t + (3*pi/2)) + 2356.2;
+% elseif strcmp(accType, 'Linear')
+%   % Linear Acceleration:
+%   alpha = @(t,wIni) wIni + 230*t; % gets multiplied by b*tStep at end of while loop
+% elseif strcmp(accType, 'Exponential')
+%   % Exponential growth: (Use this one)
+%   alpha = @(t,wIni) wIni + 1.089^(5*t);
+% else
+%   % Sin behavior:
+%   alpha = @(t,wIni) sin: wIni + 2356.2*sin((2*pi/40)*t + (3*pi/2)) + 2356.2;
 end
-%-------------------
-% %Exponential behavior:
-% T = tmax / log(rpmMax/rpm);
-% alpha = @(t,wIni) (wIni * exp(t/T));
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
 legTxt = {'0 sec', '0.8 sec', '1.8 sec', '2.8 sec', '3.8 sec', '4.4 sec'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'yes';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
@@ -89,14 +84,12 @@ plotWhat.delay = 0;              % Time delay in seconds between frames in the g
 fprintf('Simulation time: %1.0f %s\n',simTime,timeUnit)
 fprintf('Number of rims: %2.0f\n',length(rim)-1)
 fprintf('Material Selections: %s\n', mats{1:end})
-% fprintf('                     %s\n', mats{2:end})
 fprintf('Rotational velocity: %6.3f rpm\n\n', rpm)
 fprintf('Program Start: \n')
 
 %% -----------------------------------------------------------------------------
 % Check input variables
 % ------------------------------------------------------------------------------
-% General
 if length(rim)-1 ~= length(mats) || length(rim)-1 ~= length(delta)
   error('Error in rim, mat, and delta. There must be an equal number of rims, materials, and interferance values.\n')
 end
@@ -137,8 +130,6 @@ while b*tStep <= tmax
   tauArr = zeros(1,(arraySize-1)*rdiv);
   eArr = zeros(4, rdiv);    % strain vector in each direction
 
-%   fprintf('Preallocate Memory: Complete\n')
-
   %% ---------------------------------------------------------------------------
   % Create Q matrices for all materials
   % ----------------------------------------------------------------------------
@@ -158,29 +149,31 @@ while b*tStep <= tmax
     end
   end
 
-%   fprintf('Create Material Property Matrices: Complete\n')
   %% ---------------------------------------------------------------------------
   % Calculate displacement magnitude at the inner and outer surface of each rim
   % these are used as boundary conditions to find C. ~ is used to disregard
   % output of force vector results. These can be important for debugging and
   % verification purposes, but are not necessary for the program. Check function
   % discription for mor info
+  % ----------------------------------------------------------------------------
   [~, ~, ~, ~] = boundaryConditions(sigb, delta);
 
-%   fprintf('Calculate Boundary Conditions: Complete\n')
   %% ---------------------------------------------------------------------------
   % Calculate discrete displacement, stain, and stress for each rim ~ here is
   % used to the [C] matrix output. This is useful for debugging and
   % verification purposes but not necessary for the function. Check function
   % description for mor info
+  % ----------------------------------------------------------------------------
   [~] = discretizeStressStrain(rdiv, delta);
 
-%   fprintf('Descretize Stress/Strain: Complete\n')
-
-  %%----------------------------------------------------------------------------
+  %% ---------------------------------------------------------------------------
   % Calculate the share stress on the rim.
+  % ----------------------------------------------------------------------------
   [~] = shearStress(alpha, accType, b, 0, tStep, rdiv);
   
+  %% ---------------------------------------------------------------------------
+  % Calculate energy stored in the flywheel
+  % ----------------------------------------------------------------------------
   [E(b+1)] = find_energy_power(h); % Calculate energy and power assuming constant
                             % acceleration
   %% ---------------------------------------------------------------------------
@@ -190,8 +183,6 @@ while b*tStep <= tmax
   results.sArr{b+1} = sArr;
   results.tauArr{b+1} = tauArr;
   results.vel(b+1) = w * (30 / pi);
-%   fprintf('Current time: %5.2f\n', b*tStep)
-%   fprintf('Iteration %2.0f Complete\n', b)
 
   %% ---------------------------------------------------------------------------
   % Update angular velocity and time
@@ -218,5 +209,4 @@ results.SR = SR;
 % ------------------------------------------------------------------------------
 plotStressStrain(legTxt)
 
-% fprintf('Create Output Plots: Complete\n\n')
 fprintf('Program Complete\n')

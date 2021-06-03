@@ -7,6 +7,7 @@ uArr = results.uArr;
 sArr = results.sArr;
 tau =  results.tauArr;
 
+face = ['s', 'd', '^', 'o', '*', 'x', '<', '>', 'v', '+', '|', 'p', 'h'];
 %% -----------------------------------------------------------------------------
 % Define rim origional centers and radii
 % ------------------------------------------------------------------------------
@@ -28,7 +29,7 @@ if strcmp(plotWhat.custom1, 'yes')
   for k = 1:length(sArr)
       radMax(k) = max(sArr{k}(3,:,1)) / matProp.stren(3);
       hoopMax(k) = max(sArr{k}(1,:,1)) / matProp.stren(1);
-      tauMax(k) = max(tau{k}) / matProp.stren(end);
+      
   end
   
   hold on
@@ -36,16 +37,25 @@ if strcmp(plotWhat.custom1, 'yes')
 %   plot(rad_data(:,1)*1000, rad_data(:,2), 'kv')
   plot(results.vel, hoopMax, '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
 %   plot(hoop_data(:,1)*1000, hoop_data(:,2), 'k^')
-  plot(results.vel, tauMax, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
+%   plot(results.vel, tauMax, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
 %   plot(tau_data(:,1)*1000, tau_data(:,2), 'ko')
 
-  xlabel('Radius [mm]')
-  ylabel('Stress [MPa]')
-  legend('Radial', 'Circ.', 'Shear')
+  xlabel('Angular Velocity [rpm]')
+  ylabel('Normalized Stress')
+  legend('Radial', 'Circ.', 'Location', 'northwest')
 %   legend('Model 10*\sigma_r', 'Aparicio2011, 10*\sigma_r','Model \sigma_\theta',...
 %       'Aparicio2011, \sigma_\theta', 'Model \tau_r_\theta', 'Aparicio2011, \tau_r_\theta',...
 %       'NumColumns', 3, 'Location', 'southoutside')
-  set(gca, 'FontSize', 12)
+  grid on, set(gca, 'FontSize', 12)
+  
+  figure(), hold on
+  plot(results.vel, radMax,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
+  plot(results.vel, hoopMax, '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
+  plot(results.vel, results.peakstr, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
+  xlabel('Angular Velocity [rpm]')
+  ylabel('Normalized Stress')
+  legend('Radial', 'Circ.', 'Peak SR', 'Location', 'northwest')
+  grid on,  set(gca, 'FontSize', 12)
   fprintf('Custom plot 1: Complete\n')
 end
 
@@ -89,11 +99,12 @@ if strcmp(plotWhat.radStr, 'yes')
   end
 
   hold on
-  plot(rArr*1000, sArr{1}(3,:,1)*10^-6, 'LineWidth', 1.5)
+  plot(rArr*1000, sArr{1}(3,:,1)*10^-6, 'Marker', face(1), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr*1000, subSet{k}(3,:,1)*10^-6, 'LineWidth', 1.5);
+    plot(rArr*1000, subSet{k}(3,:,1)*10^-6, 'Marker', face(k+1), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5);
   end
-  plot(rArr*1000, sArr{end}(3,:,1)*10^-6, 'LineWidth', 1.5)
+  plot(rArr*1000, sArr{end}(3,:,1)*10^-6, 'Marker', face(k+2), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5)
+  
   xlabel('Radius [mm]')
   ylabel('Radial Stress [MPa]')
   legend(legTxt, 'Location', 'southeast', 'NumColumns', 2)
@@ -115,11 +126,11 @@ if strcmp(plotWhat.hoopStr, 'yes')
   end
 
   hold on
-  plot(rArr*1000, sArr{1}(1,:,1)*10^-6, 'LineWidth', 1.5)
+  plot(rArr*1000, sArr{1}(1,:,1)*10^-6, 'Marker', face(1), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr*1000, subSet{k}(1,:,1)*10^-6, 'LineWidth', 1.5);
+    plot(rArr*1000, subSet{k}(1,:,1)*10^-6, 'Marker', face(k+1), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5);
   end
-  plot(rArr*1000, sArr{end}(1,:,1)*10^-6, 'LineWidth', 1.5)
+  plot(rArr*1000, sArr{end}(1,:,1)*10^-6, 'Marker', face(k+2), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5)
 
   xlabel('Radius [mm]')
   ylabel('Circumferential Stress [MPa]')
@@ -141,17 +152,13 @@ if strcmp(plotWhat.shearStr, 'yes')
 
   hold on
   for k = 1:1
-    plot(rArr*1000, tau{end}, 'LineWidth', 1.5)
+    plot(rArr*1000, tau{end}*10^-3, 'LineWidth', 1.5)
   end
-%   stressData = csvread('aparicio2011_results.csv', 1, 0);
-%   plot(stressData(:,1)*1000, stressData(:,2), 'k*')
-% %   for k = 1:length(tauSubSet)
-%     plot(rArr*1000,tauSubSet{k}, 'LineWidth', 1.5);
-%   end
+
   xlabel('Radius [mm]')
-  ylabel('Shear Stress [Pa]')
+  ylabel('Shear Stress [kPa]')
 %   legend(legTxt, 'Location', 'northeast')
-  set(gca, 'FontSize', 12)
+  grid on, set(gca, 'FontSize', 12)
   fprintf('Shear Stress Plot: Complete\n')
 end
 
@@ -161,7 +168,7 @@ if strcmp(plotWhat.peakStr, 'yes')
   peakStr = figure('Visible','on');
   hold on
   yyaxis left; plot(results.vel,results.peakloc*1000, '-', 'Color', [0 0.4470 0.7410], 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
-  yyaxis right; plot(results.vel,results.peakstr, '-.o', 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
+  yyaxis right; plot(results.vel,results.peakstr, '-.o', 'MarkerIndices', 1:4:results.vel, 'LineWidth', 1.5);
   yyaxis right; plot(results.vel, ones(length(results.time)), 'k--', 'LineWidth', 1.5)
 
   xlabel('Angular velocity [rpm]')
@@ -169,8 +176,8 @@ if strcmp(plotWhat.peakStr, 'yes')
   ylabel('Peak SR Location [mm]')
   yyaxis right
   ylabel('Strength Ratio')
-  legend('Peak SR Location', 'SR value', 'Location', 'southeast')
-  set(gca, 'FontSize', 12)
+  legend('Peak SR Location', 'SR value', 'Location', 'northwest')
+  grid on, set(gca, 'FontSize', 12)
 end
 
 % ------------- Strength Ratio --------------------------------------------
