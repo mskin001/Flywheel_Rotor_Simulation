@@ -62,9 +62,9 @@ plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to m
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
-plotWhat.shearStr = 'yes';       % Shear stress v. radius
-plotWhat.peakStr = 'yes';        % 2-yaxis plot. Peak stress location and SR v. time
-plotWhat.sr = 'yes';
+plotWhat.shearStr = 'nos';       % Shear stress v. radius
+plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
+plotWhat.sr = 'no';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
