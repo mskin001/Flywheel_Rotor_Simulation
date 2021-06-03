@@ -16,25 +16,25 @@ global mat plotWhat results matProp
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [.05, 0.1];
-rim = [.1, .11, .17, .2];
+rim = [.18, .21, .24];
 h = 0.10; % [m]
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = [.0004, .0004, 0]; % [m]
-sigb = [0, 0];
+delta = [.0005, 0]; % [m]
+sigb = [-30e6, 0];
 % mats = {'salehian_Incl718.mat'};
-mats = {'Alumin_2014_T6', 'Aramid_Twaron_2200', 'AS4C_Epoxy_Ertz2014.mat'};
+mats = {'AS4_HexTow', 'T300_5208_Ha1999.mat'};
 
 % Time/creep
 tmax = 4.4; %seconds?
 tStep = .2; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {'no', 'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 30000;
+rpm = 40000;
 accType = 'const';
 
 % The following if statment controls which acceleration function is used
