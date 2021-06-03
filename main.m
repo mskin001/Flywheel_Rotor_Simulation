@@ -16,17 +16,17 @@ global mat plotWhat
   % pe = steady state perfectly elastic
   % ve = steady state viscoelastic
   % qdve = quasi-dynamic viscoelasticu
-st = 've';
+st = 'pe';
 
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
-rim = [0.1, 0.110, 0.2];
+rim = [0.1, 0.110, 0.17, 0.2];
 % rim = [.05, 0.06, 0.1];
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 delta = [0.4, 0.4, 0]/1000; % [mm]
 sigb = [0, 0];
-mats = {'Al7075-T6_Ha2006.mat', 'Aramid_Twaron_2200.mat', 'CFRP_Run9.mat'};
+mats = {'Al7075-T6_Ha2006.mat', 'Aramid_Twaron_2200.mat', 'AS4C_Epoxy_Ertz2014.mat'};
 % mats = {'AS_H3501_Ha1999.mat'; 'IM6_Epoxy_Ha1999.mat'};
 % mats = {'IM6_Epoxy_Ha1999.mat'};
 
@@ -38,7 +38,7 @@ numberOfSteps = 3;
 compFunc = {'no' @MS_constructed_CFRP}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 600000;
+rpm = 0000;
 vdiv = 1; % number of points to analyze between each fixed velocity
 alpha = 0; %rad/sec^2
 
@@ -48,7 +48,7 @@ plotWhat.custom1 = 'no';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
-plotWhat.radDis = 'no';
+plotWhat.radDis = 'yes';
 
 plotWhat.radGif = 'no';          % Radial stress gif, surface plot
 plotWhat.radialGifName = 'Radial Stress.gif';
