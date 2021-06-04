@@ -2,7 +2,7 @@ function plotStressStrain(legTxt)
 %% -----------------------------------------------------------------------------
 % Define global variables, arrays, and structures
 % ------------------------------------------------------------------------------
-global rim rArr plotWhat results matProp
+global rim rArr plotWhat results mat
 uArr = results.uArr;
 sArr = results.sArr;
 tau =  results.tauArr;
@@ -23,39 +23,36 @@ or = rim;
 halfWay = round(length(sArr)/2);
 
 if strcmp(plotWhat.custom1, 'yes')
-%   rad_data = csvread('Apa2011_10xradial.csv');
-%   hoop_data = csvread('Apa2011_hoop.csv');
+  rad_data = csvread('Ha_case2-1_radial.csv');
+  hoop_data = csvread('Ha_case2-1_hoop.csv');
 %   tau_data = csvread('aparicio2011_results.csv', 1, 0);
-  for k = 1:length(sArr)
-      radMax(k) = max(sArr{k}(3,:,1)) / matProp.stren(3);
-      hoopMax(k) = max(sArr{k}(1,:,1)) / matProp.stren(1);
-      
-  end
+  radnorm = [sArr{1}(3,1:30,1)/mat.stren{1}(3), sArr{1}(3,31:60,1)/mat.stren{2}(3), sArr{1}(3,61:end,1)/mat.stren{3}(3)];
+  hoopnorm = [sArr{1}(1,1:30,1)/mat.stren{1}(1), sArr{1}(1,31:60,1)/mat.stren{2}(1), sArr{1}(1,61:end,1)/mat.stren{3}(1)];
   
   hold on
-  plot(results.vel, radMax,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
-%   plot(rad_data(:,1)*1000, rad_data(:,2), 'kv')
-  plot(results.vel, hoopMax, '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
-%   plot(hoop_data(:,1)*1000, hoop_data(:,2), 'k^')
+  plot(rArr/rim(1), radnorm,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
+%   plot(rad_data(:,1), rad_data(:,2), 'kv')
+  plot(rArr/rim(1), hoopnorm, '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
+%   plot(hoop_data(:,1), hoop_data(:,2), 'k^')
 %   plot(results.vel, tauMax, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
 %   plot(tau_data(:,1)*1000, tau_data(:,2), 'ko')
 
-  xlabel('Angular Velocity [rpm]')
+  xlabel('Normalized Radius')
   ylabel('Normalized Stress')
-  legend('Radial', 'Circ.', 'Location', 'northwest')
+%   legend('Radial', 'Circ.', 'Location', 'northwest')
 %   legend('Model 10*\sigma_r', 'Aparicio2011, 10*\sigma_r','Model \sigma_\theta',...
 %       'Aparicio2011, \sigma_\theta', 'Model \tau_r_\theta', 'Aparicio2011, \tau_r_\theta',...
 %       'NumColumns', 3, 'Location', 'southoutside')
-  grid on, set(gca, 'FontSize', 12)
-  
-  figure(), hold on
-  plot(results.vel, radMax,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
-  plot(results.vel, hoopMax, '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
-  plot(results.vel, results.peakstr, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
-  xlabel('Angular Velocity [rpm]')
-  ylabel('Normalized Stress')
-  legend('Radial', 'Circ.', 'Peak SR', 'Location', 'northwest')
-  grid on,  set(gca, 'FontSize', 12)
+%   grid on, set(gca, 'FontSize', 12)
+%   
+%   figure(), hold on
+%   plot(results.vel, radMax,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
+%   plot(results.vel, hoopMax, '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
+%   plot(results.vel, results.peakstr, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
+%   xlabel('Angular Velocity [rpm]')
+%   ylabel('Normalized Stress')
+%   legend('Radial', 'Circ.', 'Peak SR', 'Location', 'northwest')
+%   grid on,  set(gca, 'FontSize', 12)
   fprintf('Custom plot 1: Complete\n')
 end
 

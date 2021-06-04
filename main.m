@@ -16,25 +16,25 @@ global mat plotWhat results matProp
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [.05, 0.1];
-rim = [.1, .11, .17, .2];
+rim = [0.02, 0.03786, 0.08393, 0.14707];
 h = 0.10; % [m]
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = [.0004, .0004, 0]; % [m]
+delta = [.0002, 0.0001, 0]; % [m]
 sigb = [0, 0];
 % mats = {'salehian_Incl718.mat'};
-mats = {'Alumin_2014_T6', 'Aramid_Twaron_2200', 'AS4C_Epoxy_Ertz2014.mat'};
+mats = {'Alumin_7075_t6.mat', 'Glass_Epoxy_Ha1999.mat', 'IM6_Epoxy_Ha1999.mat'};
 
 % Time/creep
-tmax = 4.4; %seconds?
-tStep = .2; %second between steps
+tmax = 0; %seconds?
+tStep = 1; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 30000;
+rpm = 60000;
 accType = 'const';
 
 % The following if statment controls which acceleration function is used
@@ -58,11 +58,11 @@ end
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
 legTxt = {'0 sec', '0.8 sec', '1.8 sec', '2.8 sec', '3.8 sec', '4.4 sec'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.custom1 = 'yes';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.radDis = 'no';          % Radial displacement v. radius
-plotWhat.radStr = 'yes';         % Radial stress v. radius plot
-plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
-plotWhat.shearStr = 'nos';       % Shear stress v. radius
+plotWhat.radStr = 'no';         % Radial stress v. radius plot
+plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
+plotWhat.shearStr = 'no';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
 plotWhat.sr = 'no';
 
