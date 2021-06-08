@@ -23,37 +23,39 @@ or = rim;
 halfWay = round(length(sArr)/2);
 
 if strcmp(plotWhat.custom1, 'yes')
-  rad_data = csvread('Ha_case2-1_radial.csv');
-  hoop_data = csvread('Ha_case2-1_hoop.csv');
-%   tau_data = csvread('aparicio2011_results.csv', 1, 0);
-  radnorm = [sArr{1}(3,1:30,1)/mat.stren{1}(3), sArr{1}(3,31:60,1)/mat.stren{2}(3), sArr{1}(3,61:end,1)/mat.stren{3}(3)];
-  hoopnorm = [sArr{1}(1,1:30,1)/mat.stren{1}(1), sArr{1}(1,31:60,1)/mat.stren{2}(1), sArr{1}(1,61:end,1)/mat.stren{3}(1)];
   
-  hold on
-  plot(rArr/rim(1), radnorm,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
-%   plot(rad_data(:,1), rad_data(:,2), 'kv')
-  plot(rArr/rim(1), hoopnorm, '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
-%   plot(hoop_data(:,1), hoop_data(:,2), 'k^')
-%   plot(results.vel, tauMax, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
-%   plot(tau_data(:,1)*1000, tau_data(:,2), 'ko')
+    for k = 1:length(results.sArr)
+        radMax(k) = max(sArr{k}(3,:,1))/mat.stren{1}(3);
+        hoopMax(k) = max(sArr{k}(1,:,1))/mat.stren{1}(1);
+        tauMax(k) = max(tau{k}) / mat.stren{1}(end);
+    end
+        
+    hold on
+    plot(results.vel, radMax,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
+    %   plot(rad_data(:,1), rad_data(:,2), 'kv')
+    plot(results.vel, hoopMax, '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
+    %   plot(hoop_data(:,1), hoop_data(:,2), 'k^')
+%       plot(results.vel, tauMax, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
+    %   plot(tau_data(:,1)*1000, tau_data(:,2), 'ko')
 
-  xlabel('Normalized Radius')
-  ylabel('Normalized Stress')
-%   legend('Radial', 'Circ.', 'Location', 'northwest')
-%   legend('Model 10*\sigma_r', 'Aparicio2011, 10*\sigma_r','Model \sigma_\theta',...
-%       'Aparicio2011, \sigma_\theta', 'Model \tau_r_\theta', 'Aparicio2011, \tau_r_\theta',...
-%       'NumColumns', 3, 'Location', 'southoutside')
-%   grid on, set(gca, 'FontSize', 12)
-%   
-%   figure(), hold on
-%   plot(results.vel, radMax,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
-%   plot(results.vel, hoopMax, '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
-%   plot(results.vel, results.peakstr, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
-%   xlabel('Angular Velocity [rpm]')
-%   ylabel('Normalized Stress')
-%   legend('Radial', 'Circ.', 'Peak SR', 'Location', 'northwest')
-%   grid on,  set(gca, 'FontSize', 12)
-  fprintf('Custom plot 1: Complete\n')
+    xlabel('Angular Velocity [rpm]')
+    ylabel('Normalized Stress')
+    legend('Radial', 'Circ.', 'Location', 'northwest')
+    %   legend('Model 10*\sigma_r', 'Aparicio2011, 10*\sigma_r','Model \sigma_\theta',...
+    %       'Aparicio2011, \sigma_\theta', 'Model \tau_r_\theta', 'Aparicio2011, \tau_r_\theta',...
+    %       'NumColumns', 3, 'Location', 'southoutside')
+    grid on, set(gca, 'FontSize', 12)
+
+    figure(), hold on
+    plot(results.vel, radMax,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5)
+    plot(results.vel, hoopMax, '--', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5)
+    plot(results.vel, results.peakstr, ':s', 'Color', [0.4940 0.1840 0.5560],...
+        'MarkerIndices', 1:3:length(results.vel), 'MarkerFaceColor', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
+    xlabel('Angular Velocity [rpm]')
+    ylabel('Normalized Stress')
+    legend('Radial', 'Circ.', 'Peak SR', 'Location', 'northwest')
+    grid on,  set(gca, 'FontSize', 12)
+    fprintf('Custom plot 1: Complete\n')
 end
 
 %% -----------------------------------------------------------------------------
@@ -182,18 +184,29 @@ if strcmp(plotWhat.sr,'yes')
   figure()
   hold on
   
-  plot(rArr*1000, results.SR(1,:), '-o', 'Color', [0 0.4470 0.7410],...
-      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  plot(rArr*1000, results.SR(12,:), '--d','Color', [0.6350 0.0780 0.1840],...
-      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-   plot(rArr*1000, results.SR(18,:), '-.^','Color', [0.6350 0.0780 0.1840],...
-      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  plot(rArr*1000, results.SR(end,:), ':v', 'Color', [0.4940 0.1840 0.5560],...
-      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+%   plot(rArr*1000, results.SR(1,:), '-o', 'Color', [0 0.4470 0.7410],...
+%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+%   plot(rArr*1000, results.SR(12,:), '--d','Color', [0.6350 0.0780 0.1840],...
+%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+%   plot(rArr*1000, results.SR(18,:), '-.^','Color', [0.6350 0.0780 0.1840],...
+%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+%   plot(rArr*1000, results.SR(end,:), ':v', 'Color', [0.4940 0.1840 0.5560],...
+%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+  try
+    subSet = results.SR(plotWhat.interval:plotWhat.interval:end,:);
+  catch
+    subSet = SR;
+  end
   
+  plot(rArr*1000, results.SR(1,:), 'Marker', face(1), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5)
+  for k = 1:min(size(subSet))
+    plot(rArr*1000, subSet(k,:), 'Marker', face(k+1), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5);
+  end
+  plot(rArr*1000, results.SR(end,:), 'Marker', face(k+2), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5)
+
   ylabel('Strength Ratio')
   xlabel('Radius [mm]')
-  legend('SR \it t=1s', 'SR \it t=2.2s', 'SR \it t=4.4s')
+  legend('SR \it t=1s', 'SR \it t=2s', 'SR \it t=3s', 'SR \it t=4s', 'SR \it t=5s')
   grid on
   set(gca, 'Fontsize', 12)
 

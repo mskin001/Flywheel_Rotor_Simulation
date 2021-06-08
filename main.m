@@ -15,20 +15,20 @@ global mat plotWhat results matProp
 % ------------------------------------------------------------------------------
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
-% rim = [.05, 0.1];
-rim = [0.02, 0.03786, 0.08393, 0.14707];
+rim = [.18, .24];
+% rim = [0.02, 0.03786, 0.08393, 0.14707];
 h = 0.10; % [m]
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = [.0002, 0.0001, 0]; % [m]
-sigb = [0, 0];
+delta = [0]; % [m]
+sigb = [-25e6, 0];
 % mats = {'salehian_Incl718.mat'};
-mats = {'Alumin_7075_t6.mat', 'Glass_Epoxy_Ha1999.mat', 'IM6_Epoxy_Ha1999.mat'};
+mats = {'IM9_826.mat'};
 
 % Time/creep
-tmax = 0; %seconds?
-tStep = 1; %second between steps
+tmax = 5; %seconds?
+tStep = 0.2; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
@@ -42,7 +42,7 @@ accType = 'const';
 % main.m and shearStress.m. Apply changes with caution.
 if strcmp(accType, 'const')
   % Constant
-  alpha = @(t,wIni) 0 * t; % 966.45 gets multiplied by tStep at end of while loop
+  alpha = @(t,wIni) -966.45 * t; % 966.45 gets multiplied by tStep at end of while loop
   % alpha = @(t,wIni) 3.6e6 * t;
 % elseif strcmp(accType, 'Linear')
 %   % Linear Acceleration:
@@ -57,14 +57,14 @@ end
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
-legTxt = {'0 sec', '0.8 sec', '1.8 sec', '2.8 sec', '3.8 sec', '4.4 sec'}; % Controls legend entries for graphs
+legTxt = {'0 sec', '1 sec', '2 sec', '3 sec', '4 sec', '5 sec'}; % Controls legend entries for graphs
 plotWhat.custom1 = 'yes';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.radDis = 'no';          % Radial displacement v. radius
-plotWhat.radStr = 'no';         % Radial stress v. radius plot
-plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
-plotWhat.shearStr = 'no';       % Shear stress v. radius
-plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
-plotWhat.sr = 'no';
+plotWhat.radStr = 'yes';         % Radial stress v. radius plot
+plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
+plotWhat.shearStr = 'yes';       % Shear stress v. radius
+plotWhat.peakStr = 'yes';        % 2-yaxis plot. Peak stress location and SR v. time
+plotWhat.sr = 'yes';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
@@ -73,7 +73,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 5;          % Display time interval on figures
+plotWhat.interval = 6;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
@@ -174,7 +174,7 @@ while b*tStep <= tmax
   %% ---------------------------------------------------------------------------
   % Calculate energy stored in the flywheel
   % ----------------------------------------------------------------------------
-%   [E(b+1)] = find_energy_power(h); % Calculate energy and power assuming constant
+  [E(b+1)] = find_energy_power(h); % Calculate energy and power assuming constant
                             % acceleration
   %% ---------------------------------------------------------------------------
   % Store results for post processing
