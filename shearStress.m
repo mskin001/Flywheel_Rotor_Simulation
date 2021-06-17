@@ -6,9 +6,9 @@ a = zeros(1:length(rim) - 1);
 C = zeros(1:length(rim) - 1);
 
 if strcmp(accType, 'const')
-  a(end) = (mat.rho{end} * alpha(tStep)/tStep) / mat.Q{end}(4,4);
+  a(end) = (mat.rho{end} * alpha) / mat.Q{end}(4,4);
 else
-  a(end) = (mat.rho{end}(rim(end)) * alpha(b*tStep,w0)/(b*tStep)) / mat.Q{end}(4,4);
+  a(end) = (mat.rho{end}(rim(end)) * alpha) / mat.Q{end}(4,4);
 end
 
 C(end) = (a(end)*(rim(end))^4)/8;

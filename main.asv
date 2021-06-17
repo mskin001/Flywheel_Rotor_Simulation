@@ -27,8 +27,8 @@ sigb = [-25e6, 0];
 mats = {'IM9_826.mat'};
 
 % Time/creep
-tmax = 29; %seconds?
-tStep = 0.25; %second between steps
+tmax = 5; %seconds?
+tStep = 0.2; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
@@ -57,7 +57,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 4;          % Display time interval on figures
+plotWhat.interval = 6;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
@@ -107,7 +107,7 @@ vari = cast(tmax/tStep,'single');
 b = 0;
 
 
-while b*tStep <= tmax && w > 0
+while b*tStep <= tmax
 %   fprintf('Create Variable Arrays: Complete\n')
     %% ---------------------------------------------------------------------------
     % Preallocate variables
