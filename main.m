@@ -16,18 +16,18 @@ global mat plotWhat results
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [.1, 0.8];
-rim = [.12, .24];
+% rim = [.12, .24];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
-% rim = [.0762, .09144, .10668]; % Tzeng2001
+rim = [.0762, .09144, .10668]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = [0]; % [mm]
+delta = [.000378, 0]; % [m]
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-mats = {'IM7_8552_Tzeng2001.mat'};
+mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
 
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {@IM7_8552_Tzeng2001, @IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
 addpath('ComplianceFunctions')
 
 % Speed/velocity
@@ -38,7 +38,7 @@ initial_acc = 0; % rad/s^2
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
 legTxt = {'0 sec', '1 year', '5 years'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.custom1 = 'yes';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot

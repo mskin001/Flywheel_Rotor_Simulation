@@ -1,4 +1,4 @@
-function [s] = IM7_8552_Tzeng2001(mstiff)
+function [s] = IM9_862_Tzeng2012(mstiff)
 % This function reproduces the compliance curve for IM7/8552 discussed by
 % Tzeng 2001 in "Viscoelastic Analysis of Composite Cylinders Subjected to
 % Rotation." The compliance was as a best fit equation in eq.19 of this

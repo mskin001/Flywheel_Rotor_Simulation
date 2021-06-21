@@ -24,15 +24,15 @@ halfWay = round(length(sArr)/2);
 if strcmp(plotWhat.custom1, 'yes')
   figure(), hold on
   plot(rArr*39.3701, sArr{1}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
-  rad_data = csvread('Tzeng2001RadialStrInitial.csv');
+  rad_data = csvread('radial-stress_t1_pressfit_cylinder.csv');
   plot(rad_data(:,1), rad_data(:,2), 'kd')
   
   plot(rArr*39.3701, sArr{2}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
-  rad_data = csvread('Tzeng2001RadialStrMid.csv');
+  rad_data = csvread('radial-stress_t2_pressfit_cylinder.csv');
   plot(rad_data(:,1), rad_data(:,2), 'ks')
   
   plot(rArr*39.3701, sArr{3}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
-  rad_data = csvread('Tzeng2001RadialStrInf.csv');
+  rad_data = csvread('radial-stress_t3_pressfit_cylinder.csv');
   plot(rad_data(:,1), rad_data(:,2), 'k^')
   
   grid on
@@ -43,15 +43,15 @@ if strcmp(plotWhat.custom1, 'yes')
   
   figure(), hold on
   plot(rArr*39.3701, sArr{1}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
-  hoop_data = csvread('Tzeng2001HoopInitial.csv');
+  hoop_data = csvread('hoop-stress_t1_pressfit_cylinder.csv');
   plot(hoop_data(:,1), hoop_data(:,2), 'kd')
     
   plot(rArr*39.3701, sArr{2}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
-  hoop_data = csvread('Tzeng2001HoopMid.csv');
+  hoop_data = csvread('hoop-stress_t2_pressfit_cylinder.csv');
   plot(hoop_data(:,1), hoop_data(:,2), 'ks')
   
   plot(rArr*39.3701, sArr{3}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
-  hoop_data = csvread('Tzeng2001HoopInf.csv');
+  hoop_data = csvread('hoop-stress_t3_pressfit_cylinder.csv');
   plot(hoop_data(:,1), hoop_data(:,2), 'k^')
   
 %   plot(rArr*1000, tau{1}*10^-6, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
@@ -66,23 +66,23 @@ if strcmp(plotWhat.custom1, 'yes')
   set(gca, 'FontSize', 12)
   fprintf('Custom plot 1: Complete\n')
   
-  figure(), hold on
-  plot(rArr*39.3701, uArr{1}*39.3701, 'Linewidth', 1.5)
-  disp_data = csvread('Tzeng2001RadialDispInitial.csv');
-  plot(disp_data(:,1), disp_data(:,2), 'kd')
-  
-  plot(rArr*39.3701, uArr{2}*39.3701, 'Linewidth', 1.5)
-  disp_data = csvread('Tzeng2001RadialDispMid.csv');
-  plot(disp_data(:,1), disp_data(:,2), 'ks')
-  
-  plot(rArr*39.3701, uArr{3}*39.3701, 'Linewidth', 1.5)
-  disp_data = csvread('Tzeng2001RadialDispInf.csv');
-  plot(disp_data(:,1), disp_data(:,2), 'k^')
-  grid on
-  xlabel('Radius [in]')
-  ylabel('Stress [psi]')
-  legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf')
-  set(gca, 'FontSize', 12)
+%   figure(), hold on
+%   plot(rArr*39.3701, uArr{1}*39.3701, 'Linewidth', 1.5)
+%   disp_data = csvread('Tzeng2001RadialDispInitial.csv');
+%   plot(disp_data(:,1), disp_data(:,2), 'kd')
+%   
+%   plot(rArr*39.3701, uArr{2}*39.3701, 'Linewidth', 1.5)
+%   disp_data = csvread('Tzeng2001RadialDispMid.csv');
+%   plot(disp_data(:,1), disp_data(:,2), 'ks')
+%   
+%   plot(rArr*39.3701, uArr{3}*39.3701, 'Linewidth', 1.5)
+%   disp_data = csvread('Tzeng2001RadialDispInf.csv');
+%   plot(disp_data(:,1), disp_data(:,2), 'k^')
+%   grid on
+%   xlabel('Radius [in]')
+%   ylabel('Stress [psi]')
+%   legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf')
+%   set(gca, 'FontSize', 12)
 end
 
 %% -----------------------------------------------------------------------------
