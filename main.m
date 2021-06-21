@@ -57,7 +57,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 4;          % Display time interval on figures
+plotWhat.interval = 8;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
