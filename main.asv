@@ -22,13 +22,13 @@ h = 0.10; % [m]
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 delta = [0]; % [m]
-sigb = [-25e6, 0];
+sigb = [-25e6, 0]; % Pa
 % mats = {'salehian_Incl718.mat'};
-mats = {'IM9_826.mat'};
+mats = {'IM9_826.mat' 'IM9_826.mat'};
 
 % Time/creep
-tmax = 5; %seconds?
-tStep = 0.2; %second between steps
+tmax = 29; % seconds
+tStep = 0.25; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
@@ -57,7 +57,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 6;          % Display time interval on figures
+plotWhat.interval = 4;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
@@ -107,7 +107,7 @@ vari = cast(tmax/tStep,'single');
 b = 0;
 
 
-while b*tStep <= tmax
+while b*tStep <= tmax && w > 0
 %   fprintf('Create Variable Arrays: Complete\n')
     %% ---------------------------------------------------------------------------
     % Preallocate variables

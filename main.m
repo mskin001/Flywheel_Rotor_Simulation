@@ -22,16 +22,16 @@ h = 0.10; % [m]
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 delta = [0]; % [m]
-sigb = [-25e6, 0];
+sigb = [-25e6, 0]; % Pa
 % mats = {'salehian_Incl718.mat'};
 mats = {'IM9_826.mat'};
 
 % Time/creep
-tmax = 29; %seconds?
+tmax = 29; % seconds
 tStep = 0.25; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {'no', 'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
 rpm = 60000;
