@@ -16,12 +16,12 @@ global mat plotWhat results
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [.1, 0.8];
-% rim = [.12, .24];
+rim = [.1,  .24];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
-rim = [.175133, .34996, .49263]; % Tzeng2001
+% rim = [.175133, .34996, .49263]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 % delta = [.000378, 0]; % Tzeng 2012 press fit[m]
-delta = [.000254, 0];
+delta = [.000254, 0]; % m
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
 mats = {'Walkingshaw_CFRP_withFoS.mat', 'Walkingshaw_GFRP_withFoS.mat'};
@@ -33,7 +33,7 @@ addpath('ComplianceFunctions')
 
 % Speed/velocity
 profile = [1;...           % [ t1 t2 t3;
-           8000];             %   v1 v2 v3]
+           000];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
@@ -44,7 +44,7 @@ plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
 plotWhat.shearStr = 'yes';       % Shear stress v. radius
-plotWhat.peakStr = 'yes';        % 2-yaxis plot. Peak stress location and SR v. time
+plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
 plotWhat.sr = 'yes';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
