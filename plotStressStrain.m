@@ -197,7 +197,7 @@ if strcmp(plotWhat.peakStr, 'yes')
   hold on
   yyaxis left; plot(results.vel,results.peakloc*1000, '-', 'Color', [0 0.4470 0.7410], 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
   yyaxis right; plot(results.vel,results.peakstr, '-.o', 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
-  yyaxis right; plot(results.vel, ones(length(results.time)), 'k--', 'LineWidth', 1.5)
+%   yyaxis right; plot(results.vel, ones(length(results.time)), 'k--', 'LineWidth', 1.5)
 
   xlabel('Angular velocity [rpm]')
   yyaxis left
@@ -215,10 +215,10 @@ if strcmp(plotWhat.sr,'yes')
   
   plot(rArr*1000, results.SR(1,:), '-o', 'Color', [0 0.4470 0.7410],...
       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  plot(rArr*1000, results.SR(50,:), '--d','Color', [0.6350 0.0780 0.1840],...
-      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  plot(rArr*1000, results.SR(end,:), ':v', 'Color', [0.4940 0.1840 0.5560],...
-      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+%   plot(rArr*1000, results.SR(50,:), '--d','Color', [0.6350 0.0780 0.1840],...
+%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+%   plot(rArr*1000, results.SR(end,:), ':v', 'Color', [0.4940 0.1840 0.5560],...
+%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
   
   ylabel('Strength Ratio')
   xlabel('Radius [mm]')
