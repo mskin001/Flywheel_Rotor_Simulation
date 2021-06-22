@@ -35,7 +35,7 @@ tArr = [1, 8760, 43800];
 simTime = 10e10;
 timeUnit = 'h'; % s = sec, h = hours, d = days
 numberOfSteps = 3;
-compFunc = {'no' @MS_constructed_CFRP}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {'no' 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
 rpm = 0000;
