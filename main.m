@@ -14,19 +14,20 @@ global mat plotWhat
 % ------------------------------------------------------------------------------
 % simulation type:
   % pe = steady state perfectly elastic
-  % ve = steady state viscoelastic
+  % ve = steady state viscsdoelastic
   % tr = transient (under construction
 st = 'pe';
 
 % Rotor geometry and material
 % rim = [.05, 0.15, 0.25, 0.35, 0.45];
-rim = [0.03789; 0.07901]; % single rim Ha 1999
+% rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [0.110, 0.2];
 % rim = [0.0762, .1524]; % Tzeng2001
+rim = [0.1, 0.11, 0.17, 0.2];
 rdiv = 30; % number of points per rim to analyze
-delta = [0]/1000; % [mm]
-sigb = [-77.5e6, 0];
-mats = {'MS_constructed_CFRP.mat'};
+delta = [0.0004, 0.0004, 0]/1000; % [mm]
+sigb = [0, 0];
+mats = {'Alumin_2014_T6.mat', 'Aramid_Twaron_2200.mat', 'AS4C_epoxy.mat'};
 % mats = {'AS_H3501_Ha1999.mat'; 'IM6_Epoxy_Ha1999.mat'};
 % mats = {'IM6_Epoxy_Ha1999.mat'};
 % load('MS_constructedCFRP_zeroVel.mat'); %(optional) used to compare to results from a specific time.
@@ -34,7 +35,7 @@ mats = {'MS_constructed_CFRP.mat'};
 % Time/creep
 % compliance function, 1 entry per material, input 'no' to turn off creep
 %   modeling for the correpsonding material
-compFunc = {@MS_constructed_CFRP,}; 
+compFunc = {'no'}; 
 tArr = [1, 8760, 43800];
 
 % These paramterters are only used for outputting results. They are not
@@ -43,7 +44,7 @@ simTime = 10e10;
 timeUnit = 'h'; % s = sec, h = hours, d = days
 
 % Speed/velocity
-rpm = 60000;
+rpm = 000;
 vdiv = 1; % number of points to analyze between each fixed velocity
 
 % Plotting and saving
@@ -54,7 +55,7 @@ plotWhat.custom1 = 'no';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
-plotWhat.radDis = 'no';
+plotWhat.radDis = 'yes';
 
 plotWhat.radGif = 'no';          % Radial stress gif, surface plot
 plotWhat.radialGifName = 'Radial Stress.gif';
