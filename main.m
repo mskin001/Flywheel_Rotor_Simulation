@@ -16,7 +16,7 @@ global mat plotWhat
   % pe = steady state perfectly elastic
   % ve = steady state viscoelastic
   % tr = transient (under construction
-st = 've';
+st = 'pe';
 
 % Rotor geometry and material
 % rim = [.05, 0.15, 0.25, 0.35, 0.45];
