@@ -170,7 +170,7 @@ while b*tStep <= tmax && w > 0
     %% ---------------------------------------------------------------------------
     % Calculate energy stored in the flywheel
     % ----------------------------------------------------------------------------
-    [E(b+1)] = find_energy_power(h); % Calculate energy and power assuming constant
+    E(b+1) = find_energy_power(h); % Calculate energy and power assuming constant
                             % acceleration
 
     %% ---------------------------------------------------------------------------

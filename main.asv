@@ -15,14 +15,14 @@ global mat plotWhat results matProp
 % ------------------------------------------------------------------------------
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
-rim = [.175133, .34996, .49263];
+rim = [.18, .24];
 % rim = [0.02, 0.03786, 0.08393, 0.14707];
-h = 0.12573; % [m]
+h = 0.10; % [m]
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = [.000254, 0]; % [m]
-sigb = [0, 0]; % Pa
+delta = [0]; % [m]
+sigb = [-25e6, 0]; % Pa
 % mats = {'salehian_Incl718.mat'};
 mats = {'IM9_826.mat'};
 
@@ -34,7 +34,7 @@ timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 00000;
+rpm = 60000;
 p = -725000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
 accType = 'const';
@@ -170,7 +170,7 @@ while b*tStep <= tmax && w > 0
     %% ---------------------------------------------------------------------------
     % Calculate energy stored in the flywheel
     % ----------------------------------------------------------------------------
-    [E(b+1)] = find_energy_power(h); % Calculate energy and power assuming constant
+    E(b+1) = find_energy_power(h); % Calculate energy and power assuming constant
                             % acceleration
 
     %% ---------------------------------------------------------------------------
