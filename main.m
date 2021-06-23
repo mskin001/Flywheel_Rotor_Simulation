@@ -24,33 +24,33 @@ rdiv = 30; % number of points per rim to analyze
 delta = [.000378, 0]; % Tzeng 2012 press fit [m]
 % delta = [.0004, .0004, 0]; % m
 % -----------------------------------------
-% delta = [.000378, 0]; % Tzeng 2012 press fit [m]
-delta = [.000254, 0]; % m
+delta = [.000378, 0]; % Tzeng 2012 press fit [m]
+% delta = [.000254, 0]; % m
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-% mats = {'Alumin_2014_T6.mat', 'Aramid_Twaron_2200.mat', 'AS4C_epoxy.mat'};
-mats = {'Walkingshaw_GFRP_withFoS.mat' 'Walkingshaw_CFRP_withFoS.mat'};
+mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
+% mats = {'Walkingshaw_GFRP_withFoS.mat' 'Walkingshaw_CFRP_withFoS.mat'};
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {'no', 'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {@IM7_8552_Tzeng2001, @IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1;...           % [ t1 t2 t3;
-           12500];             %   v1 v2 v3]
+profile = [1 10^4 10^8;...           % [ t1 t2 t3;
+           00 0 0];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
 legTxt = {'0 sec', '1 year', '5 years'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
-plotWhat.maxStr = 'yes';        % maximum stress failure criteria
-plotWhat.radDis = 'yes';          % Radial displacement v. radius
-plotWhat.radStr = 'yes';         % Radial stress v. radius plot
-plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
+plotWhat.custom1 = 'yes';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.maxStr = 'no';        % maximum stress failure criteria
+plotWhat.radDis = 'no';          % Radial displacement v. radius
+plotWhat.radStr = 'no';         % Radial stress v. radius plot
+plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
 plotWhat.shearStr = 'no';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
-plotWhat.sr = 'yes';
+plotWhat.sr = 'no';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';

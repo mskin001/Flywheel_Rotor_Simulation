@@ -25,39 +25,41 @@ if strcmp(plotWhat.custom1, 'yes')
   figure(), hold on
   plot(rArr*39.3701, sArr{1}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
   rad_data = csvread('radial-stress_t1_pressfit_cylinder.csv');
-  plot(rad_data(:,1), rad_data(:,2), 'kd')
+  plot(rad_data(:,1), rad_data(:,2), 'kd', 'MarkerFaceColor', 'k')
   
-  plot(rArr*39.3701, sArr{2}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
+  plot(rArr*39.3701, sArr{2}(3,:,1)*.000145038,'--', 'Linewidth', 1.5)
   rad_data = csvread('radial-stress_t2_pressfit_cylinder.csv');
-  plot(rad_data(:,1), rad_data(:,2), 'ks')
+  plot(rad_data(:,1), rad_data(:,2), 'ks', 'MarkerFaceColor', 'k')
   
-  plot(rArr*39.3701, sArr{3}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
+  plot(rArr*39.3701, sArr{3}(3,:,1)*.000145038,':', 'Linewidth', 1.5)
   rad_data = csvread('radial-stress_t3_pressfit_cylinder.csv');
-  plot(rad_data(:,1), rad_data(:,2), 'k^')
+  plot(rad_data(:,1), rad_data(:,2), 'k^', 'MarkerFaceColor', 'k')
   
   grid on
   xlabel('Radius [in]')
   ylabel('Stress [psi]')
-  legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf')
+  legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf'...
+      ,'Location', 'southeast')
   set(gca, 'FontSize', 12)
   
   figure(), hold on
-  plot(rArr*39.3701, sArr{1}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
+  plot(rArr*39.3701, sArr{1}(1,:,1)*.000145038, '-', 'Linewidth', 1.5)
   hoop_data = csvread('hoop-stress_t1_pressfit_cylinder.csv');
-  plot(hoop_data(:,1), hoop_data(:,2), 'kd')
+  plot(hoop_data(:,1), hoop_data(:,2), 'kd', 'MarkerFaceColor', 'k')
     
   plot(rArr*39.3701, sArr{2}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
   hoop_data = csvread('hoop-stress_t2_pressfit_cylinder.csv');
-  plot(hoop_data(:,1), hoop_data(:,2), 'ks')
+  plot(hoop_data(:,1), hoop_data(:,2), 'ks', 'MarkerFaceColor', 'k')
   
-  plot(rArr*39.3701, sArr{3}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
+  plot(rArr*39.3701, sArr{3}(1,:,1)*.000145038, ':', 'Linewidth', 1.5)
   hoop_data = csvread('hoop-stress_t3_pressfit_cylinder.csv');
-  plot(hoop_data(:,1), hoop_data(:,2), 'k^')
+  plot(hoop_data(:,1), hoop_data(:,2), 'k^', 'MarkerFaceColor', 'k')
   
 %   plot(rArr*1000, tau{1}*10^-6, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
 %   plot(tau_data(:,1)*1000, tau_data(:,2), 'ko')
   grid on
-  legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf')
+  legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf'...
+      ,'Location', 'southeast')
   xlabel('Radius [in]')
   ylabel('Stress [psi]')
 %   legend('Model 10*\sigma_r', 'Aparicio2011, 10*\sigma_r','Model \sigma_\theta',...
@@ -86,11 +88,11 @@ if strcmp(plotWhat.custom1, 'yes')
 end
 
 if strcmp(plotWhat.maxStr, 'yes')
-    radMax(1:30) = results.sArr{1}(3,1:30,1)/mat.stren{1}(3);
-    radMax(31:60) = results.sArr{1}(3,31:end,1)/mat.stren{2}(3);
+    radMax(1:30) = abs(results.sArr{1}(3,1:30,1)/mat.stren{1}(4));
+    radMax(31:60) = abs(results.sArr{1}(3,31:end,1)/mat.stren{2}(4));
     
-    hoopMax(1:30) = results.sArr{1}(1,1:30,1)/mat.stren{1}(1);
-    hoopMax(31:60) = results.sArr{1}(1,31:end,1)/mat.stren{2}(1);
+    hoopMax(1:30) = abs(results.sArr{1}(1,1:30,1)/mat.stren{1}(2));
+    hoopMax(31:60) = abs(results.sArr{1}(1,31:end,1)/mat.stren{2}(1));
     
     figure(), hold on
     plot(rArr*1000, radMax)
