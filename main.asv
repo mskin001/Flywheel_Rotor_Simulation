@@ -12,18 +12,7 @@ global mat plotWhat results
 
 %% -----------------------------------------------------------------------------
 % Define initial conditions and rotor size
-% ------------------------------------------------------------------------------
-% Rotor
-% rim = [0.03789; 0.07901]; % single rim Ha 1999
-% rim = [.1, 0.8];
-% rim = [.1, .110, .170, .2];
-% rim = [0.08, 0.2]; % Perez-Aparicio 2011
-% rim = [.175133, .34996, .49263]; % Walkingshaw
-rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
-rdiv = 30; % number of points per rim to analyze
-delta = [.000378, 0]; % Tzeng 2012 press fit [m]
-% delta = [.0004, .0004, 0]; % m
-% -----------------------------------------
+% -----------------------------------------sy
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
 delta = [.000254, 0]; % m
 sigb = [0, 0]; % [Pa]
@@ -44,7 +33,7 @@ initial_acc = 0; % rad/s^2
 % legTxt = {'Current model', 'Aparicio 2011'};
 legTxt = {'0 sec', '1 year', '5 years'}; % Controls legend entries for graphs
 plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
-plotWhat.maxStr = 'yes';        % maximum stress failure criteria
+plotWhat.maxStr
 plotWhat.radDis = 'yes';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
