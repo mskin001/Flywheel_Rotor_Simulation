@@ -88,15 +88,16 @@ if strcmp(plotWhat.custom1, 'yes')
 end
 
 if strcmp(plotWhat.maxStr, 'yes')
-    radMax(1:30) = abs(results.sArr{1}(3,1:30,1)/mat.stren{1}(4));
-    radMax(31:60) = abs(results.sArr{1}(3,31:end,1)/mat.stren{2}(4));
+    radMax(1:30) = (results.sArr{1}(3,1:30,1)/mat.stren{1}(4));
+    radMax(31:60) = (results.sArr{1}(3,31:end,1)/mat.stren{2}(4));
     
-    hoopMax(1:30) = abs(results.sArr{1}(1,1:30,1)/mat.stren{1}(2));
-    hoopMax(31:60) = abs(results.sArr{1}(1,31:end,1)/mat.stren{2}(1));
+    hoopMax(1:30) = (results.sArr{1}(1,1:30,1)/mat.stren{1}(1));
+    hoopMax(31:60) = (results.sArr{1}(1,31:end,1)/mat.stren{2}(1));
     
     figure(), hold on
     plot(rArr*1000, radMax)
     plot(rArr*1000, hoopMax)
+    legend({'norm rad', 'norm hoop'})
 end
 %% -----------------------------------------------------------------------------
 % Make figures

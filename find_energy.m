@@ -2,7 +2,7 @@ function [E] = find_energy(h)
 global rim w mat
 
 in = zeros(1, length(rim)-1);
-en = zeros(2, length(rim) -1);
+en = zeros(1, length(rim) -1);
  
 for b = 1:length(rim) - 1
     in(b) = 0.5 * mat.rho{b} * pi * h * (rim(b+1)^4 - rim(b)^4);

@@ -29,7 +29,7 @@ delta = [.000254, 0]; % m
 sigb = [0, 0]; % [Pa]
 % mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
 mats = {'Walkingshaw_GFRP_withFoS.mat' 'Walkingshaw_CFRP_withFoS.mat'};
-
+h = .12573; % rotor thickness in [m]
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
@@ -43,14 +43,14 @@ initial_acc = 0; % rad/s^2
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
 legTxt = {'0 sec', '1 year', '5 years'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'yes';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
-plotWhat.maxStr = 'no';        % maximum stress failure criteria
+plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.maxStr = 'yes';        % maximum stress failure criteria
 plotWhat.radDis = 'no';          % Radial displacement v. radius
-plotWhat.radStr = 'no';         % Radial stress v. radius plot
-plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
+plotWhat.radStr = 'yes';         % Radial stress v. radius plot
+plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
 plotWhat.shearStr = 'no';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
-plotWhat.sr = 'no';
+plotWhat.sr = 'yes';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
@@ -117,7 +117,7 @@ while b <= cols
     sArr = zeros(4,(arraySize-1)*rdiv);    % stress vector
     tauArr = zeros(1,(arraySize-1)*rdiv);
     eArr = zeros(4, rdiv);    % strain vector in each direction
-
+    E = zeros(1,cols);
     %   fprintf('Preallocate Memory: Complete\n')
 
     %% ---------------------------------------------------------------------------
@@ -167,9 +167,8 @@ while b <= cols
     [~] = shearStress(alpha, rdiv);
     
     %% ---------------------------------------------------------------------------
-    % Calculate the current stored energy in the rotor based on the
-    % difference in angluar velocity between the current and previous time
-    % step.
+    % Calculate the current stored energy in the rotor based on the current
+    % angluar velocity
     
     E(b+1) = find_energy(h);
     %% ---------------------------------------------------------------------------
