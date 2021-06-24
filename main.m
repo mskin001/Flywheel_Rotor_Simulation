@@ -21,9 +21,8 @@ global mat plotWhat results
 % rim = [.175133, .34996, .49263]; % Walkingshaw
 rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
 rdiv = 30; % number of points per rim to analyze
-delta = [.000378, 0]; % Tzeng 2012 press fit [m]
+% delta = [.000378, 0]; % Tzeng 2012 press fit [m]
 % delta = [.0004, .0004, 0]; % m
-% -----------------------------------------
 delta = [.000378, 0]; % Tzeng 2012 press fit [m]
 % delta = [.000254, 0]; % m
 sigb = [0, 0]; % [Pa]
