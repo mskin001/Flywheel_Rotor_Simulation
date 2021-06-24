@@ -6,19 +6,18 @@ format long
 % Define global variables
 % ------------------------------------------------------------------------------
 % Global variables and arrays
-global U w rim arraySize rArr uArr sArr eArr tauArr vari t
+global rim
 % Global structures
-global mat plotWhat results
+global plotWhat results
 
 %% -----------------------------------------------------------------------------
 % Define initial conditions and rotor size
 % ------------------------------------------------------------------------------
 % Rotor
-% rim = [0.03789; 0.07901]; % single rim Ha 1999
-% rim = [.1, 0.8];
-% rim = [.1, .110, .170, .2];
-% rim = [0.08, 0.2]; % Perez-Aparicio 2011
-rim = [.175133, .34996, .49263]; % Walkingshaw
+r1 = .175133;
+r2 = .34996;
+r3 = .4963;
+rim = [r1, r2, r3]; % Walkingshaw
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
 
 rdiv = 30; % number of points per rim to analyze
@@ -29,16 +28,12 @@ delta = [.000254, 0]; % m
 sigb = [0, 0]; % [Pa]
 % mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
 mats = {'Walkingshaw_GFRP_withFoS.mat' 'Walkingshaw_CFRP_withFoS.mat'};
-h = .12573; % rotor thickness in [m]
-% Time/creep
-timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
-addpath('ComplianceFunctions')
+h = .12573; % rotor thickness in [m]
 
 % Speed/velocity
 profile = [1;...           % [ t1 t2 t3;
            12500];             %   v1 v2 v3]
-initial_acc = 0; % rad/s^2
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
@@ -60,142 +55,33 @@ plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
 plotWhat.interval = 1;          % Display time interval on figures
-plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
-                                 %   0 is fastest
+plotWhat.delay = 0;             % Time delay in seconds between frames in the gifs,
+                                % 0 is fastest
 
 %% -----------------------------------------------------------------------------
 % Start Program
 % ------------------------------------------------------------------------------
-fprintf('Simulation time: %1.0f %s\n',profile(1,end),timeUnit)
 fprintf('Number of rims: %2.0f\n',length(rim)-1)
 fprintf('Material Selections: %s\n', mats{1:end})
 % fprintf('                     %s\n', mats{2:end})
 fprintf('Max rotational velocity: %6.3f rpm\n\n', profile(end,end))
 fprintf('Program Start: \n')
 
-%% -----------------------------------------------------------------------------
-% Check input variables
-% ------------------------------------------------------------------------------
-% General
-if length(rim)-1 ~= length(mats) || length(rim)-1 ~= length(delta)
-    error('Error in rim, mat, and delta. There must be an equal number of rims, materials, and interferance values.\n')
-end
 
-for k = 1:length(mats)
-    m = ['MaterialProperties\', mats{k}];
-    mp = load(m);
-    try
-        verified = mp.verified;
-        if ~verified
-            warning('The material %s has not been verified\n', mats{k})
-        end
-    catch
-        warning('The material %s has not been verified\n', mats{k})
-    end
-end
-fprintf('Check Input Variables: Complete\n')
-
-%% -----------------------------------------------------------------------------
-% Program Begin
-% ------------------------------------------------------------------------------
-b = 1;
-[~, cols] = size(profile);
-
-while b <= cols
-    w = (pi/30) * profile(2,b); %initial angular velocity
-    w0 = w;
-
-    t = profile(1,b);
-    %   fprintf('Create Variable Arrays: Complete\n')
-    %% ---------------------------------------------------------------------------
-    % Preallocate variables
-    % ----------------------------------------------------------------------------
-    arraySize = length(rim);
-    U = zeros(1,arraySize);
-    rArr = zeros(1,(arraySize-1)*rdiv);    % radius vector for descretization
-    uArr = zeros(1,(arraySize-1)*rdiv);    % displacement vector for discretization
-    sArr = zeros(4,(arraySize-1)*rdiv);    % stress vector
-    tauArr = zeros(1,(arraySize-1)*rdiv);
-    eArr = zeros(4, rdiv);    % strain vector in each direction
-    E = zeros(1,cols);
-    %   fprintf('Preallocate Memory: Complete\n')
-
-    %% ---------------------------------------------------------------------------
-    % Create Q matrices for all materials
-    % ----------------------------------------------------------------------------
-    for k = 1:length(mats)
-        func = compFunc{k};
-        mat.file{k} = ['MaterialProperties\', mats{k}];
-        matProp = load(mat.file{k});
-        mat.Q{1,k} = stiffMat(matProp.mstiff, func);
-        mat.rho{k} = matProp.rho;
-
-        try
-          mat.stren{k} = matProp.stren;
-        catch
-          break
-        end
-    end
-
-    %   fprintf('Create Material Property Matrices: Complete\n')
-    %% ---------------------------------------------------------------------------
-    % Calculate displacement magnitude at the inner and outer surface of each rim
-    % these are used as boundary conditions to find C. ~ is used to disregard
-    % output of force vector results. These can be important for debugging and
-    % verification purposes, but are not necessary for the program. Check function
-    % discription for mor info
-    [~, ~, ~, ~] = boundaryConditions(sigb, delta);
-
-    %   fprintf('Calculate Boundary Conditions: Complete\n')
-    %% ---------------------------------------------------------------------------
-    % Calculate discrete displacement, stain, and stress for each rim ~ here is
-    % used to the [C] matrix output. This is useful for debugging and
-    % verification purposes but not necessary for the function. Check function
-    % description for mor info
-    [~] = discretizeStressStrain(rdiv, delta);
-
-    %   fprintf('Descretize Stress/Strain: Complete\n')
-
-    %% ----------------------------------------------------------------------------
-    % Calculate the share stress on the rim.
-    if b == 1
-        alpha = initial_acc;
-    else
-        alpha = (profile(2,b-1) - profile(2,b)) / (profile(1,b-1) - profile(1,b));
-    end
-
-    [~] = shearStress(alpha, rdiv);
+for k = 1:length(r1)
+    rim(1) = r1(k);
+   for j = 1:length(r2)
+       rim(2) = r2(j);
+      for x = 1:length(r3)
+          rim(3) = r3(x);
+          complete = rotor_model(rim, delta, sigb, mats, compFunc, h, rdiv, profile);
+          
+      end
+      
+   end
     
-    %% ---------------------------------------------------------------------------
-    % Calculate the current stored energy in the rotor based on the current
-    % angluar velocity
-    
-    E(b+1) = find_energy(h);
-    %% ---------------------------------------------------------------------------
-    % Store results for post processing
-    % ----------------------------------------------------------------------------
-    results.uArr{b} = uArr;
-    results.sArr{b} = sArr;
-    results.tauArr{b} = tauArr;
-    results.vel(b) = w * (30 / pi);
-    %   fprintf('Current time: %5.2f\n', b*tStep)
-    %   fprintf('Iteration %2.0f Complete\n', b)
-
-    b = b + 1;
-
 end
-
-%% -----------------------------------------------------------------------------
-% Calculate failure criterion
-% ------------------------------------------------------------------------------
-vari = cols;
-[SR] = failureIndex(rdiv);
-results.SR = SR;
-
 %% -----------------------------------------------------------------------------
 % Make Plots
 % ------------------------------------------------------------------------------
 plotStressStrain(legTxt)
-
-% fprintf('Create Output Plots: Complete\n\n')
-fprintf('Program Complete\n')
