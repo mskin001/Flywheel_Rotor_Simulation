@@ -36,21 +36,21 @@ compFunc = {'no', 'no'};
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1;...           % [ t1 t2 t3;
-           12500];             %   v1 v2 v3]
+profile = [1 10^4 10^8;...           % [ t1 t2 t3;
+           00 0 0];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
 legTxt = {'0 sec', '1 year', '5 years'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
-plotWhat.maxStr = 'yes';        % maximum stress failure criteria
-plotWhat.radDis = 'yes';          % Radial displacement v. radius
-plotWhat.radStr = 'yes';         % Radial stress v. radius plot
-plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
+plotWhat.custom1 = 'yes';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.maxStr = 'no';        % maximum stress failure criteria
+plotWhat.radDis = 'no';          % Radial displacement v. radius
+plotWhat.radStr = 'no';         % Radial stress v. radius plot
+plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
 plotWhat.shearStr = 'no';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
-plotWhat.sr = 'yes';
+plotWhat.sr = 'no';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
