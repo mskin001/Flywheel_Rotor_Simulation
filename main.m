@@ -14,12 +14,12 @@ global plotWhat results
 % Define initial conditions and rotor size
 % ------------------------------------------------------------------------------
 % Rotor
-r1 = 175.18; %linspace(6.875, 10, 5) * 0.0254;
-r2 = 175.18 + 174.63; %linspace(6.897, 10, 5) * 0.0254;
-r3 = 175.18 + 317.5; %linspace(12.5, 15, 5) * 0.0254;
+r1 = .17518; %linspace(6.875, 10, 5) * 0.0254;
+r2 = .17463; %linspace(6.897, 10, 5) * 0.0254;
+r3 = .3175; %linspace(12.5, 15, 5) * 0.0254;
 
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
-rim = [r1, r2, r3];
+% rim = [r1, r2, r3];
 rdiv = 30; % number of points per rim to analyze
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
 % delta = [.0004, .0004, 0]; % m
