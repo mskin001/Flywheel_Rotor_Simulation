@@ -33,7 +33,7 @@ h = .12573; % rotor thickness in [m]
 
 % Speed/velocity
 profile = [1;...           % [ t1 t2 t3;
-           12500];             %   v1 v2 v3]
+           3125];             %   v1 v2 v3]
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
