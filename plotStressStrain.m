@@ -88,11 +88,12 @@ if strcmp(plotWhat.custom1, 'yes')
 end
 
 if strcmp(plotWhat.maxStr, 'yes')
-    radMax(1:30) = abs(results.sArr{1}(3,1:30,1)/mat.stren{1}(4));
-    radMax(31:60) = abs(results.sArr{1}(3,31:end,1)/mat.stren{2}(4));
+    radMax(1:30) = (results.sArr{1}(3,1:30,1)/mat.stren{1}(3));
+    radMax(31:60) = (results.sArr{1}(3,31:60,1)/mat.stren{2}(3));
+    radMax(31:60) = (results.sArr{1}(3,31:60,1)/mat.stren{2}(3));
     
-    hoopMax(1:30) = abs(results.sArr{1}(1,1:30,1)/mat.stren{1}(2));
-    hoopMax(31:60) = abs(results.sArr{1}(1,31:end,1)/mat.stren{2}(1));
+    hoopMax(1:30) = (results.sArr{1}(1,1:30,1)/mat.stren{1}(1));
+    hoopMax(31:60) = (results.sArr{1}(1,31:end,1)/mat.stren{2}(1));
     
     figure(), hold on
     plot(rArr*1000, radMax)
@@ -114,10 +115,10 @@ if strcmp(plotWhat.radDis, 'yes')
 
   hold on
   for k = 1:length(subSet)
-    plot(rArr*1000, subSet{k}(1,:), 'LineWidth', 1.5);
+    plot(rArr*39.3701, subSet{k}(1,:)*39.3701, 'LineWidth', 1.5);
   end
-  xlabel('Radius [mm]')
-  ylabel('Radial Displacement [m]')
+  xlabel('Radius [in]')
+  ylabel('Radial Displacement [in]')
   legend(legTxt, 'Location', 'southeast')
 %   legend('Tzeng Initial', 'Tzeng 10 years', 'Tzeng Infinite', 'Initial','10 Years', 'Infinite')
   set(gca, 'FontSize', 12)
@@ -140,9 +141,9 @@ if strcmp(plotWhat.radStr, 'yes')
   hold on
 %   plot(rArr*1000, sArr{1}(3,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr*1000, subSet{k}(3,:,1)*10^-6, 'LineWidth', 1.5);
+    plot(rArr*39.3701, subSet{k}(3,:,1)*10^-6, 'LineWidth', 1.5);
   end
-  xlabel('Radius [mm]')
+  xlabel('Radius [in]')
   ylabel('Radial Stress [MPa]')
   legend(legTxt, 'Location', 'southeast')
 %   legend('Tzeng Initial', 'Tzeng 10 years', 'Tzeng Infinite', 'Initial','10 Years', 'Infinite')
@@ -165,11 +166,11 @@ if strcmp(plotWhat.hoopStr, 'yes')
   hold on
 %   plot(rArr*1000, sArr{1}(1,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr*1000, subSet{k}(1,:,1)*10^-6, 'LineWidth', 1.5);
+    plot(rArr*39.3701, subSet{k}(1,:,1)*10^-6, 'LineWidth', 1.5);
   end
 
 
-  xlabel('Radius [mm]')
+  xlabel('Radius [in]')
   ylabel('Circumferential Stress [MPa]')
   legend(legTxt, 'Location', 'southeast', 'NumColumns', 5)
   set(gca, 'FontSize', 12)
@@ -226,16 +227,17 @@ if strcmp(plotWhat.sr,'yes')
   figure()
   hold on
   
-  plot(rArr*1000, results.SR(1,:), '-o', 'Color', [0 0.4470 0.7410],...
+  plot(rArr*39.3701, results.SR(1,:), '-o', 'Color', [0 0.4470 0.7410],...
       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-%   plot(rArr*1000, results.SR(50,:), '--d','Color', [0.6350 0.0780 0.1840],...
-%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-%   plot(rArr*1000, results.SR(end,:), ':v', 'Color', [0.4940 0.1840 0.5560],...
-%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+  plot(rArr*39.3701, results.SR(2,:), '--d','Color', [0.6350 0.0780 0.1840],...
+      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+  plot(rArr*39.3701, results.SR(end,:), ':v', 'Color', [0.4940 0.1840 0.5560],...
+      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
   
   ylabel('Strength Ratio')
-  xlabel('Radius [mm]')
-  legend('SR \it t=1', 'SR \it t=10', 'SR \it t=20')
+  xlabel('Radius [in]')
+%   legend('SR \it t=1', 'SR \it t=10', 'SR \it t=20')
+  legend('0 rpm', '3,125 rpm', '12,500 rpm')
   grid on
   set(gca, 'Fontsize', 12)
 

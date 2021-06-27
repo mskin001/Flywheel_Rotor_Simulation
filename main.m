@@ -18,33 +18,33 @@ global mat plotWhat results
 % rim = [.1, 0.8];
 % rim = [.1, .110, .170, .2];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
-rim = [.175133, .34996, .49263]; % Walkingshaw
+rim = [.12518 .17518, .34996, .49263]; % Walkingshaw
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
 rdiv = 30; % number of points per rim to analyze
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
 % delta = [.0004, .0004, 0]; % m
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
-delta = [.000254, 0]; % m
+delta = [.000254, .000254, 0]; % m
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
 % mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
-mats = {'Walkingshaw_GFRP_withFoS.mat' 'Walkingshaw_CFRP_withFoS.mat'};
+mats = {'Alumin_7075_t6.mat' 'Walkingshaw_GFRP_withFoS.mat' 'Walkingshaw_CFRP_withFoS.mat'};
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
 % compFunc = {@IM7_8552_Tzeng2001, @IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
-compFunc = {'no', 'no'};
+compFunc = {'no', 'no', 'no'};
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1;...           % [ t1 t2 t3;
-           12500];             %   v1 v2 v3]
+profile = [1, 2, 3;...           % [ t1 t2 t3;
+           00, 3125, 12500];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
-legTxt = {'0 sec', '1 year', '5 years'}; % Controls legend entries for graphs
+legTxt = {'0 rpm', '3,125 rpm', '12,500 rpm'}; % Controls legend entries for graphs
 plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
-plotWhat.maxStr = 'yes';        % maximum stress failure criteria
+plotWhat.maxStr = 'no';        % maximum stress failure criteria
 plotWhat.radDis = 'yes';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
@@ -164,7 +164,7 @@ while b <= cols
     alpha = (profile(2,b-1) - profile(2,b)) / (profile(1,b-1) - profile(1,b));
   end
 
-  [~] = shearStress(alpha, rdiv);
+%   [~] = shearStress(alpha, rdiv);
 
   %% ---------------------------------------------------------------------------
   % Store results for post processing
