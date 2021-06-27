@@ -14,9 +14,9 @@ global plotWhat results
 % Define initial conditions and rotor size
 % ------------------------------------------------------------------------------
 % Rotor
-r1 = .17518; %linspace(6.875, 10, 5) * 0.0254;
-r2 = .17463; %linspace(6.897, 10, 5) * 0.0254;
-r3 = .3175; %linspace(12.5, 15, 5) * 0.0254;
+r1 = linspace(6.875, 10, 5) * 0.0254;
+r2 = linspace(6.897, 10, 5) * 0.0254;
+r3 = linspace(12.5, 15, 5) * 0.0254;
 
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
 % rim = [r1, r2, r3];
@@ -33,7 +33,7 @@ h = .12573; % rotor thickness in [m]
 
 % Speed/velocity
 profile = [1;...           % [ t1 t2 t3;
-           3125];             %   v1 v2 v3]
+           12500];             %   v1 v2 v3]
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
@@ -75,8 +75,8 @@ for k = 1:length(r1)
       for x = 1:length(r3)
             rim(3) = rim(1) + r3(x);
             complete = rotor_model(rim, delta, sigb, mats, compFunc, h, rdiv, profile);
-            sr(k,j,x) = results.SR(1);
-            E(k,j,x) = results.E(1);
+            sr(x,j,k) = max(results.SR);
+            E(x,j,k) = results.E(1);
             disp(k), disp(j), disp(x)
       end
       
@@ -91,4 +91,21 @@ end
 %% -----------------------------------------------------------------------------
 % Make Plots
 % ------------------------------------------------------------------------------
+for k = 1:5
+    figure()
+    surf(r2*39.3701,r3*39.3701,E(:,:,k))
+    title(['Inner radius = ', num2str(r1(k)*39.3701), ' [in]'])
+    xlabel('rim 1 [in]')
+    ylabel('rim 2 [in]')
+    zlabel('Energy [J]')
+    set(gca, 'FontSize', 12)
+    
+    figure()
+    surf(r2*39.3701,r3*39.3701,sr(:,:,k))
+    title(['Inner radius = ', num2str(r1(k)*39.3701), ' [in]'])
+    xlabel('rim 1 [in]')
+    ylabel('rim 2 [in]')
+    zlabel('SR')
+    set(gca, 'FontSize', 12)
+end
 plotStressStrain(legTxt)
