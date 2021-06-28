@@ -158,7 +158,7 @@ if strcmp(plotWhat.shearStr, 'yes')
 
   xlabel('Radius [mm]')
   ylabel('Shear Stress [kPa]')
-%   legend(legTxt, 'Location', 'northeast')
+  legend(legTxt, 'Location', 'northeast')
   grid on, set(gca, 'FontSize', 12)
   fprintf('Shear Stress Plot: Complete\n')
 end
@@ -183,34 +183,35 @@ end
 
 % ------------- Strength Ratio --------------------------------------------
 if strcmp(plotWhat.sr,'yes')
-  figure()
-  hold on
-  
-%   plot(rArr*1000, results.SR(1,:), '-o', 'Color', [0 0.4470 0.7410],...
-%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-%   plot(rArr*1000, results.SR(12,:), '--d','Color', [0.6350 0.0780 0.1840],...
-%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-%   plot(rArr*1000, results.SR(18,:), '-.^','Color', [0.6350 0.0780 0.1840],...
-%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-%   plot(rArr*1000, results.SR(end,:), ':v', 'Color', [0.4940 0.1840 0.5560],...
-%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  try
-    subSet = results.SR(plotWhat.interval:plotWhat.interval:end,:);
-  catch
-    subSet = SR;
-  end
-  
-  plot(rArr*1000, results.SR(1,:), 'Marker', face(1), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5)
-  for k = 1:min(size(subSet))
-    plot(rArr*1000, subSet(k,:), 'Marker', face(k+1), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5);
-  end
-  plot(rArr*1000, results.SR(end,:), 'Marker', face(k+2), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5)
+    figure()
+    hold on
 
-  ylabel('Strength Ratio')
-  xlabel('Radius [mm]')
-  legend('SR \it t=1s', 'SR \it t=2s', 'SR \it t=3s', 'SR \it t=4s', 'SR \it t=5s')
-  grid on
-  set(gca, 'Fontsize', 12)
+    %   plot(rArr*1000, results.SR(1,:), '-o', 'Color', [0 0.4470 0.7410],...
+    %       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+    %   plot(rArr*1000, results.SR(12,:), '--d','Color', [0.6350 0.0780 0.1840],...
+    %       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+    %   plot(rArr*1000, results.SR(18,:), '-.^','Color', [0.6350 0.0780 0.1840],...
+    %       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+    %   plot(rArr*1000, results.SR(end,:), ':v', 'Color', [0.4940 0.1840 0.5560],...
+    %       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+    try
+        subSet = results.SR(plotWhat.interval:plotWhat.interval:end,:);
+    catch
+        subSet = SR;
+    end
+
+    plot(rArr*1000, results.SR(1,:), 'Marker', face(1), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5)
+    for k = 1:min(size(subSet))
+        plot(rArr*1000, subSet(k,:), 'Marker', face(k+1), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5);
+    end
+    plot(rArr*1000, results.SR(end,:), 'Marker', face(k+2), 'MarkerIndices', 1:4:length(rArr), 'LineWidth', 1.5)
+
+    ylabel('Strength Ratio')
+    xlabel('Radius [mm]')
+    %   legend('SR \it t=1s', 'SR \it t=2s', 'SR \it t=3s', 'SR \it t=4s', 'SR \it t=5s')
+    legend(legTxt, 'Location', 'SouthOutside', 'NumColumns', 5)
+    grid on
+    set(gca, 'Fontsize', 12)
 
 end
 

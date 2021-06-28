@@ -41,7 +41,7 @@ accType = 'const';
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
-legTxt = {'0 sec', '1 sec', '2 sec', '3 sec', '4 sec', '5 sec'}; % Controls legend entries for graphs
+legTxt = {'0 sec', '4.75 sec', '9.75 sec', '14.75 sec', '15.75 sec', '5 sec'}; % Controls legend entries for graphs
 plotWhat.custom1 = 'yes';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
@@ -57,7 +57,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 8;          % Display time interval on figures
+plotWhat.interval = 20;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
