@@ -6,7 +6,7 @@ format long
 % Define global variables
 % ------------------------------------------------------------------------------
 % Global variables and arrays
-global U w rim arraySize rArr uArr sArr eArr tauArr vari t
+global U w rim arraySize rArr uArr sArr eArr tauArr t
 % Global structures
 global mat plotWhat results
 
@@ -24,20 +24,20 @@ rdiv = 30; % number of points per rim to analyze
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
 % delta = [.0004, .0004, 0]; % m
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
-delta = [.000254, .000254, 0]; % m
+delta = [.0004, .0005, 0]; % m
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
 % mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
-mats = {'Alumin_7075_t6.mat' 'Walkingshaw_GFRP_withFoS.mat' 'Walkingshaw_CFRP_withFoS.mat'};
+mats = {'Alumin_7075_t6.mat' 'IM7_8552_Tzeng2001.mat' 'IM7_8552_Tzeng2001.mat'};
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
 % compFunc = {@IM7_8552_Tzeng2001, @IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
-compFunc = {'no', 'no', 'no'};
+compFunc = {'no', @IM7_8552_Tzeng2001, @IM7_8552_Tzeng2001};
 addpath('ComplianceFunctions')
-kbtyuj
+
 % Speed/velocity
-profile = [1, 2, 3;...           % [ t1 t2 t3;
-           00, 3125, 12500];             %   v1 v2 v3]
+profile = [1, 1.577e7, 3.154e7;...           % [ t1 t2 t3;
+           10000, 10000, 10000];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
