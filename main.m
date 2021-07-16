@@ -18,26 +18,26 @@ global mat plotWhat results
 % rim = [.1, 0.8];
 % rim = [.1, .110, .170, .2];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
-rim = [.12518 .17518, .34996, .49263]; % Walkingshaw
+rim = [.2794, (.2794 + .0254), (.2794 + .0762 + .0254)]; % Walkingshaw
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
 rdiv = 30; % number of points per rim to analyze
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
 % delta = [.0004, .0004, 0]; % m
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
-delta = [.0004, .0005, 0]; % m
+delta = [.0004, 0]; % m
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
 % mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
-mats = {'Alumin_7075_t6.mat' 'IM7_8552_Tzeng2001.mat' 'IM7_8552_Tzeng2001.mat'};
+mats = {'Alumin_6061_t6.mat' 'Walkingshaw_CFRP_withFoS.mat'};
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
 % compFunc = {@IM7_8552_Tzeng2001, @IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
-compFunc = {'no', @IM7_8552_Tzeng2001, @IM7_8552_Tzeng2001};
+compFunc = {'no', 'no'};
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1, 1.577e7, 3.154e7;...           % [ t1 t2 t3;
-           10000, 10000, 10000];             %   v1 v2 v3]
+profile = [1,;...           % [ t1 t2 t3;
+           12000];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
