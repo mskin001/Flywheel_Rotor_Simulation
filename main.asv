@@ -14,12 +14,12 @@ global mat plotWhat results
 % Define initial conditions and rotor size
 % ------------------------------------------------------------------------------
 % Rotor
-h = 1; % [m]
+h = .10; % [m]
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 % rim = [.1, 0.8];
 % rim = [.1, .110, .170, .2];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
-rim = [.254, (.254 + .0254), (.254 + .0254 + .0762)]; % Walkingshaw
+rim = [.254, (.254 + .0254), (.254 + .0254)]; % Walkingshaw
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
 rdiv = 30; % number of points per rim to analyze
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
@@ -38,7 +38,7 @@ addpath('ComplianceFunctions')
 
 % Speed/velocity
 profile = [1,;...           % [ t1 t2 t3;
-           15500];             %   v1 v2 v3]
+           9000];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
