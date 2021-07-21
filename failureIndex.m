@@ -27,11 +27,11 @@ for k = 1:length(rim) - 1
     A = Ftt*sigt.^2 + 2*Ftr*sigt.*sigr + Frr*sigr.^2;% + Fs*tau.^2;
     B = Ft*sigt + Fr*sigr;
     C = -1;
-    R(b,rStart:rEnd) = (-B + sqrt(B.^2 - 4*A*C)) ./ (2*A);
-    strRatio(b,rStart:rEnd) = R(b,rStart:rEnd).^-1;
+    R(1,rStart:rEnd) = (-B + sqrt(B.^2 - 4*A*C)) ./ (2*A);
+    strRatio(1,rStart:rEnd) = R(1,rStart:rEnd).^-1;
 
 end
-[peakStr(b), ind] = max(strRatio(b,:));
+[peakStr(b), ind] = max(strRatio(1,:));
 peakLoc(b) = rArr(ind);
 
 

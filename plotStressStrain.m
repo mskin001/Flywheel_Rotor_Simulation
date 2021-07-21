@@ -237,7 +237,7 @@ if strcmp(plotWhat.sr,'yes')
   ylabel('Strength Ratio')
   xlabel('Radius [in]')
 %   legend('SR \it t=1', 'SR \it t=10', 'SR \it t=20')
-  legend('0 rpm', '3,125 rpm', '12,500 rpm')
+  legend(legTxt, 'Location', 'northeast')
   grid on
   set(gca, 'Fontsize', 12)
 

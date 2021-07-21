@@ -19,7 +19,7 @@ h = 1; % [m]
 % rim = [.1, 0.8];
 % rim = [.1, .110, .170, .2];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
-rim = [.254, (.254 + .0254), (.254 + .0254 + .0762)]; % Walkingshaw
+% rim = [.254, (.254 + .0254), (.254 + .0254 + .0762)]; % Walkingshaw
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
 rdiv = 30; % number of points per rim to analyze
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
@@ -37,13 +37,13 @@ compFunc = {'no', 'no'};
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1,;...           % [ t1 t2 t3;
-           15500];             %   v1 v2 v3]
+profile = [1, 2, 3;...           % [ t1 t2 t3;
+           0, 3875, 15500];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
-legTxt = {'0 rpm', '3,125 rpm', '12,500 rpm'}; % Controls legend entries for graphs
+legTxt = {'0 rpm', '3,875 rpm', '15,500 rpm'}; % Controls legend entries for graphs
 plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.maxStr = 'no';        % maximum stress failure criteria
 plotWhat.radDis = 'yes';          % Radial displacement v. radius
