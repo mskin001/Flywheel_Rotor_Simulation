@@ -14,36 +14,35 @@ global mat plotWhat results
 % Define initial conditions and rotor size
 % ------------------------------------------------------------------------------
 % Rotor
-h = 1; % [m]
+h = .25; % [m]
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
-% rim = [.1, 0.8];
-% rim = [.1, .110, .170, .2];
+rim = [.16, .18, .32];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [.254, (.254 + .0254), (.254 + .0254 + .0762)]; % Walkingshaw
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
 rdiv = 30; % number of points per rim to analyze
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
-% delta = [.0004, .0004, 0]; % m
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
-delta = [.0005, 0]; % m
+delta = [.0002, 0]; % m
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-% mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
-mats = {'Alumin_6061_t6.mat' 'Walkingshaw_CFRP_withFoS.mat'};
+mats = {'Al7075-T6_Ha2006.mat', 'IM7_8552_Tzeng2001.mat'};
+% mats = {'Alumin_6061_t6.mat' 'Walkingshaw_CFRP_withFoS.mat'};
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
 % compFunc = {@IM7_8552_Tzeng2001, @IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
-compFunc = {'no', 'no'};
+compFunc = {'no', @IM7_8552_Tzeng2001};
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1, 2, 3;...           % [ t1 t2 t3;
-           0, 3875, 15500];             %   v1 v2 v3]
+profile = [1, 3.154e7, 5*3.154e7;...           % [ t1 t2 t3;
+           31000, 31000, 31000];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
-legTxt = {'0 rpm', '3,875 rpm', '15,500 rpm'}; % Controls legend entries for graphs
+legTxt = {'t = 0 y', 't = 1 y', 't = 5 y'}; % Controls legend entries for graphs
+unit = 'mm';
 plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.maxStr = 'no';        % maximum stress failure criteria
 plotWhat.radDis = 'yes';          % Radial displacement v. radius
@@ -168,7 +167,7 @@ while b <= cols
     [~] = shearStress(alpha, rdiv);
 
     
-
+    [E(b)] = find_energy(h);
     %% ---------------------------------------------------------------------------
     % Store results for post processing
     % ----------------------------------------------------------------------------
@@ -179,8 +178,10 @@ while b <= cols
     %   fprintf('Current time: %5.2f\n', b*tStep)
     %   fprintf('Iteration %2.0f Complete\n', b)
     
-    [SR] = failureIndex(rdiv,b);
+    [SR, peakStr, peakLoc] = failureIndex(rdiv,b);
     results.SR{b} = SR;
+    results.peakStr{b} = peakStr;
+    results.peakLoc{b} = peakLoc;
     
     b = b + 1;
 
@@ -189,11 +190,11 @@ end
 %% -----------------------------------------------------------------------------
 % Calculate failure criterion
 % ------------------------------------------------------------------------------
-[E] = find_energy_power(h);
+
 %% -----------------------------------------------------------------------------
 % Make Plots
 % ------------------------------------------------------------------------------
-plotStressStrain(legTxt)
+plotStressStrain(legTxt, unit)
 
 % fprintf('Create Output Plots: Complete\n\n')
 fprintf('Program Complete\n')

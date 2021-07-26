@@ -1,4 +1,4 @@
-function [strRatio] = failureIndex(rdiv,b)
+function [strRatio, peakStr, peakLoc] = failureIndex(rdiv,b)
 
 global results rArr rim mat
 
@@ -33,7 +33,3 @@ for k = 1:length(rim) - 1
 end
 [peakStr(b), ind] = max(strRatio(1,:));
 peakLoc(b) = rArr(ind);
-
-
-results.peakstr = peakStr;
-results.peakloc = peakLoc;

@@ -1,4 +1,4 @@
-function plotStressStrain(legTxt)
+function plotStressStrain(legTxt, unit)
 %% -----------------------------------------------------------------------------
 % Define global variables, arrays, and structures
 % ------------------------------------------------------------------------------
@@ -7,6 +7,14 @@ uArr = results.uArr;
 sArr = results.sArr;
 tau =  results.tauArr;
 
+if strcmp(unit, 'in')
+  convert = 39.3701;
+elseif strcmp(unit, 'mm')
+  convert = 1000;
+else
+  convert = 1;
+  unit = 'm';
+end
 %% -----------------------------------------------------------------------------
 % Define rim origional centers and radii
 % ------------------------------------------------------------------------------
@@ -23,15 +31,15 @@ halfWay = round(length(sArr)/2);
 
 if strcmp(plotWhat.custom1, 'yes')
   figure(), hold on
-  plot(rArr*39.3701, sArr{1}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
+  plot(rArr*convert, sArr{1}(3,:,1)*.000145038,'-', 'Linewidth', 1.5)
   rad_data = csvread('radial-stress_t1_pressfit_cylinder.csv');
   plot(rad_data(:,1), rad_data(:,2), 'kd', 'MarkerFaceColor', 'k')
   
-  plot(rArr*39.3701, sArr{2}(3,:,1)*.000145038,'--', 'Linewidth', 1.5)
+  plot(rArr*convert, sArr{2}(3,:,1)*.000145038,'--', 'Linewidth', 1.5)
   rad_data = csvread('radial-stress_t2_pressfit_cylinder.csv');
   plot(rad_data(:,1), rad_data(:,2), 'ks', 'MarkerFaceColor', 'k')
   
-  plot(rArr*39.3701, sArr{3}(3,:,1)*.000145038,':', 'Linewidth', 1.5)
+  plot(rArr*convert, sArr{3}(3,:,1)*.000145038,':', 'Linewidth', 1.5)
   rad_data = csvread('radial-stress_t3_pressfit_cylinder.csv');
   plot(rad_data(:,1), rad_data(:,2), 'k^', 'MarkerFaceColor', 'k')
   
@@ -43,15 +51,15 @@ if strcmp(plotWhat.custom1, 'yes')
   set(gca, 'FontSize', 12)
   
   figure(), hold on
-  plot(rArr*39.3701, sArr{1}(1,:,1)*.000145038, '-', 'Linewidth', 1.5)
+  plot(rArr*convert, sArr{1}(1,:,1)*.000145038, '-', 'Linewidth', 1.5)
   hoop_data = csvread('hoop-stress_t1_pressfit_cylinder.csv');
   plot(hoop_data(:,1), hoop_data(:,2), 'kd', 'MarkerFaceColor', 'k')
     
-  plot(rArr*39.3701, sArr{2}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
+  plot(rArr*convert, sArr{2}(1,:,1)*.000145038, '--', 'Linewidth', 1.5)
   hoop_data = csvread('hoop-stress_t2_pressfit_cylinder.csv');
   plot(hoop_data(:,1), hoop_data(:,2), 'ks', 'MarkerFaceColor', 'k')
   
-  plot(rArr*39.3701, sArr{3}(1,:,1)*.000145038, ':', 'Linewidth', 1.5)
+  plot(rArr*convert, sArr{3}(1,:,1)*.000145038, ':', 'Linewidth', 1.5)
   hoop_data = csvread('hoop-stress_t3_pressfit_cylinder.csv');
   plot(hoop_data(:,1), hoop_data(:,2), 'k^', 'MarkerFaceColor', 'k')
   
@@ -69,15 +77,15 @@ if strcmp(plotWhat.custom1, 'yes')
   fprintf('Custom plot 1: Complete\n')
   
 %   figure(), hold on
-%   plot(rArr*39.3701, uArr{1}*39.3701, 'Linewidth', 1.5)
+%   plot(rArr*convert, uArr{1}*convert, 'Linewidth', 1.5)
 %   disp_data = csvread('Tzeng2001RadialDispInitial.csv');
 %   plot(disp_data(:,1), disp_data(:,2), 'kd')
 %   
-%   plot(rArr*39.3701, uArr{2}*39.3701, 'Linewidth', 1.5)
+%   plot(rArr*convert, uArr{2}*convert, 'Linewidth', 1.5)
 %   disp_data = csvread('Tzeng2001RadialDispMid.csv');
 %   plot(disp_data(:,1), disp_data(:,2), 'ks')
 %   
-%   plot(rArr*39.3701, uArr{3}*39.3701, 'Linewidth', 1.5)
+%   plot(rArr*convert, uArr{3}*convert, 'Linewidth', 1.5)
 %   disp_data = csvread('Tzeng2001RadialDispInf.csv');
 %   plot(disp_data(:,1), disp_data(:,2), 'k^')
 %   grid on
@@ -115,10 +123,10 @@ if strcmp(plotWhat.radDis, 'yes')
 
   hold on
   for k = 1:length(subSet)
-    plot(rArr*39.3701, subSet{k}(1,:)*39.3701, 'LineWidth', 1.5);
+    plot(rArr*convert, subSet{k}(1,:)*convert, 'LineWidth', 1.5);
   end
-  xlabel('Radius [in]')
-  ylabel('Radial Displacement [in]')
+  xlabel(['Radius [', unit, ']'])
+  ylabel(['Radial Displacement [', unit, ']'])
   legend(legTxt, 'Location', 'southeast')
 %   legend('Tzeng Initial', 'Tzeng 10 years', 'Tzeng Infinite', 'Initial','10 Years', 'Infinite')
   set(gca, 'FontSize', 12)
@@ -131,7 +139,6 @@ if strcmp(plotWhat.radStr, 'yes')
   radStr = figure('Visible','on');
   hold on
 
-
   try
     subSet = sArr(plotWhat.interval:plotWhat.interval:end);
   catch
@@ -141,9 +148,9 @@ if strcmp(plotWhat.radStr, 'yes')
   hold on
 %   plot(rArr*1000, sArr{1}(3,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr*39.3701, subSet{k}(3,:,1)*10^-6, 'LineWidth', 1.5);
+    plot(rArr*convert, subSet{k}(3,:,1)*10^-6, 'LineWidth', 1.5);
   end
-  xlabel('Radius [in]')
+  xlabel(['Radius [', unit, ']'])
   ylabel('Radial Stress [MPa]')
   legend(legTxt, 'Location', 'southeast')
 %   legend('Tzeng Initial', 'Tzeng 10 years', 'Tzeng Infinite', 'Initial','10 Years', 'Infinite')
@@ -166,11 +173,11 @@ if strcmp(plotWhat.hoopStr, 'yes')
   hold on
 %   plot(rArr*1000, sArr{1}(1,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr*39.3701, subSet{k}(1,:,1)*10^-6, 'LineWidth', 1.5);
+    plot(rArr*convert, subSet{k}(1,:,1)*10^-6, 'LineWidth', 1.5);
   end
 
 
-  xlabel('Radius [in]')
+  xlabel(['Radius [', unit, ']'])
   ylabel('Circumferential Stress [MPa]')
   legend(legTxt, 'Location', 'southeast', 'NumColumns', 5)
   set(gca, 'FontSize', 12)
@@ -197,7 +204,7 @@ if strcmp(plotWhat.shearStr, 'yes')
 % %   for k = 1:length(tauSubSet)
 %     plot(rArr*1000,tauSubSet{k}, 'LineWidth', 1.5);
 %   end
-  xlabel('Radius [mm]')
+  xlabel(['Radius [', unit, ']'])
   ylabel('Shear Stress [Pa]')
 %   legend(legTxt, 'Location', 'northeast')
   set(gca, 'FontSize', 12)
@@ -209,13 +216,26 @@ end
 if strcmp(plotWhat.peakStr, 'yes')
   peakStr = figure('Visible','on');
   hold on
-  yyaxis left; plot(results.vel,results.peakloc*1000, '-', 'Color', [0 0.4470 0.7410], 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
-  yyaxis right; plot(results.vel,results.peakstr, '-.o', 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
+  
+  try
+    pl_sub_set = results.peakloc(plotWhat.interval:plotWhat.interval:end);
+    ps_sub_set = results.peakstr(plotWhat.interval:plotWhat.interval:end);
+  catch
+    pl_sub_set = results.peakloc;
+    ps_sub_set = results.peakstr;
+  end
+  
+  yyaxis left; plot(results.vel,pl_sub_set(1)*convert, '-', 'Color', [0 0.4470 0.7410], 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
+  yyaxis right; plot(results.vel,ps_sub_set(1), '-.o', 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
+  for k = 1:length(pl_sub_set)
+    yyaxis left; plot(results.vel,pl_sub_set(k)*convert, '-', 'Color', [0 0.4470 0.7410], 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
+    yyaxis right; plot(results.vel,ps_sub_set(k), '-.o', 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
+  end
 %   yyaxis right; plot(results.vel, ones(length(results.time)), 'k--', 'LineWidth', 1.5)
 
   xlabel('Angular velocity [rpm]')
   yyaxis left
-  ylabel('Peak SR Location [mm]')
+  ylabel(['Peak SR Location [', unit, ']'])
   yyaxis right
   ylabel('Strength Ratio')
   legend('Peak SR Location', 'SR value', 'Location', 'southeast')
@@ -227,15 +247,15 @@ if strcmp(plotWhat.sr,'yes')
   figure()
   hold on
   
-  plot(rArr*39.3701, results.SR{1}, '-o', 'Color', [0 0.4470 0.7410],...
+  plot(rArr*convert, results.SR{1}, '-o', 'Color', [0 0.4470 0.7410],...
       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  plot(rArr*39.3701, results.SR{2}, '--d','Color', [0.6350 0.0780 0.1840],...
+  plot(rArr*convert, results.SR{2}, '--d','Color', [0.6350 0.0780 0.1840],...
       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  plot(rArr*39.3701, results.SR{3}, ':v', 'Color', [0.4940 0.1840 0.5560],...
+  plot(rArr*convert, results.SR{3}, ':v', 'Color', [0.4940 0.1840 0.5560],...
       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
   
   ylabel('Strength Ratio')
-  xlabel('Radius [in]')
+  xlabel(['Radius [', unit, ']'])
 %   legend('SR \it t=1', 'SR \it t=10', 'SR \it t=20')
   legend(legTxt, 'Location', 'northeast')
   grid on
