@@ -14,7 +14,7 @@ global mat plotWhat results
 % Define initial conditions and rotor size
 % ------------------------------------------------------------------------------
 % Rotor
-h = .25; % [m]
+h = 0.4; % [m]
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
 rim = [.16, .18, .32];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
@@ -26,7 +26,7 @@ rdiv = 30; % number of points per rim to analyze
 delta = [.0002, 0]; % m
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-mats = {'Al7075-T6_Ha2006.mat', 'IM7_8552_Tzeng2001.mat'};
+mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
 % mats = {'Alumin_6061_t6.mat' 'Walkingshaw_CFRP_withFoS.mat'};
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
@@ -36,7 +36,7 @@ addpath('ComplianceFunctions')
 
 % Speed/velocity
 profile = [1, 3.154e7, 5*3.154e7;...           % [ t1 t2 t3;
-           31000, 31000, 31000];             %   v1 v2 v3]
+           26000, 26000, 26000];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
