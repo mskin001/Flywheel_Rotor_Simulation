@@ -22,7 +22,6 @@ rim = [.16, .18, .32];
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
 rdiv = 30; % number of points per rim to analyze
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
-% delta = [.000378, 0]; % Tzeng 2012 press fit [m]
 delta = [.0002, 0]; % m
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
