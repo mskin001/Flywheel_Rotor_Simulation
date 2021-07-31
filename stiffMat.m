@@ -17,24 +17,6 @@ if ~strcmp(compFunc,'no')
   G12 = s(4);
   nu12 = s(5);
   nu23 = s(6);
-%   if length(out) == 1
-%     S11 = 1/E11;
-%     S22 = out;
-%     S33 = S22;
-%     G12 = 1/G12;
-%   elseif length(out) == 2
-%     S11 = 1/E11;
-%     S22 = out(1);
-%     S33 = S22;
-%     G12 = out(2); % This was specified for IM&_8552_Tzeng2001
-%   elseif length(out) == 3
-%     S11 = out(3);
-%     S22 = out(1);
-%     S33 = out(2);
-%     G12 = 1/G12;
-%   else
-%     error('Unknown compliance function output. Change output, or modify program')
-%   end
 else
   S11 = 1/E11;
   S22 = 1/E22;

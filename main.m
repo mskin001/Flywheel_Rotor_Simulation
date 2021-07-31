@@ -15,18 +15,20 @@ global mat plotWhat results
 % ------------------------------------------------------------------------------
 % Rotor
 h = 0.4; % [m]
-% rim = [0.03789; 0.07901]; % single rim Ha 1999
-rim = [.16, .18, .32];
+% rim = [0.05, 0.06, 0.1]; % single rim Ha 1999
+rim = [.1, .18, .32];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [.254, (.254 + .0254), (.254 + .0254 + .0762)]; % Walkingshaw
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
+% rim = [0.0762, 0.1524]; %Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 % delta = [.000378, 0]; % Tzeng 2012 press fit [m]
 delta = [.0002, 0]; % m
-sigb = [0, 0]; % [Pa]
+% delta = 0;
+sigb = [-0e6, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
-% mats = {'Alumin_6061_t6.mat' 'Walkingshaw_CFRP_withFoS.mat'};
+% mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
+mats = {'Al7057t6_Metals_Handbook_v2_1990.mat' 'IM7_8552_Tzeng2001.mat'};
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
 % compFunc = {@IM7_8552_Tzeng2001, @IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
@@ -34,13 +36,13 @@ compFunc = {'no', @IM7_8552_Tzeng2001};
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1, 3.154e7, 5*3.154e7;...           % [ t1 t2 t3;
-           26000, 26000, 26000];             %   v1 v2 v3]
+profile = [0.1, 525666.6, 5*525666.6;...           % [ t1 t2 t3;
+           0000, 0000, 0000];             %   v1 v2 v3]
 initial_acc = 0; % rad/s^2
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
-legTxt = {'t = 0 y', 't = 1 y', 't = 5 y'}; % Controls legend entries for graphs
+legTxt = {' t = 0, \omega = 0', 't = 0 y', 't = 1 y', 't = 5 y'}; % Controls legend entries for graphs
 unit = 'mm';
 plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.maxStr = 'no';        % maximum stress failure criteria
