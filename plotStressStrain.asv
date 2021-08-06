@@ -52,8 +52,8 @@ if strcmp(plotWhat.custom1, 'yes')
   plot(rad_data(:,1), rad_data(:,2), 'k^', 'MarkerFaceColor', 'k')
   
   grid on
-  xlabel(['Radius [', lng_unit, ']'])
-  ylabel(['Stress [', force_unit,']'])
+  xlabel(['Radius [', unit, ']'])
+  ylabel('Stress [MPa]')
   legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf'...
       ,'Location', 'southeast')
   set(gca, 'FontSize', 12)
@@ -61,23 +61,23 @@ if strcmp(plotWhat.custom1, 'yes')
   figure(), hold on
   plot(rArr*lng, sArr{1}(1,:,1)*force, '-', 'Linewidth', 1.5)
   hoop_data = csvread('Tzeng2001HoopInitial.csv');
-  plot(hoop_data(:,1), hoop_data(:,2), 'kd', 'MarkerFaceColor', 'k')
+  plot(hoop_data(:,1), hoop_data(:,2)*.00689476, 'kd', 'MarkerFaceColor', 'k')
     
   plot(rArr*lng, sArr{2}(1,:,1)*force, '--', 'Linewidth', 1.5)
-  hoop_data = csvread('Tzeng2001HoopMid.csv');
-  plot(hoop_data(:,1), hoop_data(:,2), 'ks', 'MarkerFaceColor', 'k')
+  hoop_data = csvread('Tzeng2001HoopMidr.csv');
+  plot(hoop_data(:,1)*25.4, hoop_data(:,2)*.00689476, 'ks', 'MarkerFaceColor', 'k')
   
   plot(rArr*lng, sArr{3}(1,:,1)*force, ':', 'Linewidth', 1.5)
   hoop_data = csvread('Tzeng2001HoopInf.csv');
-  plot(hoop_data(:,1), hoop_data(:,2), 'k^', 'MarkerFaceColor', 'k')
+  plot(hoop_data(:,1)*25.4, hoop_data(:,2)*.00689476, 'k^', 'MarkerFaceColor', 'k')
   
 %   plot(rArr*1000, tau{1}*10^-6, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
 %   plot(tau_data(:,1)*1000, tau_data(:,2), 'ko')
   grid on
   legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf'...
       ,'Location', 'southeast')
-  xlabel(['Radius [', lng_unit, ']'])
-  ylabel(['Stress [', force_unit,']'])
+  xlabel(['Radius [', unit, ']'])
+  ylabel('Stress [MPa]')
 %   legend('Model 10*\sigma_r', 'Aparicio2011, 10*\sigma_r','Model \sigma_\theta',...
 %       'Aparicio2011, \sigma_\theta', 'Model \tau_r_\theta', 'Aparicio2011, \tau_r_\theta',...
 %       'NumColumns', 3, 'Location', 'southoutside')
@@ -85,20 +85,20 @@ if strcmp(plotWhat.custom1, 'yes')
   fprintf('Custom plot 1: Complete\n')
   
   figure(), hold on
-  plot(rArr*lng, uArr{1}*lng, 'Linewidth', 1.5)
+  plot(rArr*convert, uArr{1}*convert, 'Linewidth', 1.5)
   disp_data = csvread('Tzeng2001RadialDispInitial.csv');
   plot(disp_data(:,1), disp_data(:,2), 'kd')
   
-  plot(rArr*lng, uArr{2}*lng, 'Linewidth', 1.5)
+  plot(rArr*convert, uArr{2}*convert, 'Linewidth', 1.5)
   disp_data = csvread('Tzeng2001RadialDispMid.csv');
   plot(disp_data(:,1), disp_data(:,2), 'ks')
   
-  plot(rArr*lng, uArr{3}*lng, 'Linewidth', 1.5)
+  plot(rArr*convert, uArr{3}*convert, 'Linewidth', 1.5)
   disp_data = csvread('Tzeng2001RadialDispInf.csv');
   plot(disp_data(:,1), disp_data(:,2), 'k^')
   grid on
-  xlabel(['Radius [' lng_unit, ']'])
-  ylabel(['Displacement [', lng_unit, ']'])
+  xlabel('Radius [in]')
+  ylabel('Displacement [in]')
   legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf')
   set(gca, 'FontSize', 12)
 end
