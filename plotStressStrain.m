@@ -7,6 +7,8 @@ uArr = results.uArr;
 sArr = results.sArr;
 tau =  results.tauArr;
 
+marker = 'o+v*<s>dx.^p';
+
 if strcmp(unit, 'ips')
   lng = 39.3701; %convert length to inches
   lng_unit = 'in';
@@ -40,15 +42,15 @@ halfWay = round(length(sArr)/2);
 if strcmp(plotWhat.custom1, 'yes')
   figure(), hold on
   plot(rArr*lng, sArr{1}(3,:,1)*force,'-', 'Linewidth', 1.5)
-  rad_data = csvread('Tzeng2001RadialStrInitial.csv');
+  rad_data = csvread('radial-stress_t1_pressfit_cylinder.csv');
   plot(rad_data(:,1), rad_data(:,2), 'kd', 'MarkerFaceColor', 'k')
   
   plot(rArr*lng, sArr{2}(3,:,1)*force,'--', 'Linewidth', 1.5)
-  rad_data = csvread('Tzeng2001RadialStrMid.csv');
+  rad_data = csvread('radial-stress_t2_pressfit_cylinder.csv');
   plot(rad_data(:,1), rad_data(:,2), 'ks', 'MarkerFaceColor', 'k')
   
   plot(rArr*lng, sArr{3}(3,:,1)*force,':', 'Linewidth', 1.5)
-  rad_data = csvread('Tzeng2001RadialStrInf.csv');
+  rad_data = csvread('radial-stress_t3_pressfit_cylinder.csv');
   plot(rad_data(:,1), rad_data(:,2), 'k^', 'MarkerFaceColor', 'k')
   
   grid on
@@ -60,15 +62,15 @@ if strcmp(plotWhat.custom1, 'yes')
   
   figure(), hold on
   plot(rArr*lng, sArr{1}(1,:,1)*force, '-', 'Linewidth', 1.5)
-  hoop_data = csvread('Tzeng2001HoopInitial.csv');
+  hoop_data = csvread('hoop-stress_t1_pressfit_cylinder.csv');
   plot(hoop_data(:,1), hoop_data(:,2), 'kd', 'MarkerFaceColor', 'k')
     
   plot(rArr*lng, sArr{2}(1,:,1)*force, '--', 'Linewidth', 1.5)
-  hoop_data = csvread('Tzeng2001HoopMid.csv');
+  hoop_data = csvread('hoop-stress_t2_pressfit_cylinder.csv');
   plot(hoop_data(:,1), hoop_data(:,2), 'ks', 'MarkerFaceColor', 'k')
   
   plot(rArr*lng, sArr{3}(1,:,1)*force, ':', 'Linewidth', 1.5)
-  hoop_data = csvread('Tzeng2001HoopInf.csv');
+  hoop_data = csvread('hoop-stress_t3_pressfit_cylinder.csv');
   plot(hoop_data(:,1), hoop_data(:,2), 'k^', 'MarkerFaceColor', 'k')
   
 %   plot(rArr*1000, tau{1}*10^-6, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
@@ -84,23 +86,23 @@ if strcmp(plotWhat.custom1, 'yes')
   set(gca, 'FontSize', 12)
   fprintf('Custom plot 1: Complete\n')
   
-  figure(), hold on
-  plot(rArr*lng, uArr{1}*lng, 'Linewidth', 1.5)
-  disp_data = csvread('Tzeng2001RadialDispInitial.csv');
-  plot(disp_data(:,1), disp_data(:,2), 'kd')
-  
-  plot(rArr*lng, uArr{2}*lng, 'Linewidth', 1.5)
-  disp_data = csvread('Tzeng2001RadialDispMid.csv');
-  plot(disp_data(:,1), disp_data(:,2), 'ks')
-  
-  plot(rArr*lng, uArr{3}*lng, 'Linewidth', 1.5)
-  disp_data = csvread('Tzeng2001RadialDispInf.csv');
-  plot(disp_data(:,1), disp_data(:,2), 'k^')
-  grid on
-  xlabel(['Radius [' lng_unit, ']'])
-  ylabel(['Displacement [', lng_unit, ']'])
-  legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf')
-  set(gca, 'FontSize', 12)
+%   figure(), hold on
+%   plot(rArr*lng, uArr{1}*lng, 'Linewidth', 1.5)
+%   disp_data = csvread('Tzeng2001RadialDispInitial.csv');
+%   plot(disp_data(:,1), disp_data(:,2), 'kd')
+%   
+%   plot(rArr*lng, uArr{2}*lng, 'Linewidth', 1.5)
+%   disp_data = csvread('Tzeng2001RadialDispMid.csv');
+%   plot(disp_data(:,1), disp_data(:,2), 'ks')
+%   
+%   plot(rArr*lng, uArr{3}*lng, 'Linewidth', 1.5)
+%   disp_data = csvread('Tzeng2001RadialDispInf.csv');
+%   plot(disp_data(:,1), disp_data(:,2), 'k^')
+%   grid on
+%   xlabel(['Radius [' lng_unit, ']'])
+%   ylabel(['Displacement [', lng_unit, ']'])
+%   legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf')
+%   set(gca, 'FontSize', 12)
 end
 
 %% -----------------------------------------------------------------------------
@@ -122,7 +124,7 @@ end
 % -------------- Radial displacements ------------------------------------------
 if strcmp(plotWhat.radDis, 'yes')
   try
-    subSet = uArr(plotWhat.interval:plotWhat.interval:end);
+    subSet = uArr(1:plotWhat.interval:end);
   catch
     subSet = uArr;
   end
@@ -148,7 +150,7 @@ if strcmp(plotWhat.radStr, 'yes')
   hold on
 
   try
-    subSet = sArr(plotWhat.interval:plotWhat.interval:end);
+    subSet = sArr(1:plotWhat.interval:end);
   catch
     subSet = sArr;
   end
@@ -156,7 +158,7 @@ if strcmp(plotWhat.radStr, 'yes')
   hold on
 %   plot(rArr*1000, sArr{1}(3,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr*lng, subSet{k}(3,:,1)*force, 'LineWidth', 1.5);
+    plot(rArr*lng, subSet{k}(3,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
   end
   xlabel(['Radius [', lng_unit, ']'])
   ylabel(['Radial Stress [', force_unit, ']'])
@@ -173,7 +175,7 @@ if strcmp(plotWhat.hoopStr, 'yes')
   hold on
 
   try
-    subSet = sArr(plotWhat.interval:plotWhat.interval:end);
+    subSet = sArr(1:plotWhat.interval:end);
   catch
     subSet = sArr;
   end
@@ -181,7 +183,7 @@ if strcmp(plotWhat.hoopStr, 'yes')
   hold on
 %   plot(rArr*1000, sArr{1}(1,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr*lng, subSet{k}(1,:,1)*force, 'LineWidth', 1.5);
+    plot(rArr*lng, subSet{k}(1,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
   end
 
 
@@ -197,7 +199,7 @@ end
 if strcmp(plotWhat.shearStr, 'yes')
   shearStr = figure('Visible', 'on');
   try
-    tauSubSet = tau(plotWhat.interval:plotWhat.interval:end); % select tau of interest to plot
+    tauSubSet = tau(1:plotWhat.interval:end); % select tau of interest to plot
   catch
     % warning('Failed to limit tau to descrete intervals. Plotting all tau.')
     tauSubSet = tau;
@@ -226,8 +228,8 @@ if strcmp(plotWhat.peakStr, 'yes')
   hold on
   
   try
-    pl_sub_set = results.peakloc(plotWhat.interval:plotWhat.interval:end);
-    ps_sub_set = results.peakstr(plotWhat.interval:plotWhat.interval:end);
+    pl_sub_set = results.peakloc(1:plotWhat.interval:end);
+    ps_sub_set = results.peakstr(1:plotWhat.interval:end);
   catch
     pl_sub_set = results.peakloc;
     ps_sub_set = results.peakstr;
@@ -255,15 +257,26 @@ if strcmp(plotWhat.sr,'yes')
   figure()
   hold on
   
-  plot(rArr*lng, results.SR{1}, '-o', 'Color', [0 0.4470 0.7410],...
-      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  plot(rArr*lng, results.SR{2}, '--d','Color', [0.6350 0.0780 0.1840],...
-      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  plot(rArr*lng, results.SR{3}, ':v', 'Color', [0.4940 0.1840 0.5560],...
-      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  plot(rArr*lng, results.SR{end}, ':v',...
-      'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+%   plot(rArr*lng, results.SR{1}, '-o', 'Color', [0 0.4470 0.7410],...
+%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+%   plot(rArr*lng, results.SR{2}, '--d','Color', [0.6350 0.0780 0.1840],...
+%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+%   plot(rArr*lng, results.SR{3}, ':v', 'Color', [0.4940 0.1840 0.5560],...
+%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
+%   plot(rArr*lng, results.SR{end}, ':v',...
+%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
   
+  try
+    subSet = results.SR(1:plotWhat.interval:end);
+  catch
+    subSet = results.SR;
+  end
+
+  hold on
+%   plot(rArr*1000, sArr{1}(1,:,1)*10^-6, 'LineWidth', 1.5)
+  for k = 1:length(subSet)
+    plot(rArr*lng, subSet{k}(1,:,1), [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
+  end
   ylabel('Strength Ratio')
   xlabel(['Radius [', lng_unit, ']'])
 %   legend('SR \it t=1', 'SR \it t=10', 'SR \it t=20')

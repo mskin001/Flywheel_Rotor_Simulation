@@ -1,7 +1,7 @@
 clc
 clear all
-close('all','force')
-format long
+close ALL FORCE
+format shorte
 %% -----------------------------------------------------------------------------
 % Define global variables
 % ------------------------------------------------------------------------------
@@ -16,44 +16,46 @@ global mat plotWhat results
 % Rotor
 h = 0.4; % [m]
 % rim = [0.05, 0.06, 0.1]; % single rim Ha 1999
-% rim = [.15, .18, .32]*.25;
+rim = [.15, .18, .32];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [.254, (.254 + .0254), (.254 + .0254 + .0762)]; % Walkingshaw
-rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
+% rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
 % rim = [0.0762, 0.1524]; %Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = [.000378, 0]; % Tzeng 2012 press fit [m]
-% delta = [.0004, 0]; % m
+% delta = [.00037, 0]; % Tzeng 2012 press fit [m]
+delta = [0.0008, 0]; % m
 % delta = 0;
 sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-% mats = {'ANSYS_stainless_steel.mat', 'IM7_8552_Tzeng2001.mat'};
-mats = {'IM7_8552_Tzeng2001.mat', 'IM7_8552_Tzeng2001.mat'};
+mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
+% mats = {'IM7_8552_Tzeng2001.mat'};
 % Time/creep
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {@IM7_8552_Tzeng2001, @IM7_8552_Tzeng2001}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {'no', @IM7_8552_Tzeng2001_2}; % compliance function, input 'no' to turn off creep modeling
 % compFunc = {'no', @IM7_8552_Tzeng2001};
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1, 10^5, 10^10;...           % [ t1 t2 t3;
-           	0, 0, 0];             %   v1 v2 v3]
+profile = [8, 8, 8;...           % [ t1 t2 t3;
+           25560 , 7100, 16330];             %   v1 v2 v3]
+phases_per_day = length(profile(1,:));
+num_days = 365;
 % profile = [1, 10^5, 10^10; 50000, 50000, 50000];
 
 initial_acc = 0; % rad/s^2
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
-legTxt = {'t = 0 y, \omega = 0', 't = 0 y', 't = 0.5 y', 't = 1 y', 't = 10 y', 't = 25 y'}; % Controls legend entries for graphs
+legTxt = {'t = 0, \omega = 0', 't = 0', 't = 0.5y', 't = 1y', 't = 5y', 't = 10y'}; % Controls legend entries for graphs
 unit = 'mmMPas';
 plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.maxStr = 'no';        % maximum stress failure criteria
-plotWhat.radDis = 'yes';          % Radial displacement v. radius
+plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
 plotWhat.shearStr = 'no';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
-plotWhat.sr = 'no';
+plotWhat.sr = 'yes';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
@@ -62,7 +64,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 1;          % Display time interval on figures
+plotWhat.interval = 89*3;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
@@ -102,13 +104,15 @@ fprintf('Check Input Variables: Complete\n')
 % Program Begin
 % ------------------------------------------------------------------------------
 b = 1;
-[~, cols] = size(profile);
+% [~, cols] = size(profile);
+f = waitbar(0,'1','Name', 'Performing Simulation', 'CreateCancelBtn', 'setappdata(gcbf,''canceling'',1)');
+setappdata(f,'canceling',0);
 
-while b <= cols
-    w = (pi/30) * profile(2,b); %initial angular velocity
+while b <= phases_per_day*num_days
+    w = (pi/30) * profile(2,mod(b,phases_per_day)+1); %initial angular velocity
     w0 = w;
 
-    t = profile(1,b);
+    t = b * profile(1,1);
     %   fprintf('Create Variable Arrays: Complete\n')
     %% ---------------------------------------------------------------------------
     % Preallocate variables
@@ -161,13 +165,13 @@ while b <= cols
 
     %%----------------------------------------------------------------------------
     % Calculate the share stress on the rim.
-    if b == 1
-        alpha = initial_acc;
-    else
-        alpha = (profile(2,b-1) - profile(2,b)) / (profile(1,b-1) - profile(1,b));
-    end
+%     if b == 1
+%         alpha = initial_acc;
+%     else
+%         alpha = (profile(2,b-1) - profile(2,b)) / (profile(1,b-1) - profile(1,b));
+%     end
 
-    [~] = shearStress(alpha, rdiv);
+    [~] = shearStress(0, rdiv);
 
     
     [E(b)] = find_energy(h);
@@ -187,9 +191,17 @@ while b <= cols
     results.peakLoc{b} = peakLoc;
     
     b = b + 1;
-
+    
+    if getappdata(f,'canceling')
+      close(f, 'force')
+      break
+    elseif mod(b,phases_per_day) == 0
+      waitbar(b/(phases_per_day*num_days),f,['Days complete: ',num2str(b/3)])
+      pause(0.15)
+    end
+      
 end
-
+close(f, 'force')
 %% -----------------------------------------------------------------------------
 % Calculate failure criterion
 % ------------------------------------------------------------------------------
