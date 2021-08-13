@@ -36,8 +36,10 @@ compFunc = {'no', @IM7_8552_Tzeng2001_2}; % compliance function, input 'no' to t
 addpath('ComplianceFunctions')
 
 % Speed/velocity
-profile = [1, 0.5*8760, 8760;...           % [ t1 t2 t3;
-           28400, 28400, 28400];             %   v1 v2 v3]
+profile = [8, 8, 8;...           % [ t1 t2 t3;
+           25560 , 7100, 16330];             %   v1 v2 v3]
+phases_per_day = length(profile(1,:));
+num_days = 365;
 % profile = [1, 10^5, 10^10; 50000, 50000, 50000];
 
 initial_acc = 0; % rad/s^2
@@ -62,7 +64,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 1;          % Display time interval on figures
+plotWhat.interval = 89*3;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
@@ -102,12 +104,16 @@ fprintf('Check Input Variables: Complete\n')
 % Program Begin
 % ------------------------------------------------------------------------------
 b = 1;
-[~, cols] = size(profile);
-while b <= cols
-    w = (pi/30) * profile(2,b); %initial angular velocity
+% [~, cols] = size(profile);
+f = waitbar(0,'1','Name', 'Performing Simulation', 'CreateCancelBtn', 'setappdata(gcbf,''canceling'',1)');
+setappdata(f,'canceling',0);
+
+while b <= phases_per_day*num_days
+    w = (pi/30) * profile(2,mod(b,phases_per_day)+1); %initial angular velocity
     w0 = w;
-    t = profile(1,b);
-    
+
+    t = b * profile(1,1);
+    %   fprintf('Create Variable Arrays: Complete\n')
     %% ---------------------------------------------------------------------------
     % Preallocate variables
     % ----------------------------------------------------------------------------
@@ -118,6 +124,8 @@ while b <= cols
     sArr = zeros(4,(arraySize-1)*rdiv);    % stress vector
     tauArr = zeros(1,(arraySize-1)*rdiv);
     eArr = zeros(4, rdiv);    % strain vector in each direction
+
+    %   fprintf('Preallocate Memory: Complete\n')
 
     %% ---------------------------------------------------------------------------
     % Create Q matrices for all materials
@@ -136,6 +144,7 @@ while b <= cols
         end
     end
 
+    %   fprintf('Create Material Property Matrices: Complete\n')
     %% ---------------------------------------------------------------------------
     % Calculate displacement magnitude at the inner and outer surface of each rim
     % these are used as boundary conditions to find C. ~ is used to disregard
@@ -144,12 +153,15 @@ while b <= cols
     % discription for mor info
     [~, ~, ~, ~] = boundaryConditions(sigb, delta);
 
+    %   fprintf('Calculate Boundary Conditions: Complete\n')
     %% ---------------------------------------------------------------------------
     % Calculate discrete displacement, stain, and stress for each rim ~ here is
     % used to the [C] matrix output. This is useful for debugging and
     % verification purposes but not necessary for the function. Check function
     % description for mor info
     [~] = discretizeStressStrain(rdiv, delta);
+
+    %   fprintf('Descretize Stress/Strain: Complete\n')
 
     %%----------------------------------------------------------------------------
     % Calculate the share stress on the rim.
@@ -160,6 +172,8 @@ while b <= cols
 %     end
 
     [~] = shearStress(0, rdiv);
+
+    
     [E(b)] = find_energy(h);
     %% ---------------------------------------------------------------------------
     % Store results for post processing
@@ -168,19 +182,29 @@ while b <= cols
     results.sArr{b} = sArr;
     results.tauArr{b} = tauArr;
     results.vel(b) = w * (30 / pi);
+    %   fprintf('Current time: %5.2f\n', b*tStep)
+    %   fprintf('Iteration %2.0f Complete\n', b)
     
-    %% -----------------------------------------------------------------------------
-    % Calculate failure criterion
-    % ------------------------------------------------------------------------------
     [SR, peakStr, peakLoc] = failureIndex(rdiv,b);
-    
     results.SR{b} = SR;
     results.peakStr{b} = peakStr;
     results.peakLoc{b} = peakLoc;
     
     b = b + 1;
+    
+    if getappdata(f,'canceling')
+      close(f, 'force')
+      break
+    elseif mod(b,phases_per_day) == 0
+      waitbar(b/(phases_per_day*num_days),f,['Days complete: ',num2str(b/3)])
+      pause(0.15)
+    end
       
 end
+close(f, 'force')
+%% -----------------------------------------------------------------------------
+% Calculate failure criterion
+% ------------------------------------------------------------------------------
 
 %% -----------------------------------------------------------------------------
 % Make Plots
