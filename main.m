@@ -30,7 +30,7 @@ sigb = [0, 0]; % [Pa]
 mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
 % mats = {'IM7_8552_Tzeng2001.mat'};
 % Time/creep
-timeUnit = 's'; % s = sec, h = hours, d = days
+timeUnit = 'h'; % s = sec, h = hours, d = days
 compFunc = {'no', @IM7_8552_Tzeng2001_2}; % compliance function, input 'no' to turn off creep modeling
 % compFunc = {'no', @IM7_8552_Tzeng2001};
 addpath('ComplianceFunctions')
@@ -153,13 +153,13 @@ while b <= cols
 
     %%----------------------------------------------------------------------------
     % Calculate the share stress on the rim.
-%     if b == 1
-%         alpha = initial_acc;
-%     else
-%         alpha = (profile(2,b-1) - profile(2,b)) / (profile(1,b-1) - profile(1,b));
-%     end
+    if b == 1
+        alpha = initial_acc;
+    else
+        alpha = (profile(2,b-1) - profile(2,b)) / (profile(1,b-1) - profile(1,b));
+    end
 
-    [~] = shearStress(0, rdiv);
+    [~] = shearStress(alpha, rdiv);
     [E(b)] = find_energy(h);
     %% ---------------------------------------------------------------------------
     % Store results for post processing
@@ -186,6 +186,4 @@ end
 % Make Plots
 % ------------------------------------------------------------------------------
 plotStressStrain(legTxt, unit)
-
-% fprintf('Create Output Plots: Complete\n\n')
 fprintf('Program Complete\n')
