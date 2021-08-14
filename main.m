@@ -46,7 +46,8 @@ initial_acc = 0; % rad/s^2
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
-legTxt = {'t = 0, \omega = 0', 't = 0', 't = 0.5y', 't = 1y', 't = 5y', 't = 10y'}; % Controls legend entries for graphs
+legTxt = {'Min Phase', 'Inter. Phase', 'Max Phase'}; % Controls legend entries for graphs
+day = 1;
 unit = 'mmMPas';
 plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.maxStr = 'no';        % maximum stress failure criteria
@@ -64,7 +65,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 89*3;          % Display time interval on figures
+plotWhat.interval = 1;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
@@ -197,7 +198,6 @@ while b <= phases_per_day*num_days
       break
     elseif mod(b,phases_per_day) == 0
       waitbar(b/(phases_per_day*num_days),f,['Days complete: ',num2str(b/3)])
-      pause(0.15)
     end
       
 end
@@ -209,7 +209,7 @@ close(f, 'force')
 %% -----------------------------------------------------------------------------
 % Make Plots
 % ------------------------------------------------------------------------------
-plotStressStrain(legTxt, unit)
+plotStressStrain(legTxt, day, phases_per_day, unit)
 
 % fprintf('Create Output Plots: Complete\n\n')
 fprintf('Program Complete\n')

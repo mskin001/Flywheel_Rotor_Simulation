@@ -1,4 +1,4 @@
-function plotStressStrain(legTxt, unit)
+function plotStressStrain(legTxt, day, phases, unit)
 %% -----------------------------------------------------------------------------
 % Define global variables, arrays, and structures
 % ------------------------------------------------------------------------------
@@ -25,6 +25,9 @@ else
   force = 10^-6;
   force_unit = 'MPa';
 end
+
+day_start_ind = day*phases - (phases-1);
+day_end_ind = day*phases;
 %% -----------------------------------------------------------------------------
 % Define rim origional centers and radii
 % ------------------------------------------------------------------------------
@@ -150,7 +153,7 @@ if strcmp(plotWhat.radStr, 'yes')
   hold on
 
   try
-    subSet = sArr(1:plotWhat.interval:end);
+    subSet = sArr(day_start_ind:plotWhat.interval:day_end_ind);
   catch
     subSet = sArr;
   end
@@ -175,7 +178,7 @@ if strcmp(plotWhat.hoopStr, 'yes')
   hold on
 
   try
-    subSet = sArr(1:plotWhat.interval:end);
+    subSet = sArr(day_start_ind:plotWhat.interval:day_end_ind);
   catch
     subSet = sArr;
   end
@@ -199,7 +202,7 @@ end
 if strcmp(plotWhat.shearStr, 'yes')
   shearStr = figure('Visible', 'on');
   try
-    tauSubSet = tau(1:plotWhat.interval:end); % select tau of interest to plot
+    tauSubSet = tau(day_start_ind:plotWhat.interval:day_end_ind); % select tau of interest to plot
   catch
     % warning('Failed to limit tau to descrete intervals. Plotting all tau.')
     tauSubSet = tau;
@@ -228,8 +231,8 @@ if strcmp(plotWhat.peakStr, 'yes')
   hold on
   
   try
-    pl_sub_set = results.peakloc(1:plotWhat.interval:end);
-    ps_sub_set = results.peakstr(1:plotWhat.interval:end);
+    pl_sub_set = results.peakloc(day_start_ind:plotWhat.interval:day_end_ind);
+    ps_sub_set = results.peakstr(day_start_ind:plotWhat.interval:day_end_ind);
   catch
     pl_sub_set = results.peakloc;
     ps_sub_set = results.peakstr;
@@ -257,17 +260,8 @@ if strcmp(plotWhat.sr,'yes')
   figure()
   hold on
   
-%   plot(rArr*lng, results.SR{1}, '-o', 'Color', [0 0.4470 0.7410],...
-%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-%   plot(rArr*lng, results.SR{2}, '--d','Color', [0.6350 0.0780 0.1840],...
-%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-%   plot(rArr*lng, results.SR{3}, ':v', 'Color', [0.4940 0.1840 0.5560],...
-%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-%   plot(rArr*lng, results.SR{end}, ':v',...
-%       'MarkerIndices', 1:5:length(rArr), 'Linewidth', 1.5)
-  
   try
-    subSet = results.SR(1:plotWhat.interval:end);
+    subSet = results.SR(day_start_ind:plotWhat.interval:day_end_ind);
   catch
     subSet = results.SR;
   end
