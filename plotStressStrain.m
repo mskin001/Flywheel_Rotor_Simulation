@@ -257,7 +257,7 @@ end
 
 % ------------- Strength Ratio --------------------------------------------
 if strcmp(plotWhat.sr,'yes')
-  figure()
+  figure(3)
   hold on
   
   try
@@ -269,7 +269,7 @@ if strcmp(plotWhat.sr,'yes')
   hold on
 %   plot(rArr*1000, sArr{1}(1,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr*lng, subSet{k}(1,:,1), [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
+    plot(rArr*lng, subSet{k}(1,:,1), [marker(k),':'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
   end
   ylabel('Strength Ratio')
   xlabel(['Radius [', lng_unit, ']'])
