@@ -3,7 +3,7 @@ clear all
 close ALL FORCE
 format shorte
 %% -----------------------------------------------------------------------------
-% Define global variables, no changes necessary
+% Define global variables
 % ------------------------------------------------------------------------------
 % Global variables and arrays
 global U w rim arraySize rArr uArr sArr eArr tauArr t
@@ -56,21 +56,19 @@ plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
 plotWhat.shearStr = 'no';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
-plotWhat.sr = 'yes';            % strength ratio
+plotWhat.sr = 'yes';
 
-plotWhat.interval = 1;          % Display time interval on figures
-% Gif output under construction
+% Gif output
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
 plotWhat.radGif = 'no';          % Radial stress gif, surface plot
 plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
+
+plotWhat.interval = 1;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
-                                 
-
-
 
 %% -----------------------------------------------------------------------------
 % Start Program, no changes below this line necessary
