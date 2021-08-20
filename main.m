@@ -158,7 +158,7 @@ while b <= cols
     [~] = discretizeStressStrain(rdiv, delta);
 
     %%----------------------------------------------------------------------------
-    % Calculate the share stress on the rim.
+    % Calculate the share stress on the rim. Results not yet verified.
     if b == 1
         alpha = initial_acc;
     else
