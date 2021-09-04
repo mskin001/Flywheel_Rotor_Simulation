@@ -39,8 +39,8 @@ compFunc = {'no', @IM7_8552_Tzeng2001_2}; % compliance function, input 'no' to t
 addpath('ComplianceFunctions')
 
 % Time; Velocity
-profile = [1, 0.5*8760, 8760;...           % [ t1 t2 t3;
-           28400, 28400, 28400];             %   v1 v2 v3]
+profile = [1, 1, 0.5*8760, 8760, 5*8760, 10*8760;...           % [ t1 t2 t3;
+           0, 28400, 28400, 28400, 28400, 28400];             %   v1 v2 v3]
 % profile = [1, 10^5, 10^10; 50000, 50000, 50000];
 
 initial_acc = 0; % rad/s^2
@@ -54,6 +54,7 @@ plotWhat.maxStr = 'no';        % maximum stress failure criteria
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
+plotWhat.axialStr = 'yes';
 plotWhat.shearStr = 'no';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
 plotWhat.sr = 'yes';            % strength ratio

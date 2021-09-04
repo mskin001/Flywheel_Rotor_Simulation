@@ -195,6 +195,31 @@ if strcmp(plotWhat.hoopStr, 'yes')
   fprintf('Hoop Stress Plot: Complete\n')
 end
 
+% -------------- Axial stress -------------------------------------------------
+if strcmp(plotWhat.axialStr, 'yes')
+  radStr = figure('Visible','on');
+  hold on
+
+  try
+    subSet = sArr(1:plotWhat.interval:end);
+  catch
+    subSet = sArr;
+  end
+
+  hold on
+%   plot(rArr*1000, sArr{1}(3,:,1)*10^-6, 'LineWidth', 1.5)
+  for k = 1:length(subSet)
+    plot(rArr*lng, subSet{k}(2,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
+  end
+  xlabel(['Axial [', lng_unit, ']'])
+  ylabel(['Axial Stress [', force_unit, ']'])
+  legend(legTxt, 'Location', 'southeast')
+%   legend('Tzeng Initial', 'Tzeng 10 years', 'Tzeng Infinite', 'Initial','10 Years', 'Infinite')
+  set(gca, 'FontSize', 12)
+  grid on
+  fprintf('Axial Sress Plot: Complete\n')
+end
+
 % -------------- Shear stress --------------------------------------------------
 if strcmp(plotWhat.shearStr, 'yes')
   shearStr = figure('Visible', 'on');

@@ -11,7 +11,7 @@ for k = 1:length(rim) - 1
     LgComp = mat.stren{k}(2); % longitudinal compressive strength
     TranTens = mat.stren{k}(3); % transverse tensile strength
     TranComp = mat.stren{k}(4); % transverse compressive strength
-    sh = mat.stren{k}(5); % longitudinal shear strength
+    %     sh = mat.stren{k}(5); % longitudinal shear strength
 
     F11 = 1/(LgTens*LgComp); % F11
     F1 = 1/LgTens - 1/LgComp; % F1
@@ -20,10 +20,9 @@ for k = 1:length(rim) - 1
     F13 = -1/(2*sqrt(LgTens*LgComp*TranTens*TranComp)); % F13
     F22 = F33;
     F2 = F3;
-    F66 = 1/sh^2; % F66
     F12 = F13;
-    F23 = F22 - 0.5*F66;
-    
+    F23 = F22 - 0.5*F44;
+    %     F66 = 1/sh^2; % F66
 
     sigt = results.sArr{b}(1,rStart:rEnd); % sig1 circumferential stress
     sigax = results.sArr{b}(2,rStart:rEnd); % sig2 axial stress
@@ -32,9 +31,8 @@ for k = 1:length(rim) - 1
 
     A = F11*sigt.^2 + F22*sigax.^2 + F33*sigr.^2 +...
         2*F13*sigt.*sigr + 2*F12.*sigt.*sigax + 2*F23.*sigax.*sigr;% + F66*tau.^2;
-    B = F1*sigt + F2*sigax + F3*sigr;
+    B = F1*sigt + F3*sigr;
     C = -1;
-    
     R(1,rStart:rEnd) = (-B + sqrt(B.^2 - 4*A*C)) ./ (2*A);
     strRatio(1,rStart:rEnd) = R(1,rStart:rEnd).^-1;
 
