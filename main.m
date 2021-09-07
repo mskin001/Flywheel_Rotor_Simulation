@@ -17,32 +17,33 @@ global mat plotWhat results
 % parameters
 % ------------------------------------------------------------------------------
 % Rotor
-h = 0.4; % [m]
+h = 0.43; % [m]
 % rim = [0.05, 0.06, 0.1]; % single rim Ha 1999
-rim = [.03789, .07901];
+rim = [.16, .20, .33];
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [.254, (.254 + .0254), (.254 + .0254 + .0762)]; % Walkingshaw
 % rim = [0.0762, 0.09144, 0.10668]; %Tzeng2001 
-% rim = [0.0762, 0.1524]; %Tzeng2001
+% rim = [.03786, .08393, .14734]; %Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 % delta = [.00037, 0]; % Tzeng 2012 press fit [m]
-delta = [0]; % m
+delta = [0.0008, 0]; % m
 % delta = 0;
-sigb = [-77.5e6, 0]; % [Pa]
+sigb = [0, 0]; % [Pa]
 % mats = {'salehian_Incl718.mat'};
-mats = {'Glass_Epoxy_Ha1999.mat'};
+mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
 % mats = {'IM7_8552_Tzeng2001.mat'};
+% mats = {'Glass_Epoxy_Ha1999.mat', 'IM6_Epoxy_Ha1999.mat'};
 % Time/creep
 timeUnit = 'h'; % s = sec, h = hours, d = days
-compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
-% compFunc = {'no', @IM7_8552_Tzeng2001};
+compFunc = {'no', @IM7_8552_Tzeng2001_2}; % compliance function, input 'no' to turn off creep modeling
+% compFunc = {'no', 'no'};
 addpath('ComplianceFunctions')
 
 % Time; Velocity
-% profile = [1, 1, 0.5*8760, 8760, 5*8760, 10*8760;...           % [ t1 t2 t3;
-%            0, 28400, 28400, 28400, 28400, 28400];             %   v1 v2 v3]
-% profile = [1, 10^5, 10^10; 50000, 50000, 50000];
-profile = [1; 60000];
+profile = [1, 1, 0.5*8760, 8760, 5*8760, 10*8760;...           % [ t1 t2 t3;
+           0, 24250, 24250, 24250, 24250, 24250];             %   v1 v2 v3]
+% profile = [1; 60000];
+
 initial_acc = 0; % rad/s^2
 
 % Plotting
