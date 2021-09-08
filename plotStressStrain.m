@@ -210,7 +210,7 @@ if strcmp(plotWhat.shearStr, 'yes')
 
   hold on
   for k = 1:1
-    plot(rArr*1000, tau{end}*force, 'LineWidth', 1.5)
+    plot(rArr*1000, tau{end}*force, [marker(k),'-'], 'LineWidth', 1.5)
   end
 %   stressData = csvread('aparicio2011_results.csv', 1, 0);
 %   plot(stressData(:,1)*1000, stressData(:,2), 'k*')
@@ -269,7 +269,7 @@ if strcmp(plotWhat.sr,'yes')
   hold on
 %   plot(rArr*1000, sArr{1}(1,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr*lng, subSet{k}(1,:,1), [marker(k),':'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
+    plot(rArr*lng, subSet{k}(1,:,1), [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
   end
   ylabel('Strength Ratio')
   xlabel(['Radius [', lng_unit, ']'])
