@@ -23,8 +23,7 @@ for k = 1:length(rim) - 1
     F13 = -0.5*sqrt(F11*F33); % F13
     F12 = F13;
     F66 = 1/sh6^2; % F66
-%     F44 = 1/(sh4)^2;
-    F23 = F13; %F22 - .5*F66;
+    F23 = F22 - 1/(2*sh6^2);
     
 
     sigt = results.sArr{b}(1,rStart:rEnd); % sig1 circumferential stress
