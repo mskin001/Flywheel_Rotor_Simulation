@@ -205,21 +205,21 @@ if strcmp(plotWhat.axialStr, 'yes')
   catch
     subSet = sArr;
   end
-  norm_str(1:30) = subSet{1}(2,1:30,1)/(31e6);
-  norm_str(31:60) = subSet{1}(2,31:end,1)/(56e6);
+%   norm_str(1:30) = subSet{1}(2,1:30,1)/(31e6);
+%   norm_str(31:60) = subSet{1}(2,31:end,1)/(56e6);
   hold on
 %   plot(rArr*1000, sArr{1}(3,:,1)*10^-6, 'LineWidth', 1.5)
   for k = 1:length(subSet)
-    plot(rArr/rArr(1), norm_str, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
-%     plot(rArr*lng, subSet{k}(2,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
+%     plot(rArr/rArr(1), norm_str, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
+    plot(rArr*lng, subSet{k}(2,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
   end
-  ha_data = load('axial_stress_ha_1999.csv');
-  plot(ha_data(:,1), ha_data(:,2), 'kv', 'LineWidth', 1.5);
+%   ha_data = load('axial_stress_ha_1999.csv');
+%   plot(ha_data(:,1), ha_data(:,2), 'kv', 'LineWidth', 1.5);
   
-  xlabel('Norm radius [r/r_{min}]'); %['Axial [', lng_unit, ']'])
-  ylabel('Norm Stress [\sigma/\sigma_2]'); %['Axial Stress [', force_unit, ']'])
-%   legend(legTxt, 'Location', 'southeast')
-  legend('Model \sigma_z', 'Ha 1999 \sigma_z', 'Tzeng Infinite', 'Initial','10 Years', 'Infinite')
+  xlabel(['Axial [', lng_unit, ']']); %)Norm radius [r/r_{min}]
+  ylabel(['Axial Stress [', force_unit, ']']); %)'Norm Stress [\sigma/\sigma_2]'
+  legend(legTxt, 'Location', 'southeast')
+%   legend('Model \sigma_z', 'Ha 1999 \sigma_z', 'Tzeng Infinite', 'Initial','10 Years', 'Infinite')
   set(gca, 'FontSize', 12)
   grid on
   fprintf('Axial Sress Plot: Complete\n')
