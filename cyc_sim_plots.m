@@ -45,31 +45,31 @@ end
 figure(1), grid on
 legend({'\omega_{Pmin}', '\omega_{Pint}', '\omega_{Pmax}'}, 'Location', 'southeast')
 xlabel('Day')
-ylabel('Interfacial Stress')
+ylabel('Normalized Interfacial Stress [{\it\sigma_i /\sigma_1}]')
 set(gca, 'FontSize', 12)
 
 figure(2), grid on
 legend({'\omega_{Pmin}', '\omega_{Pint}', '\omega_{Pmax}'}, 'Location', 'southeast')
 xlabel('Day')
-ylabel('Radial Peak Stress [MPa]')
+ylabel('Normalized Radial Peak Tensile Str [{\it\sigma_i /\sigma_1}]')
 set(gca, 'FontSize', 12)
 
 figure(3), grid on
 legend({'\omega_{Pmin}', '\omega_{Pint}', '\omega_{Pmax}'}, 'Location', 'southeast')
 xlabel('Day')
-ylabel('Circ. Peak Stress [MPa]')
+ylabel('Normalized Circ. Peak Str [{\it\sigma_i /\sigma_1}]')
 set(gca, 'FontSize', 12)
 
 figure(4), grid on
 legend({'\omega_{Pmin}', '\omega_{Pint}', '\omega_{Pmax}'}, 'Location', 'southeast')
 xlabel('Day')
-ylabel('Hub Peak SR')
+ylabel('Normalized Hub Peak SR [/]')
 set(gca, 'FontSize', 12)
 
 figure(5), grid on
 legend({'\omega_{Pmin}', '\omega_{Pint}', '\omega_{Pmax}'}, 'Location', 'southeast')
 xlabel('Day')
-ylabel('Rim Peak SR')
+ylabel('Normalized Rim Peak SR [/]')
 set(gca, 'FontSize', 12)
 
 
