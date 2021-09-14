@@ -41,14 +41,17 @@ accType = 'const';
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
+unit = 'mmMPas';
 legTxt = {'0 sec', '4.75 sec', '9.75 sec', '14.75 sec', '15.75 sec', '5 sec'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.custom1 = 'no';         % Any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.maxStr = 'no';          % Max stress faiulre criteria
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
-plotWhat.shearStr = 'yes';       % Shear stress v. radius
-plotWhat.peakStr = 'yes';        % 2-yaxis plot. Peak stress location and SR v. time
-plotWhat.sr = 'yes';
+plotWhat.axialStr = 'yes';       % Axial stress v. radius
+plotWhat.shearStr = 'no';       % Shear stress v. radius
+plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
+plotWhat.sr = 'no';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
@@ -204,6 +207,6 @@ end
 %% -----------------------------------------------------------------------------
 % Make Plots
 % ------------------------------------------------------------------------------
-plotStressStrain(legTxt)
+plotStressStrain(legTxt, unit)
 
 fprintf('Program Complete\n')
