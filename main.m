@@ -15,34 +15,34 @@ global mat plotWhat results matProp
 % ------------------------------------------------------------------------------
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
-rim = [.18, .24];
+rim = [.08, .2];
 % rim = [0.02, 0.03786, 0.08393, 0.14707];
-h = 0.10; % [m]
+h = 0.24; % [m]
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
 delta = [0]; % [m]
-sigb = [-25e6, 0]; % Pa
+sigb = [0, 0]; % Pa
 % mats = {'salehian_Incl718.mat'};
-mats = {'IM9_826.mat'};
+mats = {'GFRP_Aparicio2011.mat'};
 
 % Time/creep
-tmax = 29; % seconds
-tStep = 0.25; %second between steps
+tmax = 1; % seconds
+tStep = 1; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
-compFunc = {'no'}; % compliance function, input 'no' to turn off creep modeling
+compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 60000;
-p = -725000; %power [W] the sign indicated the direction of energy relative to FW
+rpm = 17452;
+p = 000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
 accType = 'const';
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
 legTxt = {'0 sec', '4.75 sec', '9.75 sec', '14.75 sec', '15.75 sec', '5 sec'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'yes';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
