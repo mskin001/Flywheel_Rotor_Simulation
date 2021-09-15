@@ -183,7 +183,13 @@ while b*tStep <= tmax && w > 0
     results.sArr{b+1} = sArr;
     results.tauArr{b+1} = tauArr;
     results.vel(b+1) = w * (30 / pi);
-
+    
+    %% -----------------------------------------------------------------------------
+    % Calculate failure criterion
+    % ------------------------------------------------------------------------------
+    [strRatio, peakStr, peakLoc] = failureIndex(rdiv,b+1);
+    results.SR = strRatio;
+    
     %% ---------------------------------------------------------------------------
     % Update angular velocity and time
     % ----------------------------------------------------------------------------
@@ -193,13 +199,11 @@ while b*tStep <= tmax && w > 0
     end
     results.time(b+1) = b*tStep;
     b = b + 1;
-
+    
 end
-%% -----------------------------------------------------------------------------
-% Calculate failure criterion
-% ------------------------------------------------------------------------------
-[SR] = failureIndex(rdiv);
-results.SR = SR;
+
+
+
 
 for k = 1:length(E) - 1
     P(k) = (E(k) - E(k+1))/tStep;
