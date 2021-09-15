@@ -51,7 +51,7 @@ plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
 plotWhat.axialStr = 'yes';       % Axial stress v. radius
 plotWhat.shearStr = 'no';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
-plotWhat.sr = 'no';
+plotWhat.sr = 'yes';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
@@ -60,7 +60,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 20;          % Display time interval on figures
+plotWhat.interval = 1;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
