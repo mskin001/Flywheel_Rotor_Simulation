@@ -24,7 +24,7 @@ rdiv = 30; % number of points per rim to analyze
 delta = [0.0008, 0]; % [m]
 sigb = [0, 0]; % Pa
 % mats = {'salehian_Incl718.mat'};
-mats = {'Al7075-T6_Ha2006.mat', 'IM7_8552_Tzeng2001.mat'};
+mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
 
 % Time/creep
 tmax = 1; % seconds
