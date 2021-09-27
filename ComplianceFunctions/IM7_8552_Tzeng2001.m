@@ -9,12 +9,9 @@ function [s] = IM7_8552_Tzeng2001(mstiff)
 
 global t
 
-tr = mstiff(2);
-sh = mstiff(3);
-
-s(1) = 1/mstiff(1);
-s(2) = 1/tr * (t/3600)^0.03;
+s(1) = 9e-12;
+s(2) = 1.1e-10 * t^0.03;
 s(3) = s(2);
-s(4) = 1/sh * (t/3600)^0.03;
-s(5) = mstiff(5);
+s(4) = 2e-10 * t^0.03;
+s(5) = 0.3;
 s(6) = 0.36;
