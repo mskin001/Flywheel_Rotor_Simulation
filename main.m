@@ -15,9 +15,9 @@ global mat plotWhat results matProp
 % ------------------------------------------------------------------------------
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
-rim = [.08, .2];
+rim = [.160, .200, .330];
 % rim = [0.02, 0.03786, 0.08393, 0.14707];
-h = 0.24; % [m]
+h = 0.4; % [m]
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
