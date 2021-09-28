@@ -5,9 +5,13 @@ function Q = stiffMat(mstiff, compFunc)
 E11 = mstiff(1);
 E22 = mstiff(2);
 G12 = mstiff(3);
-G23 = mstiff(4); % Only used if nu23 is not specified
+G23 = mstiff(4);
 nu12 = mstiff(5);
-nu23 = mstiff(5); % E22/(2*G23)-1;
+try
+    nu23 = mstiff(6);
+catch
+    nu23 = mstiff(5);
+end
 
 if ~strcmp(compFunc,'no')
   s = compFunc(mstiff);
@@ -17,29 +21,10 @@ if ~strcmp(compFunc,'no')
   G12 = s(4);
   nu12 = s(5);
   nu23 = s(6);
-%   if length(out) == 1
-%     S11 = 1/E11;
-%     S22 = out;
-%     S33 = S22;
-%     G12 = 1/G12;
-%   elseif length(out) == 2
-%     S11 = 1/E11;
-%     S22 = out(1);
-%     S33 = S22;
-%     G12 = out(2); % This was specified for IM&_8552_Tzeng2001
-%   elseif length(out) == 3
-%     S11 = out(3);
-%     S22 = out(1);
-%     S33 = out(2);
-%     G12 = 1/G12;
-%   else
-%     error('Unknown compliance function output. Change output, or modify program')
-%   end
 else
   S11 = 1/E11;
   S22 = 1/E22;
   S33 = S22;
-  nu23 = 0.50;
   G12 = 1/G12;
 end
 

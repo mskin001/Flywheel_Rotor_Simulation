@@ -34,7 +34,7 @@ timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 24200;
+rpm = 24000;
 p = 000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
 accType = 'const';
