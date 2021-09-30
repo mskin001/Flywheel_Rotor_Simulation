@@ -204,9 +204,9 @@ if strcmp(plotWhat.shearStr, 'yes')
 
   hold on
   for k = 1:length(tauSubSet)
-    plot(rArr*1000, tauSubSet{k}*force*1000, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
+    plot(rArr*1000, tauSubSet{k}*force*1000, 'LineWidth', 1.5)
   end
-  plot(rArr*1000, tau{end}*force*1000, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
+  plot(rArr*1000, tau{end}*force*1000, 'LineWidth', 1.5)
   
   grid on
   xlabel(['Radius [', lng_unit, ']'])
@@ -277,7 +277,7 @@ if strcmp(plotWhat.sr,'yes')
   for k = 1:length(subSet)
     plot(rArr*lng, subSet{k}, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
   end
-  plot(rArr*lng, results.SR{end}, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
+  plot(rArr*lng, subSet{k}, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
   ylabel('Strength Ratio')
   xlabel(['Radius [', lng_unit, ']'])
   legend(legTxt, 'Location', 'northeast')

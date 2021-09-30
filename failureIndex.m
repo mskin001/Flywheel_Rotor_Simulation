@@ -29,10 +29,10 @@ for k = 1:length(rim) - 1
     sigt = results.sArr{b}(1,rStart:rEnd); % sig1 circumferential stress
     sigax = results.sArr{b}(2,rStart:rEnd); % sig2 axial stress
     sigr = results.sArr{b}(3,rStart:rEnd); % sig3 radial
-    %     tau = results.tauArr{b}(1,rStart:rEnd); % tau12
+    tau = results.tauArr{b}(1,rStart:rEnd); % tau12
 
     A = F11*sigt.^2 + F22*sigax.^2 + F33*sigr.^2 +...
-        2*F13*sigt.*sigr + 2*F12.*sigt.*sigax + 2*F23.*sigax.*sigr;% + F66*tau.^2;
+        2*F13*sigt.*sigr + 2*F12.*sigt.*sigax + 2*F23.*sigax.*sigr + F66*tau.^2;
     B = F1*sigt + F2*sigax + F3*sigr;
     C = -1;
     

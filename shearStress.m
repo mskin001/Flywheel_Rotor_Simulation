@@ -1,4 +1,4 @@
-function [C_shear] = shearStress(alpha, accType, b, w0, tStep, rdiv)
+function [C_shear] = shearStress(alpha, rdiv)
 
 global rim mat tauArr
 
