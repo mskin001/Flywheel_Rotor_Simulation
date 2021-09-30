@@ -127,12 +127,12 @@ while b*tStep <= tmax && w > 0
     % ----------------------------------------------------------------------------
 
     for k = 1:length(mats)
-    func = compFunc{k};
-    mat.file{k} = ['MaterialProperties\', mats{k}];
-    matProp = load(mat.file{k});
-    mat.Q{1,k} = stiffMat(matProp.mstiff, func);
-    mat.rho{k} = matProp.rho;
-    %     mat.rho{k} = @(r) 7800 + 10.*r + 100.*r.^2 + 1000.*r.^3;
+        func = compFunc{k};
+        mat.file{k} = ['MaterialProperties\', mats{k}];
+        matProp = load(mat.file{k});
+        mat.Q{1,k} = stiffMat(matProp.mstiff, func);
+        mat.rho{k} = matProp.rho;
+        %     mat.rho{k} = @(r) 7800 + 10.*r + 100.*r.^2 + 1000.*r.^3;
 
         try
           mat.stren{k} = matProp.stren;
