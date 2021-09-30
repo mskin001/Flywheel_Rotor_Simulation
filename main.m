@@ -23,26 +23,26 @@ h = 0.43; % [m]
 rdiv = 30; % number of points per rim to analyze
 delta = [0.0008, 0]; % [m]
 sigb = [0, 0]; % Pa
-% mats = {'S2Glass_Epon9405_Aparicio2011.mat'};
+% mats = {'GFRP_Aparicio2011.mat'};
 mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
 
 % Time/creep
-tmax = 100; % seconds
-tStep = 10; %second between steps
+tmax = .005; % seconds
+tStep = .005; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 24250;
-p = 000; %power [W] the sign indicated the direction of energy relative to FW
+rpm = 6037.5;
+p = 1e9; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
 
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
-unit = 'mmMPas';
+unit = 'mMPas';
 legTxt = {'auto'}; % {'0 sec', '4.75 sec', '9.75 sec', '14.75 sec', '15.75 sec', '5 sec'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'no';         % Any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.custom1 = 'yes';         % Any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.maxStr = 'no';          % Max stress faiulre criteria
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
@@ -146,6 +146,7 @@ while b*tStep <= tmax && w > 0
     end
     I = sum(in);
     a(b+1) = p / (I * w);
+%     a(b+1) = 3.6e5
     
     %% ---------------------------------------------------------------------------
     % Calculate displacement magnitude at the inner and outer surface of each rim

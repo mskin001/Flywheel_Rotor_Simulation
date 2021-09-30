@@ -7,7 +7,12 @@ E22 = mstiff(2);
 G12 = mstiff(3);
 G23 = mstiff(4);
 nu12 = mstiff(5);
-nu23 = mstiff(5);
+
+try
+    nu23 = mstiff(6);
+catch
+    nu23 = mstiff(5);
+end
 
 if ~strcmp(compFunc,'no')
   s = compFunc(mstiff);

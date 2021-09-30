@@ -204,13 +204,13 @@ if strcmp(plotWhat.shearStr, 'yes')
 
   hold on
   for k = 1:length(tauSubSet)
-    plot(rArr*1000, tauSubSet{k}*force*1000, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
+    plot(rArr*1000, tauSubSet{k}*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
   end
-  plot(rArr*1000, tau{end}*force*1000, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
+  plot(rArr*1000, tau{end}*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
   
   grid on
   xlabel(['Radius [', lng_unit, ']'])
-  ylabel('Shear Stress [kPa]')
+  ylabel(['Shear Stress [', force_unit, ']'])
   legend(legTxt, 'Location', 'northeast')
   set(gca, 'FontSize', 12)
   fprintf('Shear Stress Plot: Complete\n')
