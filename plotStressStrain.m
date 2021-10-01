@@ -7,7 +7,7 @@ uArr = results.uArr;
 sArr = results.sArr;
 tau =  results.tauArr;
 
-marker = 'o+v*<s>dx.^p';
+marker = 'o+v*<s>dp^x'; %o+v*<
 
 if strcmp(unit, 'ips')
   lng = 39.3701; %convert length to inches
@@ -137,7 +137,7 @@ if strcmp(plotWhat.radStr, 'yes')
   for k = 1:length(subSet)
     plot(rArr*lng, subSet{k}(3,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
   end
-  plot(rArr*lng, sArr{end}(3,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
+  plot(rArr*lng, sArr{end}(3,:,1)*force, [marker(k+1),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
   xlabel(['Radius [', lng_unit, ']'])
   ylabel(['Radial Stress [', force_unit, ']'])
   legend(legTxt, 'Location', 'southeast')
@@ -159,7 +159,7 @@ if strcmp(plotWhat.hoopStr, 'yes')
   for k = 1:length(subSet)
     plot(rArr*lng, subSet{k}(1,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
   end
-  plot(rArr*lng, sArr{end}(1,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
+  plot(rArr*lng, sArr{end}(1,:,1)*force, [marker(k+1),'-'], 'MarkerIndices', 1:5:length(rArr),  'LineWidth', 1.5);
 
   xlabel(['Radius [', lng_unit, ']'])
   ylabel(['Circumferential Stress [', force_unit, ']'])
@@ -182,7 +182,7 @@ if strcmp(plotWhat.axialStr, 'yes')
   for k = 1:length(subSet)
     plot(rArr*lng, subSet{k}(2,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
   end
-  plot(rArr*lng, sArr{end}(2,:,1)*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
+  plot(rArr*lng, sArr{end}(2,:,1)*force, [marker(k+1),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5);
   
   xlabel(['Axial [', lng_unit, ']']);
   ylabel(['Axial Stress [', force_unit, ']']);
@@ -195,6 +195,7 @@ end
 % -------------- Shear stress --------------------------------------------------
 if strcmp(plotWhat.shearStr, 'yes')
   shearStr = figure('Visible', 'on');
+  figure(4)
   try
     tauSubSet = tau(1:plotWhat.interval:end); % select tau of interest to plot
   catch
@@ -204,14 +205,16 @@ if strcmp(plotWhat.shearStr, 'yes')
 
   hold on
   for k = 1:length(tauSubSet)
-    plot(rArr*1000, tauSubSet{k}*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
+    plot(rArr*1000, tauSubSet{k}*force*10^3, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
   end
-  plot(rArr*1000, tau{end}*force, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
+  plot(rArr*1000, tau{end}*force*10^3, [marker(k+1),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
   
   grid on
   xlabel(['Radius [', lng_unit, ']'])
-  ylabel(['Shear Stress [', force_unit, ']'])
+  ylabel(['Shear Stress [kPa]'])
   legend(legTxt, 'Location', 'northeast')
+%   legend('\omega_{min}, 0 sec', '\omega_{min}, 14 sec', '\omega_{min}, 28 sec', '\omega_{min}, 42 sec', '\omega_{min}, 52 sec',...
+% '\omega_{max}, 0 sec', '\omega_{max}, 14 sec', '\omega_{max}, 28 sec', '\omega_{max}, 42 sec', '\omega_{max}, 52 sec', 'NumColumns',2)
   set(gca, 'FontSize', 12)
   fprintf('Shear Stress Plot: Complete\n')
 end

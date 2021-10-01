@@ -1,6 +1,6 @@
 clc
 clear all
-close('all','force')
+% close('all','force')
 format long
 %% -----------------------------------------------------------------------------
 % Define global variables
@@ -27,30 +27,31 @@ sigb = [0, 0]; % Pa
 mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
 
 % Time/creep
-tmax = .005; % seconds
-tStep = .005; %second between steps
+tmax = 60; % seconds
+tStep = .5; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 6037.5;
-p = 1e9; %power [W] the sign indicated the direction of energy relative to FW
+rpm = 24150;
+p = -725000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
-
+w_min = 6037;
+w_max = 24150;
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
-unit = 'mMPas';
+unit = 'mmMPas';
 legTxt = {'auto'}; % {'0 sec', '4.75 sec', '9.75 sec', '14.75 sec', '15.75 sec', '5 sec'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'yes';         % Any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.custom1 = 'no';         % Any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.maxStr = 'no';          % Max stress faiulre criteria
 plotWhat.radDis = 'no';          % Radial displacement v. radius
-plotWhat.radStr = 'yes';         % Radial stress v. radius plot
-plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
-plotWhat.axialStr = 'yes';       % Axial stress v. radius
+plotWhat.radStr = 'no';         % Radial stress v. radius plot
+plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
+plotWhat.axialStr = 'no';       % Axial stress v. radius
 plotWhat.shearStr = 'yes';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
-plotWhat.sr = 'yes';
+plotWhat.sr = 'no';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
@@ -59,7 +60,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 25;          % Display time interval on figures
+plotWhat.interval = 28;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
@@ -109,7 +110,7 @@ vari = cast(tmax/tStep,'single');
 b = 0;
 
 
-while b*tStep <= tmax && w > 0
+while b*tStep <= tmax && w >= w_min*pi/30 && w <=w_max*pi/30
 %   fprintf('Create Variable Arrays: Complete\n')
     %% ---------------------------------------------------------------------------
     % Preallocate variables
@@ -146,7 +147,6 @@ while b*tStep <= tmax && w > 0
     end
     I = sum(in);
     a(b+1) = p / (I * w);
-%     a(b+1) = 3.6e5
     
     %% ---------------------------------------------------------------------------
     % Calculate displacement magnitude at the inner and outer surface of each rim
