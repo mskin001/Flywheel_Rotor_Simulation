@@ -163,7 +163,7 @@ if strcmp(plotWhat.hoopStr, 'yes')
 
   xlabel(['Radius [', lng_unit, ']'])
   ylabel(['Circumferential Stress [', force_unit, ']'])
-  legend(legTxt, 'Location', 'southeast', 'NumColumns', 5)
+  legend(legTxt, 'Location', 'southeast', 'NumColumns', 2)
   set(gca, 'FontSize', 12)
   grid on
   fprintf('Hoop Stress Plot: Complete\n')
@@ -195,7 +195,7 @@ end
 % -------------- Shear stress --------------------------------------------------
 if strcmp(plotWhat.shearStr, 'yes')
   shearStr = figure('Visible', 'on');
-  figure(4)
+%   figure(4)
   try
     tauSubSet = tau(1:plotWhat.interval:end); % select tau of interest to plot
   catch
