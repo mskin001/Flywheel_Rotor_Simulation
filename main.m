@@ -34,7 +34,10 @@ timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
+<<<<<<< Updated upstream
 rpm = 6037.5;
+=======
+>>>>>>> Stashed changes
 p = 725000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
 w_min = 6037;
@@ -48,7 +51,10 @@ plotWhat.maxStr = 'no';          % Max stress faiulre criteria
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'yes';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
+<<<<<<< Updated upstream
 plotWhat.axialStr = 'no';       % Axial stress v. radius
+=======
+>>>>>>> Stashed changes
 plotWhat.shearStr = 'yes';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
 plotWhat.sr = 'no';
