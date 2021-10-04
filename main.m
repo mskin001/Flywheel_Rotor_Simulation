@@ -37,6 +37,7 @@ compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep mod
 <<<<<<< Updated upstream
 rpm = 6037.5;
 =======
+rpm = 6037;
 >>>>>>> Stashed changes
 p = 725000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
@@ -54,6 +55,7 @@ plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
 <<<<<<< Updated upstream
 plotWhat.axialStr = 'no';       % Axial stress v. radius
 =======
+plotWhat.axialStr = 'yes';       % Axial stress v. radius
 >>>>>>> Stashed changes
 plotWhat.shearStr = 'yes';       % Shear stress v. radius
 plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
