@@ -29,8 +29,7 @@ for k = 1:3
   figure(1), hold on
   plot(day,(interface(k,:)./interface(k,1)), [marker(k),line{k}], 'Linewidth', 1.5)
   
-  figure(2), hold on
-  plot(day, (rad_peak(k,:)./rad_peak(k,1)), [marker(k),line{k}], 'Linewidth', 1.5)
+  
   
   figure(3), hold on
   plot(day, (circ_peak(k,:)./circ_peak(k,1)), [marker(k),line{k}], 'Linewidth', 1.5)
@@ -48,7 +47,10 @@ xlabel('Day')
 ylabel('Normalized Interfacial Stress [{\it\sigma_i /\sigma_1}]')
 set(gca, 'FontSize', 12)
 
-figure(2), grid on
+figure(2), hold on
+plot(day, (rad_peak(2,:)./rad_peak(2,1)), [marker(2),line{2}], 'Color', 	[1 0 0], 'Linewidth', 1.5)
+plot(day, (rad_peak(3,:)./rad_peak(3,1)), [marker(3),line{3}], 'Color', [0.9290 0.6940 0.1250], 'Linewidth', 1.5)
+grid on
 legend({'\omega_{Pmin}', '\omega_{Pint}', '\omega_{Pmax}'}, 'Location', 'southeast')
 xlabel('Day')
 ylabel('Normalized Radial Peak Tensile Str [{\it\sigma_i /\sigma_1}]')
