@@ -34,11 +34,8 @@ timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-<<<<<<< Updated upstream
 rpm = 6037.5;
-=======
 rpm = 6037;
->>>>>>> Stashed changes
 p = 725000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
 w_min = 6037;
@@ -48,17 +45,14 @@ w_max = 24150;
 unit = 'mmMPas';
 legTxt = {'auto'}; % {'0 sec', '4.75 sec', '9.75 sec', '14.75 sec', '15.75 sec', '5 sec'}; % Controls legend entries for graphs
 plotWhat.custom1 = 'no';         % Any custom plot. Go to plotStressStrain.m to modify (first if statement)
-plotWhat.maxStr = 'no';          % Max stress faiulre criteria
 plotWhat.radDis = 'no';          % Radial displacement v. radius
-plotWhat.radStr = 'yes';         % Radial stress v. radius plot
-plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
-<<<<<<< Updated upstream
+plotWhat.radStr = 'no';         % Radial stress v. radius plot
+plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
 plotWhat.axialStr = 'no';       % Axial stress v. radius
-=======
-plotWhat.axialStr = 'yes';       % Axial stress v. radius
->>>>>>> Stashed changes
-plotWhat.shearStr = 'yes';       % Shear stress v. radius
-plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
+plotWhat.axialStr = 'no';       % Axial stress v. radius
+plotWhat.shearStr = 'no';       % Shear stress v. radius
+plotWhat.peakStr = 'yes';        % 2-yaxis plot. Peak stress location and SR v. time
+plotWhat.maxStr = 'no';          % Max stress faiulre criteria
 plotWhat.sr = 'no';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
@@ -197,6 +191,8 @@ while b*tStep <= tmax && w >= w_min*pi/30 && w <=w_max*pi/30
     % ------------------------------------------------------------------------------
     [strRatio, peakStr, peakLoc] = failureIndex(rdiv,b+1);
     results.SR{b+1} = strRatio;
+    results.peak_str = peakStr;
+    results.peak_loc = peakLoc;
     
     %% ---------------------------------------------------------------------------
     % Update angular velocity and time
@@ -210,6 +206,6 @@ end
 %% -----------------------------------------------------------------------------
 % Make Plots
 % ------------------------------------------------------------------------------
-plotStressStrain(legTxt, unit)
+plotStressStrain(rdiv, legTxt, unit)
 
 fprintf('Program Complete\n')

@@ -1,7 +1,7 @@
 rim = [.16 .2 .33];
 w_max = 24150 * pi / 30;
 w_min = 6037.5 * pi / 30;
-p = [0, 100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000];%, 5000, 10000,...
+p = [0, 100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000]*10^3;%, 5000, 10000,...
     %25000, 75000, 100000, 200000, 300000, 400000, 500000];% 600000,...
     %700000, 800000, 900000, 1000000];
 sh1 = -1 * [0, 5.72E-04, 1.57E-03, 2.86E-03, 4.29E-03, 5.71E-03, 7.14E-03,...
@@ -19,19 +19,19 @@ for k = 1:length(rim) - 1
 end
 I = sum(in);
 
-dec = -p / (I * w);
-acc = p / (I * w);
+dec = -p / (I * w_max);
+acc = p / (I * w_min);
 
 yyaxis left
 hold on
-shr_dec = plot(-p, sh1*10^3, 'b-o', 'Linewidth', 1.5);
-shr_acc = plot(p, sh2*10^3, 'b--*', 'Linewidth', 1.5);
+shr_dec = plot(-p*10^-3, sh1*10^3, 'b-o', 'Linewidth', 1.5);
+shr_acc = plot(p*10^-3, sh2*10^3, 'b--*', 'Linewidth', 1.5);
 ylabel('Peak Shear Str [kPa]')
 
 yyaxis right
 hold on
-pwr_dec = plot(-p, dec*(60^2/(2*pi)), 'r-v', 'Linewidth', 1.5);
-pwr_acce = plot(p, acc*(60^2/(2*pi)), 'r-v', 'Linewidth', 1.5);
+pwr_dec = plot(-p*10^-3, dec, 'r-v', 'Linewidth', 1.5);
+pwr_acce = plot(p*10^-3, acc, 'r-v', 'Linewidth', 1.5);
 legend([shr_dec, shr_acc, pwr_dec] , '24,150 rpm', '6037.5 rpm',...
     'acceleration')
 ylabel('Acceleration [rad/sec^2]')
