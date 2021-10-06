@@ -224,22 +224,8 @@ end
 if strcmp(plotWhat.peakStr, 'yes')
     peakStr = figure('Visible','on');
     hold on
-
-    try
-        pl_sub_set = results.peak_loc(1:plotWhat.interval:end);
-        ps_sub_set = results.peak_str(1:plotWhat.interval:end);
-    catch
-        pl_sub_set = results.peak_loc;
-        ps_sub_set = results.peak_str;
-    end
-
-    yyaxis left; plot(results.vel,pl_sub_set(1)*lng, '-', 'Color', [0 0.4470 0.7410], 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
-    yyaxis right; plot(results.vel,ps_sub_set(1), '-.o', 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
-    for k = 1:length(pl_sub_set)
-        yyaxis left; plot(results.vel,pl_sub_set(k)*lng, '-', 'Color', [0 0.4470 0.7410], 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
-        yyaxis right; plot(results.vel,ps_sub_set(k), '-.o', 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
-    end
-%   yyaxis right; plot(results.vel, ones(length(results.time)), 'k--', 'LineWidth', 1.5)
+    yyaxis left; plot(results.vel,results.peak_loc*lng, '-', 'Color', [0 0.4470 0.7410], 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
+    yyaxis right; plot(results.vel,results.peak_str, '-.o', 'MarkerIndices', 1:10:results.vel, 'LineWidth', 1.5);
 
     xlabel('Angular velocity [rpm]')
     yyaxis left

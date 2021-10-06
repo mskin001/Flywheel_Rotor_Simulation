@@ -40,5 +40,5 @@ for k = 1:length(rim) - 1
     strRatio(1,rStart:rEnd) = R(1,rStart:rEnd).^-1;
 
 end
-[peakStr(b), ind] = max(strRatio(1,:));
-peakLoc(b) = rArr(ind);
+[peakStr, ind] = max(strRatio(1,:));
+peakLoc = rArr(ind);

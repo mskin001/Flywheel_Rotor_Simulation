@@ -53,7 +53,7 @@ plotWhat.axialStr = 'no';       % Axial stress v. radius
 plotWhat.shearStr = 'no';       % Shear stress v. radius
 plotWhat.peakStr = 'yes';        % 2-yaxis plot. Peak stress location and SR v. time
 plotWhat.maxStr = 'no';          % Max stress faiulre criteria
-plotWhat.sr = 'no';
+plotWhat.sr = 'yes';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
@@ -191,8 +191,8 @@ while b*tStep <= tmax && w >= w_min*pi/30 && w <=w_max*pi/30
     % ------------------------------------------------------------------------------
     [strRatio, peakStr, peakLoc] = failureIndex(rdiv,b+1);
     results.SR{b+1} = strRatio;
-    results.peak_str = peakStr;
-    results.peak_loc = peakLoc;
+    results.peak_str(b+1) = peakStr;
+    results.peak_loc(b+1) = peakLoc;
     
     %% ---------------------------------------------------------------------------
     % Update angular velocity and time
