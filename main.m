@@ -50,7 +50,7 @@ plotWhat.radStr = 'no';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
 plotWhat.axialStr = 'no';       % Axial stress v. radius
 plotWhat.axialStr = 'no';       % Axial stress v. radius
-plotWhat.shearStr = 'no';       % Shear stress v. radius
+plotWhat.shearStr = 'yes';       % Shear stress v. radius
 plotWhat.peakStr = 'yes';        % 2-yaxis plot. Peak stress location and SR v. time
 plotWhat.maxStr = 'no';          % Max stress faiulre criteria
 plotWhat.sr = 'yes';
@@ -62,7 +62,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 28;          % Display time interval on figures
+plotWhat.interval = 10000;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 
