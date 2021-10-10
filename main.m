@@ -34,7 +34,7 @@ timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
-rpm = 6037.5;
+% rpm = 6037.5;
 rpm = 6037;
 p = 725000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
@@ -45,15 +45,16 @@ w_max = 24150;
 unit = 'mmMPas';
 legTxt = {'auto'}; % {'0 sec', '4.75 sec', '9.75 sec', '14.75 sec', '15.75 sec', '5 sec'}; % Controls legend entries for graphs
 plotWhat.custom1 = 'no';         % Any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.custom2 = 'yes';
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'no';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
 plotWhat.axialStr = 'no';       % Axial stress v. radius
 plotWhat.axialStr = 'no';       % Axial stress v. radius
-plotWhat.shearStr = 'yes';       % Shear stress v. radius
-plotWhat.peakStr = 'yes';        % 2-yaxis plot. Peak stress location and SR v. time
+plotWhat.shearStr = 'no';       % Shear stress v. radius
+plotWhat.peakStr = 'no';        % 2-yaxis plot. Peak stress location and SR v. time
 plotWhat.maxStr = 'no';          % Max stress faiulre criteria
-plotWhat.sr = 'yes';
+plotWhat.sr = 'no';
 
 plotWhat.disGif = 'no';          % Displacement gif, surface plot
 plotWhat.disGifName = 'Displacement.gif';
@@ -62,7 +63,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 10000;          % Display time interval on figures
+plotWhat.interval = 28;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 

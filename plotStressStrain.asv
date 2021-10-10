@@ -114,8 +114,8 @@ if strcmp(plotWhat.custom2, 'yes')
     plot(results.vel*10^-3, hub_inter(1,:)*10^-6, [marker(4),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
     plot(results.vel*10^-3, rim_mid(1,:)*10^-6, [marker(5),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
     xlabel('Angular Velocity [krpm]'), ylabel('Circumferential Stress [MPa]')
-    legend('Inner Radius', 'Outer Radius', 'Rim Interface', 'Hub Interface',...
-        'Rim Peak Str', 'Location', 'northwest')
+    legend('Inner Radius', 'Outer Radius', 'Interface', 'Hub Mid-plane',...
+        'Rim Mid-plane', 'Location', 'northwest')
     set(gca, 'FontSize', 12), grid on
     figure(), hold on
     plot(results.vel*10^-3, inner(3,:)*10^-6, [marker(1),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
@@ -124,15 +124,15 @@ if strcmp(plotWhat.custom2, 'yes')
     plot(results.vel*10^-3, hub_inter(3,:)*10^-6, [marker(4),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
     plot(results.vel*10^-3, rim_mid(3,:)*10^-6, [marker(5),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
     xlabel('Angular Velocity [krpm]'), ylabel('Radial Stress [MPa]')
-    legend('Inner Radius', 'Outer Radius', 'Rim Interface', 'Hub Interface',...
-        'Rim Peak Str', 'Location', 'northwest')
+    legend('Inner Radius', 'Outer Radius', 'Interface', 'Hub Mid-plane',...
+        'Rim Mid-plane', 'Location', 'northwest')
     set(gca, 'FontSize', 12), grid on
     figure(), hold on
-    plot(results.vel*10^-3, inner(4,:)*10^-3, [marker(1),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
-    plot(results.vel*10^-3, outer(4,:)*10^-3, [marker(2),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
-    plot(results.vel*10^-3, rim_inter(4,:)*10^-3, [marker(3),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
-    plot(results.vel*10^-3, hub_inter(4,:)*10^-3, [marker(4),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
-    plot(results.vel*10^-3, rim_mid(4,:)*10^-3, [marker(5),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
+    plot(results.vel*10^-3, inner(4,:)*10^-6, [marker(1),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
+    plot(results.vel*10^-3, outer(4,:)*10^-6, [marker(2),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
+    plot(results.vel*10^-3, rim_inter(4,:)*10^-6, [marker(3),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
+    plot(results.vel*10^-3, hub_inter(4,:)*10^-6, [marker(4),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
+    plot(results.vel*10^-3, rim_mid(4,:)*10^-6, [marker(5),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
     xlabel('Angular Velocity [krpm]'), ylabel('Shear Stress [kPa]')
     legend('Inner Radius', 'Outer Radius', 'Rim Interface', 'Hub Interface',...
         'Rim Peak Str')
