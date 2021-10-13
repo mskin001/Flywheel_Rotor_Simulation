@@ -116,7 +116,7 @@ if strcmp(plotWhat.custom2, 'yes')
     xlabel('Angular Velocity [krpm]'), ylabel('Circumferential Stress [MPa]')
     legend('Inner Radius', 'Outer Radius', 'Rim Interface', 'Hub Interface',...
         'Rim Peak Str', 'Location', 'northwest')
-    set(gca, 'FontSize', 12), grid on
+    set(gca, 'FontSize', 20), grid on
     figure(), hold on
     plot(results.vel*10^-3, inner(3,:)*10^-6, [marker(1),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
     plot(results.vel*10^-3, outer(3,:)*10^-6, [marker(2),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
