@@ -15,37 +15,37 @@ global mat plotWhat results matProp
 % ------------------------------------------------------------------------------
 % Rotor
 % rim = [0.03789; 0.07901]; % single rim Ha 1999
-rim = [.160, .200, .330];
+rim = [.03786, (.03786 + .04607), (.03786 + .04607 + .06314)];
 % rim = [0.08, .2];
 h = 0.43; % [m]
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = [0.0008, 0]; % [m]
-sigb = [0, 0]; % Pa
+delta = [0, 0]; % [m]
+sigb = [-77.5e6, 0]; % Pa
 % mats = {'GFRP_Aparicio2011.mat'};
-mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
+mats = {'Glass_Epoxy_Ha1999.mat', 'IM6_Epoxy_Ha1999.mat'};
 
 % Time/creep
-tmax = 60; % seconds
-tStep = .5; %second between steps
+tmax = 1; % seconds
+tStep = 1; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
 % rpm = 6037.5;
-rpm = 6037;
-p = 725000; %power [W] the sign indicated the direction of energy relative to FW
+rpm = 60000;
+p = 000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
-w_min = 6037;
-w_max = 24150;
+w_min = 6000;
+w_max = 60001;
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
 unit = 'mmMPas';
 legTxt = {'auto'}; % {'0 sec', '4.75 sec', '9.75 sec', '14.75 sec', '15.75 sec', '5 sec'}; % Controls legend entries for graphs
-plotWhat.custom1 = 'no';         % Any custom plot. Go to plotStressStrain.m to modify (first if statement)
-plotWhat.custom2 = 'yes';
+plotWhat.custom1 = 'yes';         % Any custom plot. Go to plotStressStrain.m to modify (first if statement)
+plotWhat.custom2 = 'no';
 plotWhat.radDis = 'no';          % Radial displacement v. radius
 plotWhat.radStr = 'no';         % Radial stress v. radius plot
 plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot

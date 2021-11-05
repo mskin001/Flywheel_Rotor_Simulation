@@ -2,7 +2,7 @@ function plotStressStrain(rdiv, legTxt, unit)
 %% -----------------------------------------------------------------------------
 % Define global variables, arrays, and structures
 % ------------------------------------------------------------------------------
-global rim rArr plotWhat results mat
+global rim rArr plotWhat results
 uArr = results.uArr;
 sArr = results.sArr;
 tau =  results.tauArr;
@@ -51,49 +51,24 @@ halfWay = round(length(sArr)/2);
 
 if strcmp(plotWhat.custom1, 'yes')
   figure(), hold on
-  plot(rArr*lng, sArr{1}(3,:,1)*force*10,'-', 'Linewidth', 1.5)
-  rad_data = csvread('Apa2011_10xradial.csv');
-  plot(rad_data(:,1), rad_data(:,2), 'kd', 'MarkerFaceColor', 'k')
-
-%   plot(rArr*lng, sArr{2}(3,:,1)*force,'--', 'Linewidth', 1.5)
-%   rad_data = csvread('radial-stress_t2_pressfit_cylinder.csv');
-%   plot(rad_data(:,1), rad_data(:,2), 'ks', 'MarkerFaceColor', 'k')
-%
-%   plot(rArr*lng, sArr{3}(3,:,1)*force,':', 'Linewidth', 1.5)
-%   rad_data = csvread('radial-stress_t3_pressfit_cylinder.csv');
-%   plot(rad_data(:,1), rad_data(:,2), 'k^', 'MarkerFaceColor', 'k')
-
-%   grid on
-%   xlabel(['Radius [', lng_unit, ']'])
-%   ylabel(['Stress [', force_unit,']'])
-%   legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf'...
-%       ,'Location', 'southeast')
-%   set(gca, 'FontSize', 12)
-%
-%   figure(), hold on
-  plot(rArr*lng, sArr{1}(1,:,1)*force, '-', 'Linewidth', 1.5)
-  hoop_data = csvread('Apa2011_hoop.csv');
-  plot(hoop_data(:,1), hoop_data(:,2), 'kd', 'MarkerFaceColor', 'k')
-
-%   plot(rArr*lng, sArr{2}(1,:,1)*force, '--', 'Linewidth', 1.5)
-%   hoop_data = csvread('hoop-stress_t2_pressfit_cylinder.csv');
-%   plot(hoop_data(:,1), hoop_data(:,2), 'ks', 'MarkerFaceColor', 'k')
-%
-%   plot(rArr*lng, sArr{3}(1,:,1)*force, ':', 'Linewidth', 1.5)
-%   hoop_data = csvread('hoop-stress_t3_pressfit_cylinder.csv');
-%   plot(hoop_data(:,1), hoop_data(:,2), 'k^', 'MarkerFaceColor', 'k')
-
-  plot(rArr*lng, tau{1}*force, ':', 'Color', [0.4940 0.1840 0.5560], 'Linewidth', 1.5)
-  tau_data = csvread('aparicio2011_results.csv');
-  plot(tau_data(:,1), tau_data(:,2), 'ko')
+  rad_data = csvread('C2-1 rad.csv');
+  p1 = plot(rad_data(:,1), rad_data(:,2), 'kd', 'MarkerFaceColor', 'k');
+  hoop_data = csvread('C2-1 cir.csv');
+  p2 = plot(hoop_data(:,1), hoop_data(:,2), 'kd', 'MarkerFaceColor', 'k');
+  axi_data = csvread('C2-1 axi.csv');
+  p3 = plot(axi_data(:,1), axi_data(:,2), 'kd', 'MarkerFaceColor', 'k');
+  
+  p4 = plot(rArr(1:30)/rArr(1), sArr{1}(3,1:30)*force/31,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5);
+  p5 = plot(rArr(1:30)/rArr(1), sArr{1}(1,1:30)*force/1062, '-', 'Color', [0.6350 0.0780 0.1840], 'Linewidth', 1.5);
+  p6 = plot(rArr(1:30)/rArr(1), sArr{1}(2,1:30)*force/31, '-', 'Color', [0.4660 0.6740 0.1880], 'Linewidth', 1.5);
+  p7 = plot(rArr(31:end)/rArr(1), sArr{1}(3,31:end)*force/56,'-', 'Color', [0 0.4470 0.7410], 'Linewidth', 1.5);
+  p8 = plot(rArr(31:end)/rArr(1), sArr{1}(1,31:end)*force/3500, '-', 'Color', [0.6350 0.0780 0.1840],  'Linewidth', 1.5);
+  p9 = plot(rArr(31:end)/rArr(1), sArr{1}(2,31:end)*force/56, '-', 'Color', [0.4660 0.6740 0.1880], 'Linewidth', 1.5);
   grid on
-  legend('Model t1', 'Tzeng t1', 'Model t10', 'Tzeng t10', 'Model tinf', 'Tzeng tinf'...
+  legend([p1, p2, p3, p4, p5, p6], {'Ha 1999', 'Ha 1999', 'Ha 1999', 'Model Radial', 'Model Circ.', 'Model Axial'}...
       ,'Location', 'southeast')
-  xlabel(['Radius [', lng_unit, ']'])
-  ylabel(['Stress [', force_unit,']'])
-%   legend('Model 10*\sigma_r', 'Aparicio2011, 10*\sigma_r','Model \sigma_\theta',...
-%       'Aparicio2011, \sigma_\theta', 'Model \tau_r_\theta', 'Aparicio2011, \tau_r_\theta',...
-%       'NumColumns', 3, 'Location', 'southoutside')
+  xlabel('Normalized Radius [r/r_1]')
+  ylabel('Normalized Stress')
   set(gca, 'FontSize', 12)
   fprintf('Custom plot 1: Complete\n')
 end
@@ -106,7 +81,7 @@ if strcmp(plotWhat.custom2, 'yes')
         hub_inter(1:5,k) = [sArr{k}(1:3,rdiv); tau{k}(rdiv); results.SR{k}(rdiv)];
         rim_mid(1:5,k) = [sArr{k}(1:3, (rdiv+rdiv/2)); tau{k}((rdiv+rdiv/2)); results.SR{k}((rdiv+rdiv/2))];
     end
-    
+    % Plots stress at various points against velocity
     figure(), hold on
     plot(results.vel*10^-3, inner(1,:)*10^-6, [marker(1),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
     plot(results.vel*10^-3, outer(1,:)*10^-6, [marker(2),'-'], 'MarkerIndices', 1:8:length(results.time), 'LineWidth', 1.5)
