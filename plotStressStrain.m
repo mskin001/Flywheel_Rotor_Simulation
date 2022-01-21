@@ -221,7 +221,7 @@ end
 % -------------- Shear stress --------------------------------------------------
 if strcmp(plotWhat.shearStr, 'yes')
   shearStr = figure('Visible', 'on');
-%   figure(4)
+  figure(1)
   try
     tauSubSet = tau(1:plotWhat.interval:end); % select tau of interest to plot
   catch
@@ -233,14 +233,14 @@ if strcmp(plotWhat.shearStr, 'yes')
   for k = 1:length(tauSubSet)
     plot(rArr*1000, tauSubSet{k}*force*10^3, [marker(k),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
   end
-  plot(rArr*1000, tau{end}*force*10^3, [marker(k+1),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
+%   plot(rArr*1000, tau{end}*force*10^3, [marker(k+1),'-'], 'MarkerIndices', 1:5:length(rArr), 'LineWidth', 1.5)
 
   grid on
   xlabel(['Radius [', lng_unit, ']'])
   ylabel(['Shear Stress [kPa]'])
   legend(legTxt, 'Location', 'northeast')
-%   legend('\omega_{min}, 0 sec', '\omega_{min}, 14 sec', '\omega_{min}, 28 sec', '\omega_{min}, 42 sec', '\omega_{min}, 52 sec',...
-% '\omega_{max}, 0 sec', '\omega_{max}, 14 sec', '\omega_{max}, 28 sec', '\omega_{max}, 42 sec', '\omega_{max}, 52 sec', 'NumColumns',2)
+  legend('\omega_{min}, 0 sec', '\omega_{min}, 14 sec', '\omega_{min}, 28 sec', '\omega_{min}, 42 sec', '\omega_{min}, 51.5 sec',...
+'\omega_{max}, 0 sec', '\omega_{max}, 14 sec', '\omega_{max}, 28 sec', '\omega_{max}, 42 sec', '\omega_{max}, 51.5 sec', 'NumColumns',2)
   set(gca, 'FontSize', 12)
   fprintf('Shear Stress Plot: Complete\n')
 end
