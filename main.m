@@ -1,6 +1,6 @@
 clc
 clear all
-close ALL FORCE
+% close ALL FORCE
 format shorte
 %% -----------------------------------------------------------------------------
 % Define global variables
@@ -47,7 +47,7 @@ initial_acc = 0; % rad/s^2
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
 legTxt = {'Min Phase', 'Inter. Phase', 'Max Phase'}; % Controls legend entries for graphs
-day = 1;
+day = 365;
 unit = 'mmMPas';
 plotWhat.custom1 = 'no';        % any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.maxStr = 'no';        % maximum stress failure criteria
