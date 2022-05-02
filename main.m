@@ -28,7 +28,7 @@ mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM6_Epoxy_Ha1999.mat'};
 
 % Time/creep
 tmax = 60; % seconds
-tStep = .5; %second between steps
+tStep = .2; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
@@ -40,6 +40,7 @@ p = 725000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
 w_min = 6037.5;
 w_max = 24150;
+
 % Plotting
 % legTxt = {'Current model', 'Aparicio 2011'};
 unit = 'mmMPas';
