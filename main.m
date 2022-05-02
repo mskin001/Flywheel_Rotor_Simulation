@@ -1,6 +1,6 @@
-% clc
-% clear all
-% close('all','force')
+clc
+clear all
+close('all','force')
 format long
 %% -----------------------------------------------------------------------------
 % Define global variables
@@ -47,8 +47,8 @@ legTxt = {'auto'}; % {'0 sec', '4.75 sec', '9.75 sec', '14.75 sec', '15.75 sec',
 plotWhat.custom1 = 'no';         % Any custom plot. Go to plotStressStrain.m to modify (first if statement)
 plotWhat.custom2 = 'no';
 plotWhat.radDis = 'no';          % Radial displacement v. radius
-plotWhat.radStr = 'no';         % Radial stress v. radius plot
-plotWhat.hoopStr = 'no';        % Hoop stress v. radius plot
+plotWhat.radStr = 'yes';         % Radial stress v. radius plot
+plotWhat.hoopStr = 'yes';        % Hoop stress v. radius plot
 plotWhat.axialStr = 'no';       % Axial stress v. radius
 plotWhat.axialStr = 'no';       % Axial stress v. radius
 plotWhat.shearStr = 'yes';       % Shear stress v. radius
@@ -63,7 +63,7 @@ plotWhat.radialGifName = 'Radial Stress.gif';
 plotWhat.hoopGif = 'no';         % Hoop stress gif, surface plot
 plotWhat.hoopGifName = 'Hoop Stress.gif';
 
-plotWhat.interval = 22;          % Display time interval on figures
+plotWhat.interval = 28;          % Display time interval on figures
 plotWhat.delay = 0;              % Time delay in seconds between frames in the gifs,
                                  %   0 is fastest
 

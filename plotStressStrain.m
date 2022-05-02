@@ -167,7 +167,7 @@ if strcmp(plotWhat.radStr, 'yes')
   xlabel(['Radius [', lng_unit, ']'])
   ylabel(['Radial Stress [', force_unit, ']'])
   legend(legTxt, 'Location', 'southeast')
-  set(gca,'Ytick', -50:25:50, 'YtickLabel', -50:25:50, 'FontSize', 12)
+  set(gca, 'FontSize', 12)
   grid on
   fprintf('Radial Sress Plot: Complete\n')
 end
@@ -221,7 +221,7 @@ end
 % -------------- Shear stress --------------------------------------------------
 if strcmp(plotWhat.shearStr, 'yes')
   shearStr = figure('Visible', 'on');
-  figure(1)
+%   figure(1)
   try
     tauSubSet = tau(1:plotWhat.interval:end); % select tau of interest to plot
   catch
