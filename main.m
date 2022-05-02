@@ -21,22 +21,22 @@ h = 0.43; % [m]
 % rim = [0.08, 0.2]; % Perez-Aparicio 2011
 % rim = [0.0762, .1524]; % Tzeng2001
 rdiv = 30; % number of points per rim to analyze
-delta = [0.8, 0]; % [m]
+delta = [0.0008, 0]; % [m]
 sigb = [0, 0]; % Pa
 % mats = {'GFRP_Aparicio2011.mat'};
-mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM6_Epoxy_Ha1999.mat'};
+mats = {'Al7057t6_Metals_Handbook_v2_1990.mat', 'IM7_8552_Tzeng2001.mat'};
 
 % Time/creep
 tmax = 60; % seconds
-tStep = .2; %second between steps
+tStep = .5; %second between steps
 simTime = tmax;
 timeUnit = 's'; % s = sec, h = hours, d = days
 compFunc = {'no', 'no'}; % compliance function, input 'no' to turn off creep modeling
 
 % Speed/velocity
 % rpm = 6037.5;
-rpm = 6037.5;
-p = 725000; %power [W] the sign indicated the direction of energy relative to FW
+rpm = 24150;
+p = -725000; %power [W] the sign indicated the direction of energy relative to FW
           % '+' adds energy, '-' removes energy
 w_min = 6037.5;
 w_max = 24150;
